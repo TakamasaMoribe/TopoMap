@@ -20,9 +20,8 @@
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="2Jy-fX-Qrv">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             </mapView>
-                            <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="rgr-ci-ehc">
-                                <rect key="frame" x="109" y="556" width="184" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="rgr-ci-ehc">
+                                <rect key="frame" x="109" y="557" width="184" height="31"/>
                                 <connections>
                                     <action selector="sliderDidChange:" destination="BYZ-38-t0r" eventType="valueChanged" id="XBV-BJ-fEw"/>
                                 </connections>
@@ -32,7 +31,10 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="2Jy-fX-Qrv" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="0NM-Br-bHe"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="rgr-ci-ehc" secondAttribute="bottom" constant="80" id="36s-NZ-JRg"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="rgr-ci-ehc" secondAttribute="trailing" constant="84" id="WU0-Kg-RQ4"/>
                             <constraint firstItem="2Jy-fX-Qrv" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="ZGi-yy-cS7"/>
+                            <constraint firstItem="rgr-ci-ehc" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="111" id="nvx-t5-TBn"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="2Jy-fX-Qrv" secondAttribute="bottom" id="uen-8I-ANK"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="2Jy-fX-Qrv" secondAttribute="trailing" id="yk9-x8-CLf"/>
                         </constraints>
