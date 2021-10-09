@@ -88,8 +88,9 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
         let compass = MKCompassButton(mapView: mapView) // コンパス
         compass.frame = CGRect(x:300,y:15,width:5,height:5) // 位置と大きさ
         self.view.addSubview(compass)// コンパスを地図に表示する
+        
         mapView.userTrackingMode = .followWithHeading // 現在地付近の地図
-        mapView.delegate = self
+//        mapView.delegate = self
         
     }
 }
