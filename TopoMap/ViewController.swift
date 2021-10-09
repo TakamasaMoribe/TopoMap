@@ -9,7 +9,7 @@ import UIKit
 import MapKit
 import CoreLocation
 
-class ViewController: UIViewController,,CLLocationManagerDelegate,MKMapViewDelegate {
+class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelegate {
 
     @IBOutlet weak var mapView: MKMapView!
 
@@ -95,9 +95,9 @@ class ViewController: UIViewController,,CLLocationManagerDelegate,MKMapViewDeleg
 }
 
 
-//extension ViewController: MKMapViewDelegate {
+extension ViewController {
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
         return MKTileOverlayRenderer(overlay: overlay)
     }
-//}
+}
 
