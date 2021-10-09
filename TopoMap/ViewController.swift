@@ -73,9 +73,9 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations:[CLLocation]) {
         
         //現在地の緯度経度取得 ido,keido
-        //let location:CLLocation = locations[0]//locations[0]の意味
-        //let ido = location.coordinate.latitude
-        //let keido = location.coordinate.longitude
+        let location:CLLocation = locations[0]//locations[0]の意味
+        let ido = location.coordinate.latitude
+        let keido = location.coordinate.longitude
 
         //"mapView"に地図を表示する　よくある範囲設定をしてみた
         var region:MKCoordinateRegion = mapView.region
