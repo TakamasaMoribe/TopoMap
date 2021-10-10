@@ -73,16 +73,16 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations:[CLLocation]) {
         
         //現在地の緯度経度取得 ido,keido
-        let location:CLLocation = locations[0]//locations[0]の意味
-        let ido = location.coordinate.latitude
-        let keido = location.coordinate.longitude
+//        let location:CLLocation = locations[0]//locations[0]の意味
+//        let ido = location.coordinate.latitude
+//        let keido = location.coordinate.longitude
 
         //"mapView"に地図を表示する　よくある範囲設定をしてみた
         var region:MKCoordinateRegion = mapView.region
         region.span.latitudeDelta = 0.01
         region.span.longitudeDelta = 0.01
         
-//        let compass = MKCompassButton(mapView: mapView) // コンパス
+//        let compass = MKCompassButton(mapView: mapView) // コンパスのインスタンス作成
 //        compass.frame = CGRect(x:300,y:15,width:5,height:5) // 位置と大きさ
 //        self.view.addSubview(compass)// コンパスを地図に表示する
         
