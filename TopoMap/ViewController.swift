@@ -10,7 +10,7 @@ import MapKit
 import CoreLocation
 
 
-class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelegate {
+class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelegate, UITextFieldDelegate {
     
 
     @IBOutlet weak var mapView: MKMapView!
@@ -49,8 +49,9 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
         locationManagerDidChangeAuthorization(locManager)
             //authorizationStatus() がdeprecated になったため、上のメソッドで対応している
         
-                mapView.delegate = self
-                mapView.addOverlay(tileOverlay, level: .aboveLabels)
+        inputText.delegate = self
+        mapView.delegate = self
+        mapView.addOverlay(tileOverlay, level: .aboveLabels)
         
         }
     
