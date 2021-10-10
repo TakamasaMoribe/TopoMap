@@ -14,7 +14,8 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
     
 
     @IBOutlet weak var mapView: MKMapView!
-
+    @IBOutlet weak var inputText: UITextField! // 検索用テキストフィールド
+    
     // 地形図表示の濃淡を決めるスライダー
     @IBAction func sliderDidChange(_ slider: UISlider) {
         if let renderer = mapView.renderer(for: tileOverlay) {
@@ -54,6 +55,24 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
         mapView.addOverlay(tileOverlay, level: .aboveLabels)
         
         }
+    
+    
+    
+//--------------------------------------------------
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+      //キーボードを閉じる。resignFirstResponderはdelegateメソッド
+      textField.resignFirstResponder()
+      //入力された文字を取り出す
+        if let searchKey = textField.text {
+         //入力された文字をデバッグエリアの表示
+         print(searchKey)
+       }
+        //デフォルト動作を行うのでtureを返す。返り値型をBoolにしているため、この記述がないとエラーになる。
+       return true
+    }
+    
+    
+    
     
     //======================================================
     //  位置情報の使用の許可・・・一回目の起動時にだけ呼ばれる

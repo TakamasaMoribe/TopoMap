@@ -26,6 +26,12 @@
                                     <action selector="sliderDidChange:" destination="BYZ-38-t0r" eventType="valueChanged" id="XBV-BJ-fEw"/>
                                 </connections>
                             </slider>
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="6cS-fj-BpU">
+                                <rect key="frame" x="49" y="27" width="252" height="34"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -40,12 +46,13 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="inputText" destination="6cS-fj-BpU" id="eeh-Cb-4al"/>
                         <outlet property="mapView" destination="2Jy-fX-Qrv" id="bRM-7d-3NE"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-647" y="-7"/>
+            <point key="canvasLocation" x="-647.20000000000005" y="-7.6461769115442282"/>
         </scene>
     </scenes>
     <resources>
