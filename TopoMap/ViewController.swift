@@ -89,8 +89,10 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
                    //ピンを地図に置く
                     //self.Map.addAnnotation(pin)
                    self.mapView.addAnnotation(pin)
-                   //検索地点の緯度経度を中心に半径500mの範囲を表示
-                    self.mapView.region = MKCoordinateRegion(center: targetCoordinate, latitudinalMeters: 500.0, longitudinalMeters: 500.0)
+                   
+                   
+                   //検索地点の緯度経度を中心に半径1000mの範囲を表示
+                    self.mapView.region = MKCoordinateRegion(center: targetCoordinate, latitudinalMeters: 1000.0, longitudinalMeters: 1000.0)
                }
               }
             }
