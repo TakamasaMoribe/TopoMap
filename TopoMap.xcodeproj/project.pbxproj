@@ -14,6 +14,7 @@
 		7F3B137D27002B2200ED6E96 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7F3B137C27002B2200ED6E96 /* Assets.xcassets */; };
 		7F3B138027002B2200ED6E96 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7F3B137E27002B2200ED6E96 /* LaunchScreen.storyboard */; };
 		7F3B138927002C9000ED6E96 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F3B138827002C8F00ED6E96 /* MapKit.framework */; };
+		7F7CE8352716B48600A0E784 /* Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F7CE8342716B48600A0E784 /* Search.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		7F3B137F27002B2200ED6E96 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7F3B138127002B2200ED6E96 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7F3B138827002C8F00ED6E96 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		7F7CE8342716B48600A0E784 /* Search.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Search.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,6 +66,7 @@
 				7F3B137527002B2000ED6E96 /* SceneDelegate.swift */,
 				7F3B137727002B2000ED6E96 /* ViewController.swift */,
 				7F3B137927002B2000ED6E96 /* Main.storyboard */,
+				7F7CE8342716B48600A0E784 /* Search.swift */,
 				7F3B137C27002B2200ED6E96 /* Assets.xcassets */,
 				7F3B137E27002B2200ED6E96 /* LaunchScreen.storyboard */,
 				7F3B138127002B2200ED6E96 /* Info.plist */,
@@ -151,6 +154,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7F3B137827002B2000ED6E96 /* ViewController.swift in Sources */,
+				7F7CE8352716B48600A0E784 /* Search.swift in Sources */,
 				7F3B137427002B2000ED6E96 /* AppDelegate.swift in Sources */,
 				7F3B137627002B2000ED6E96 /* SceneDelegate.swift in Sources */,
 			);
