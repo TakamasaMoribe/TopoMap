@@ -14,9 +14,8 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
     
 
     @IBOutlet weak var mapView: MKMapView!
-    //@IBOutlet weak var inputText: UITextField!
     
- 
+    //@IBOutlet weak var inputText: UITextField!
     @IBOutlet weak var textField: UITextField!
     // 検索用テキストフィールド
     
@@ -65,6 +64,7 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
             //authorizationStatus() がdeprecated になったため、上のメソッドで対応している
         
         //inputText.delegate = self
+        
         textField.delegate = self
         mapView.delegate = self
         mapView.addOverlay(tileOverlay, level: .aboveLabels)
@@ -72,58 +72,61 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
         }
     
     
-    @IBAction private func textFieldEditingChanged(_ sender: Any) {
+ 
+    @IBAction private func textFieldEditingChangede(_ sender: Any) {
         //
         searchCompleter.queryFragment = textField.text!
     }
     
     
     
-//--------------------------------------------------
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-      //キーボードを閉じる。resignFirstResponderはdelegateメソッド
-      textField.resignFirstResponder()
-      //入力された文字を取り出す
-        if let searchKey = textField.text {
-         //入力された文字をデバッグエリアに表示
-         print(searchKey)
-            
-        //CLGeocoderインスタンスを取得
-        let geocoder = CLGeocoder()
-        //入力された文字から位置情報を取得
-        geocoder.geocodeAddressString(searchKey, completionHandler: { (placemarks, error) in
-        //位置情報が存在する場合（定数geocoderに値が入ってる場合)はunwrapPlacemarksに取り出す。
-            if let unwrapPlacemarks = placemarks {
-              //1件目の情報を取り出す
-             if let firstPlacemark = unwrapPlacemarks.first {
-               //位置情報を取り出す
-               if let location = firstPlacemark.location {
-                 //位置情報から緯度経度をtargetCoordinateに取り出す
-                  let targetCoordinate = location.coordinate
-                  //緯度経度をデバッグエリアに表示
-                  print(targetCoordinate)
-                   
-                   //MKPointAnnotationインスタンスを取得し、ピンを生成
-                    let pin = MKPointAnnotation()
-                   //ピンの置く場所に緯度経度を設定
-                    pin.coordinate = targetCoordinate
-                   //ピンのタイトルを設定
-                    pin.title = searchKey
-                   //ピンを地図に置く
-                    //self.Map.addAnnotation(pin)
-                   self.mapView.addAnnotation(pin)
-                   
-                   
-                   //検索地点の緯度経度を中心に半径1000mの範囲を表示
-                    self.mapView.region = MKCoordinateRegion(center: targetCoordinate, latitudinalMeters: 1000.0, longitudinalMeters: 1000.0)
-               }
-              }
-            }
-            })
-        }
-        //デフォルト動作を行うのでtureを返す。返り値型をBoolにしているため、この記述がないとエラーになる。
-       return true
-    }
+////--------------------------------------------------
+//    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+//      //キーボードを閉じる。resignFirstResponderはdelegateメソッド
+//      textField.resignFirstResponder()
+//      //入力された文字を取り出す
+//        if let searchKey = textField.text {
+//         //入力された文字をデバッグエリアに表示
+//         print(searchKey)
+//
+//        //CLGeocoderインスタンスを取得
+//        let geocoder = CLGeocoder()
+//        //入力された文字から位置情報を取得
+//        geocoder.geocodeAddressString(searchKey, completionHandler: { (placemarks, error) in
+//        //位置情報が存在する場合（定数geocoderに値が入ってる場合)はunwrapPlacemarksに取り出す。
+//            if let unwrapPlacemarks = placemarks {
+//              //1件目の情報を取り出す
+//             if let firstPlacemark = unwrapPlacemarks.first {
+//               //位置情報を取り出す
+//               if let location = firstPlacemark.location {
+//                 //位置情報から緯度経度をtargetCoordinateに取り出す
+//                  let targetCoordinate = location.coordinate
+//                  //緯度経度をデバッグエリアに表示
+//                  print(targetCoordinate)
+//
+//                   //MKPointAnnotationインスタンスを取得し、ピンを生成
+//                    let pin = MKPointAnnotation()
+//                   //ピンの置く場所に緯度経度を設定
+//                    pin.coordinate = targetCoordinate
+//                   //ピンのタイトルを設定
+//                    pin.title = searchKey
+//                   //ピンを地図に置く
+//                    //self.Map.addAnnotation(pin)
+//                   self.mapView.addAnnotation(pin)
+//
+//
+//                   //検索地点の緯度経度を中心に半径1000mの範囲を表示
+//                    self.mapView.region = MKCoordinateRegion(center: targetCoordinate, latitudinalMeters: 1000.0, longitudinalMeters: 1000.0)
+//               }
+//              }
+//            }
+//            })
+//        }
+//        //デフォルト動作を行うのでtureを返す。返り値型をBoolにしているため、この記述がないとエラーになる。
+//       return true
+//    }
+////---------------------------
+//
     
     
     //======================================================
