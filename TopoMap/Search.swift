@@ -30,8 +30,8 @@ class SearchController: UIViewController {
         let region = MKCoordinateRegion(center: tokyoStation, span: span)
         searchCompleter.region = region
         
-        searchCompleter.resultTypes = .address //地図上の位置のみ検索する
-//        searchCompleter.resultTypes = .pointOfInterest //
+        searchCompleter.resultTypes = .pointOfInterest // 関連する場所
+//        searchCompleter.resultTypes = .address //地図上の位置のみ検索する
 //        searchCompleter.resultTypes = .query //
     }
     
