@@ -50,7 +50,10 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
         tableView.dataSource = self
         searchCompleter.delegate = self
         
-        searchCompleter.resultTypes = .address //地図上の位置のみ検索する
+        searchCompleter.resultTypes = .pointOfInterest //関連する場所
+        // .address // 地図上の位置のみ検索する
+        // .query // the search string "cof" yields a completion for "coffee".
+        
         
         locManager.desiredAccuracy = kCLLocationAccuracyHundredMeters //誤差100m程度の精度
         //kCLLocationAccuracyNearestTenMeters    誤差10m程度の精度
