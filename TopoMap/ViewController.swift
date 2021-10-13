@@ -11,7 +11,7 @@ import CoreLocation
 
 
 class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelegate, UITextFieldDelegate {
-    
+  //
 
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var inputText: UITextField! // 検索用テキストフィールド
