@@ -14,7 +14,15 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
     
 
     @IBOutlet weak var mapView: MKMapView!
-    @IBOutlet weak var inputText: UITextField! // 検索用テキストフィールド
+    //@IBOutlet weak var inputText: UITextField!
+    
+ 
+    @IBOutlet weak var textField: UITextField!
+    // 検索用テキストフィールド
+    
+    @IBOutlet weak var tableView: UITableView! // 検索結果表示用テーブルビュー
+    
+    private var searchCompleter = MKLocalSearchCompleter()
     
     // 地形図表示の濃淡を決めるスライダー
     @IBAction func sliderDidChange(_ slider: UISlider) {
@@ -38,7 +46,13 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
         
         locManager = CLLocationManager()
         locManager.delegate = self
- 
+        
+        tableView.delegate = self
+        tableView.dataSource = self
+        searchCompleter.delegate = self
+        
+        searchCompleter.resultTypes = .address //地図上の位置のみ検索する
+        
         locManager.desiredAccuracy = kCLLocationAccuracyHundredMeters //誤差100m程度の精度
         //kCLLocationAccuracyNearestTenMeters    誤差10m程度の精度
         //kCLLocationAccuracyBest    最高精度(デフォルト値)
@@ -50,11 +64,19 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
         locationManagerDidChangeAuthorization(locManager)
             //authorizationStatus() がdeprecated になったため、上のメソッドで対応している
         
-        inputText.delegate = self
+        //inputText.delegate = self
+        textField.delegate = self
         mapView.delegate = self
         mapView.addOverlay(tileOverlay, level: .aboveLabels)
         
         }
+    
+    
+    @IBAction private func textFieldEditingChanged(_ sender: Any) {
+        //
+        searchCompleter.queryFragment = textField.text!
+    }
+    
     
     
 //--------------------------------------------------
@@ -149,3 +171,37 @@ extension ViewController {
     }
 }
 
+
+
+extension ViewController: UITableViewDelegate, UITableViewDataSource {
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return searchCompleter.results.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+        //
+        let completion = searchCompleter.results[indexPath.row]
+                cell.textLabel?.text = completion.title
+                cell.detailTextLabel?.text = completion.subtitle
+        
+        return cell
+    }
+}
+
+
+
+
+extension ViewController: MKLocalSearchCompleterDelegate {
+    
+    // 正常に検索結果が更新されたとき
+    func completerDidUpdateResults(_ completer: MKLocalSearchCompleter) {
+        tableView.reloadData()
+    }
+    
+    // 検索が失敗したとき
+    func completer(_ completer: MKLocalSearchCompleter, didFailWithError error: Error) {
+        // エラー処理
+    }
+}
