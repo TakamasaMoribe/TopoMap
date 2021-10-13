@@ -22,6 +22,18 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
             renderer.alpha = CGFloat(slider.value)
         }
     }
+  
+    // Search ボタンを押したとき 画面遷移する
+    @IBAction func tapSearchButton(_ sender: Any) {
+        let storyboard: UIStoryboard = self.storyboard!
+        let nextView = storyboard.instantiateViewController(withIdentifier: "Search") as! SearchController
+        self.dismiss(animated: true) //画面表示を消去
+        self.present(nextView, animated: true, completion: nil)
+
+        //presentingViewController?.dismiss(animated: true) と書く方が、
+        //よりリファレンスに忠実なのでしょうかねぇ。
+        
+    }
     
     // 国土地理院が提供する色別標高図のURL
     // ここを変えるだけで、様々な地図データを表示できる！

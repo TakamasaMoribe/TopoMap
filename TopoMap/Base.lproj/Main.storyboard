@@ -32,12 +32,25 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VBI-MJ-1Jv">
+                                <rect key="frame" x="34" y="584" width="69" height="37"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="37" id="qsS-18-FWP"/>
+                                </constraints>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Search"/>
+                                <connections>
+                                    <action selector="tapSearchButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="xsc-nc-wst"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="2Jy-fX-Qrv" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="0NM-Br-bHe"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="rgr-ci-ehc" secondAttribute="bottom" constant="80" id="36s-NZ-JRg"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="VBI-MJ-1Jv" secondAttribute="bottom" constant="46" id="BnC-zO-aTv"/>
+                            <constraint firstItem="VBI-MJ-1Jv" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="34" id="O5a-Gl-5PP"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="rgr-ci-ehc" secondAttribute="trailing" constant="84" id="WU0-Kg-RQ4"/>
                             <constraint firstItem="2Jy-fX-Qrv" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="ZGi-yy-cS7"/>
                             <constraint firstItem="rgr-ci-ehc" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="111" id="nvx-t5-TBn"/>
@@ -52,7 +65,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-647.20000000000005" y="-7.6461769115442282"/>
+            <point key="canvasLocation" x="-594.39999999999998" y="-13.043478260869566"/>
         </scene>
         <!--Search Controller-->
         <scene sceneID="efo-q3-ZFu">
@@ -61,13 +74,33 @@
                     <view key="view" contentMode="scaleToFill" id="UlG-lX-eTu">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="sEI-RO-jR9">
+                                <rect key="frame" x="16" y="130" width="335" height="378"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </tableView>
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="0nM-NA-kfl">
+                                <rect key="frame" x="20" y="55" width="335" height="34"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <action selector="textFieldEditingChanged:" destination="0zO-8b-lK6" eventType="editingChanged" id="esc-pc-0RL"/>
+                                </connections>
+                            </textField>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="bQA-TN-Tmd"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
+                    <connections>
+                        <outlet property="tableView" destination="sEI-RO-jR9" id="uSe-bc-4Jq"/>
+                        <outlet property="textField" destination="0nM-NA-kfl" id="aSH-ku-L8F"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ajX-f8-EFv" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="55" y="-13"/>
+            <point key="canvasLocation" x="53.600000000000001" y="-13.043478260869566"/>
         </scene>
     </scenes>
     <resources>

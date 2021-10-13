@@ -11,8 +11,9 @@ import MapKit
 
 class SearchController: UIViewController {
     
-    @IBOutlet private weak var tableView: UITableView!
-    @IBOutlet private weak var textField: UITextField!
+    @IBOutlet weak var textField: UITextField!
+    @IBOutlet weak var tableView: UITableView!
+
     
     private var searchCompleter = MKLocalSearchCompleter()
     
@@ -34,13 +35,14 @@ class SearchController: UIViewController {
 //        searchCompleter.resultTypes = .query //
     }
     
-    @IBAction private func textFieldEditingChanged(_ sender: Any) {
+    @IBAction func textFieldEditingChanged(_ sender: Any) {
+        
         //
         searchCompleter.queryFragment = textField.text!
     }
 }
 
-extension ViewController: UITableViewDelegate, UITableViewDataSource {
+extension SearchController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return searchCompleter.results.count
@@ -58,7 +60,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
 }
 
 
-extension ViewController: MKLocalSearchCompleterDelegate {
+extension SearchController: MKLocalSearchCompleterDelegate {
     
     // 正常に検索結果が更新されたとき
     func completerDidUpdateResults(_ completer: MKLocalSearchCompleter) {
