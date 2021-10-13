@@ -65,6 +65,7 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
         if let searchKey = textField.text {
          //入力された文字をデバッグエリアに表示
          print(searchKey)
+            
         //CLGeocoderインスタンスを取得
         let geocoder = CLGeocoder()
         //入力された文字から位置情報を取得
