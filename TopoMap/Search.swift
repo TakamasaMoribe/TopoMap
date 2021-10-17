@@ -64,8 +64,8 @@ class SearchController: UIViewController, UITextFieldDelegate {
                    if let location = firstPlacemark.location {
                      //位置情報から緯度経度をtargetCoordinateに取り出す
                       let targetCoordinate = location.coordinate
-                      //緯度経度をデバッグエリアに表示・・・・できず
-                      print(targetCoordinate)
+                      //緯度経度をデバッグエリアに表示・・・・できた
+                      print("targetCoordinate:\(targetCoordinate)")
                        
 //--- ここでは、描画はしない
 //                       //MKPointAnnotationインスタンスを取得し、ピンを生成
@@ -107,6 +107,20 @@ extension SearchController: UITableViewDelegate, UITableViewDataSource {
         
         return cell
     }
+    
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+           print(indexPath.section)
+           print(indexPath.row)
+        
+        print("第\(indexPath.section)セクションの\(indexPath.row)番セルが選択されました")
+        
+        let cell: UITableViewCell = self.tableView(tableView, cellForRowAt: indexPath)
+                print((cell.textLabel?.text)!)
+
+           //print(tableData[indexPath.section][indexPath.row])
+       }
+    
 }
 
 
