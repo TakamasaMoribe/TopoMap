@@ -14,7 +14,17 @@ class SearchController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var textField: UITextField!
     // 検索用テキストフィールド
     @IBOutlet weak var tableView: UITableView!
+    // back ボタンを押したとき 画面遷移する
+//    let storyboard = UIStoryboard(name: "Next",bundle: nil)
+//    guard let viewController =  storyboard.instantiateInitialViewController() as? NextViewController else { return }
 
+    //present(viewController, animated: true) //ココ
+    @IBAction func backButton(_ sender: Any) {
+        let storyboard: UIStoryboard = self.storyboard!
+        let nextView = storyboard.instantiateViewController(withIdentifier: "Map") as! ViewController
+        self.dismiss(animated: true) //画面表示を消去
+        self.present(nextView, animated: true, completion: nil)
+    }
     
     private var searchCompleter = MKLocalSearchCompleter()
     
@@ -28,7 +38,7 @@ class SearchController: UIViewController, UITextFieldDelegate {
 
         // 東京駅を中心にして検索する
         let tokyoStation = CLLocationCoordinate2DMake(35.6811673, 139.7670516) // 東京駅
-        let span = MKCoordinateSpan(latitudeDelta: 0.001, longitudeDelta: 0.001) // ここは適当な値です
+        let span = MKCoordinateSpan(latitudeDelta: 1.0, longitudeDelta: 1.0) // ここは適当な値です
         let region = MKCoordinateRegion(center: tokyoStation, span: span)
         searchCompleter.region = region
         
@@ -63,16 +73,16 @@ class SearchController: UIViewController, UITextFieldDelegate {
                    //位置情報を取り出す
                    if let location = firstPlacemark.location {
                      //位置情報から緯度経度をtargetCoordinateに取り出す
-                       let targetCoordinate = location.coordinate //不要
+                       let targetCoordinate = location.coordinate //不要になる
                        let targetLatitude = location.coordinate.latitude
                        let targetLongitude = location.coordinate.longitude
                       //緯度経度をデバッグエリアに表示・・・・検索値と一致すればできる
-                      print("targetCoordinate:\(targetCoordinate)") //不要
-                      // userdeaults に保存する
+                      print("targetCoordinate:\(targetCoordinate)") //不要になる
+                      // Userdeaults.standard に保存する
                        UserDefaults.standard.set(targetLatitude, forKey:"targetLatitude")
                        UserDefaults.standard.set(targetLongitude, forKey:"targetLongitude")
-                       print(targetLatitude) //不要
-                       print(targetLongitude) //不要
+                       print(targetLatitude) //不要になる
+                       print(targetLongitude) //不要になる
                    }
                   }
                 }
@@ -102,21 +112,18 @@ extension SearchController: UITableViewDelegate, UITableViewDataSource {
     
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-           print(indexPath.section)
-           print(indexPath.row)
-        
-        print("第\(indexPath.section)セクションの\(indexPath.row)番セルが選択されました")
+           print(indexPath.section) // 不要になる
+           print(indexPath.row) // 不要になる
+        print("第\(indexPath.section)セクションの\(indexPath.row)番セルが選択されました") // 不要になる
         
         let cell: UITableViewCell = self.tableView(tableView, cellForRowAt: indexPath)
             if let selectedText = cell.textLabel?.text! {
-                textField.text = selectedText
+                textField.text = selectedText // 不要になる
                 print("選択したセルの内容:\(selectedText)") // 正しく表示される
-                // userdeaults に保存する
+                // Userdeaults.standard に保存する
                  UserDefaults.standard.set(selectedText, forKey: "targetPlace")
             }
-           //print(tableData[indexPath.section][indexPath.row])
        }
-    
 }
 
 
