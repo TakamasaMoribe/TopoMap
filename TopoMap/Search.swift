@@ -63,9 +63,16 @@ class SearchController: UIViewController, UITextFieldDelegate {
                    //位置情報を取り出す
                    if let location = firstPlacemark.location {
                      //位置情報から緯度経度をtargetCoordinateに取り出す
-                      let targetCoordinate = location.coordinate
+                       let targetCoordinate = location.coordinate //不要
+                       let targetLatitude = location.coordinate.latitude
+                       let targetLongitude = location.coordinate.longitude
                       //緯度経度をデバッグエリアに表示・・・・検索値と一致すればできる
-                      print("targetCoordinate:\(targetCoordinate)")
+                      print("targetCoordinate:\(targetCoordinate)") //不要
+                      // userdeaults に保存する
+                       UserDefaults.standard.set(targetLatitude, forKey:"targetLatitude")
+                       UserDefaults.standard.set(targetLongitude, forKey:"targetLongitude")
+                       print(targetLatitude) //不要
+                       print(targetLongitude) //不要
                    }
                   }
                 }
@@ -102,7 +109,10 @@ extension SearchController: UITableViewDelegate, UITableViewDataSource {
         
         let cell: UITableViewCell = self.tableView(tableView, cellForRowAt: indexPath)
             if let selectedText = cell.textLabel?.text! {
+                textField.text = selectedText
                 print("選択したセルの内容:\(selectedText)") // 正しく表示される
+                // userdeaults に保存する
+                 UserDefaults.standard.set(selectedText, forKey: "targetPlace")
             }
            //print(tableData[indexPath.section][indexPath.row])
        }
