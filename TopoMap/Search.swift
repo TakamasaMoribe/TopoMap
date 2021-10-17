@@ -51,7 +51,7 @@ class SearchController: UIViewController, UITextFieldDelegate {
           //入力された文字を取り出す
             if let searchKey = textField.text {
              //入力された文字をデバッグエリアに表示
-             print(searchKey) //・・・・・・できる
+             print("searchKey:\(searchKey)") //・・・・・・できる
             //CLGeocoderインスタンスを取得
             let geocoder = CLGeocoder()
             //入力された文字から位置情報を取得
@@ -64,23 +64,8 @@ class SearchController: UIViewController, UITextFieldDelegate {
                    if let location = firstPlacemark.location {
                      //位置情報から緯度経度をtargetCoordinateに取り出す
                       let targetCoordinate = location.coordinate
-                      //緯度経度をデバッグエリアに表示・・・・できた
+                      //緯度経度をデバッグエリアに表示・・・・検索値と一致すればできる
                       print("targetCoordinate:\(targetCoordinate)")
-                       
-//--- ここでは、描画はしない
-//                       //MKPointAnnotationインスタンスを取得し、ピンを生成
-//                        let pin = MKPointAnnotation()
-//                       //ピンの置く場所に緯度経度を設定
-//                        pin.coordinate = targetCoordinate
-//                       //ピンのタイトルを設定
-//                        pin.title = searchKey
-//                       //ピンを地図に置く
-//                        //self.Map.addAnnotation(pin)
-//                       self.mapView.addAnnotation(pin)
-//                       //検索地点の緯度経度を中心に半径500mの範囲を表示
-//                        self.mapView.region = MKCoordinateRegion(center: targetCoordinate, latitudinalMeters: 500.0, longitudinalMeters: 500.0)
-//---
-                       
                    }
                   }
                 }
@@ -116,8 +101,9 @@ extension SearchController: UITableViewDelegate, UITableViewDataSource {
         print("第\(indexPath.section)セクションの\(indexPath.row)番セルが選択されました")
         
         let cell: UITableViewCell = self.tableView(tableView, cellForRowAt: indexPath)
-                print((cell.textLabel?.text)!)
-
+            if let selectedText = cell.textLabel?.text! {
+                print("選択したセルの内容:\(selectedText)") // 正しく表示される
+            }
            //print(tableData[indexPath.section][indexPath.row])
        }
     
