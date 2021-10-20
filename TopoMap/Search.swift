@@ -57,7 +57,8 @@ class SearchController: UIViewController, UITextFieldDelegate {
 
     
     //--------------------------------------------------
-    // tableView から選択したときの動作とは違っているので、要変更　選択したセルの値を使うようにする
+    // tableView から選択して、リターンボタンを押したときはうまくいく
+    
         func textFieldShouldReturn(_ textField: UITextField) -> Bool {
           //キーボードを閉じる。resignFirstResponderはdelegateメソッド
           textField.resignFirstResponder()

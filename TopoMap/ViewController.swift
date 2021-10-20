@@ -15,6 +15,9 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
 
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var inputText: UITextField! // 検索用テキストフィールド
+    @IBOutlet weak var idoLabel: UILabel! // 緯度
+    @IBOutlet weak var keidoLabel: UILabel!//経度
+        
     
     // 地形図表示の濃淡を決めるスライダー
     @IBAction func sliderDidChange(_ slider: UISlider) {
@@ -67,55 +70,14 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
         mapView.addOverlay(tileOverlay, level: .aboveLabels)
         
         let temp = UserDefaults.standard.string(forKey: "targetPlace")
+        let ido = UserDefaults.standard.string(forKey: "targetLatitude")
+        let keido = UserDefaults.standard.string(forKey: "targetLongitude")
         inputText.text = temp
+        idoLabel.text = ido
+        keidoLabel.text = keido
         
         }
-    
 
-    
-//--------------------------------------------------
-//    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-//      //キーボードを閉じる。resignFirstResponderはdelegateメソッド
-//      textField.resignFirstResponder()
-//      //入力された文字を取り出す
-//        if let searchKey = textField.text {
-//         //入力された文字をデバッグエリアに表示
-//         print(searchKey)
-//        //CLGeocoderインスタンスを取得
-//        let geocoder = CLGeocoder()
-//        //入力された文字から位置情報を取得
-//        geocoder.geocodeAddressString(searchKey, completionHandler: { (placemarks, error) in
-//        //位置情報が存在する場合（定数geocoderに値が入ってる場合)はunwrapPlacemarksに取り出す。
-//            if let unwrapPlacemarks = placemarks {
-//              //1件目の情報を取り出す
-//             if let firstPlacemark = unwrapPlacemarks.first {
-//               //位置情報を取り出す
-//               if let location = firstPlacemark.location {
-//                 //位置情報から緯度経度をtargetCoordinateに取り出す
-//                  let targetCoordinate = location.coordinate
-//                  //緯度経度をデバッグエリアに表示
-//                  print(targetCoordinate)
-//
-//                   //MKPointAnnotationインスタンスを取得し、ピンを生成
-//                    let pin = MKPointAnnotation()
-//                   //ピンの置く場所に緯度経度を設定
-//                    pin.coordinate = targetCoordinate
-//                   //ピンのタイトルを設定
-//                    pin.title = searchKey
-//                   //ピンを地図に置く
-//                    //self.Map.addAnnotation(pin)
-//                   self.mapView.addAnnotation(pin)
-//                   //検索地点の緯度経度を中心に半径500mの範囲を表示
-//                    self.mapView.region = MKCoordinateRegion(center: targetCoordinate, latitudinalMeters: 500.0, longitudinalMeters: 500.0)
-//               }
-//              }
-//            }
-//            })
-//        }
-//        //デフォルト動作を行うのでtureを返す。返り値型をBoolにしているため、この記述がないとエラーになる。
-//       return true
-//    }
-//    
     
     //======================================================
     //  位置情報の使用の許可・・・一回目の起動時にだけ呼ばれる
@@ -144,7 +106,8 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
         var region:MKCoordinateRegion = mapView.region
         region.span.latitudeDelta = 0.01
         region.span.longitudeDelta = 0.01
-        
+
+        // コンパスは、自動的に表示されるようだ
 //        let compass = MKCompassButton(mapView: mapView) // コンパスのインスタンス作成
 //        compass.frame = CGRect(x:300,y:15,width:5,height:5) // 位置と大きさ
 //        self.view.addSubview(compass)// コンパスを地図に表示する
@@ -155,10 +118,10 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
     }
 }
 
-
-extension ViewController {
-    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
-        return MKTileOverlayRenderer(overlay: overlay)
-    }
-}
+// 地理院地図の表示
+//extension ViewController {
+//    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+//        return MKTileOverlayRenderer(overlay: overlay)
+//    }
+//}
 

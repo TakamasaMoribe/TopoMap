@@ -26,7 +26,7 @@
                                 </connections>
                             </slider>
                             <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="6cS-fj-BpU">
-                                <rect key="frame" x="49" y="27" width="233" height="34"/>
+                                <rect key="frame" x="49" y="27" width="180" height="34"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
@@ -45,6 +45,20 @@
                                     <action selector="tapSearchButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="xsc-nc-wst"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="ido" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e1P-et-cRl">
+                                <rect key="frame" x="53" y="79" width="157" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="keido" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Znl-UL-Pcu">
+                                <rect key="frame" x="53" y="118" width="157" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -61,13 +75,15 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="idoLabel" destination="e1P-et-cRl" id="D5D-Ts-a8I"/>
                         <outlet property="inputText" destination="6cS-fj-BpU" id="eeh-Cb-4al"/>
+                        <outlet property="keidoLabel" destination="Znl-UL-Pcu" id="yfM-FC-Kw0"/>
                         <outlet property="mapView" destination="2Jy-fX-Qrv" id="bRM-7d-3NE"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1044" y="-23"/>
+            <point key="canvasLocation" x="-1044" y="-23.838080959520241"/>
         </scene>
         <!--Search Controller-->
         <scene sceneID="efo-q3-ZFu">
