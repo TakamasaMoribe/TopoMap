@@ -2,8 +2,8 @@
 //  Search.swift
 //  TopoMap
 //
-//  Created by 森部高昌 on 2021/10/13.
-//
+//  Created by 森部高昌 on 2021/10/20.
+//  検索地名の受け渡しはできている
 
 import UIKit
 import MapKit
