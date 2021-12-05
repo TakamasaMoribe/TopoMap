@@ -119,9 +119,9 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
 }
 
 // 地理院地図の表示
-//extension ViewController {
-//    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
-//        return MKTileOverlayRenderer(overlay: overlay)
-//    }
-//}
+extension ViewController {
+    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+        return MKTileOverlayRenderer(overlay: overlay)
+    }
+}
 
