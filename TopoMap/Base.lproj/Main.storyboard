@@ -25,12 +25,6 @@
                                     <action selector="sliderDidChange:" destination="BYZ-38-t0r" eventType="valueChanged" id="XBV-BJ-fEw"/>
                                 </connections>
                             </slider>
-                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="6cS-fj-BpU">
-                                <rect key="frame" x="49" y="27" width="180" height="34"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VBI-MJ-1Jv">
                                 <rect key="frame" x="34" y="564" width="80.5" height="37"/>
                                 <constraints>
@@ -76,7 +70,6 @@
                     </view>
                     <connections>
                         <outlet property="idoLabel" destination="e1P-et-cRl" id="D5D-Ts-a8I"/>
-                        <outlet property="inputText" destination="6cS-fj-BpU" id="eeh-Cb-4al"/>
                         <outlet property="keidoLabel" destination="Znl-UL-Pcu" id="yfM-FC-Kw0"/>
                         <outlet property="mapView" destination="2Jy-fX-Qrv" id="bRM-7d-3NE"/>
                     </connections>

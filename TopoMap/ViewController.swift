@@ -14,10 +14,45 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
   //
 
     @IBOutlet weak var mapView: MKMapView!
-    @IBOutlet weak var inputText: UITextField! // 検索用テキストフィールド
+    // 検索用テキストフィールド
+    @IBOutlet weak var inputText: UITextField!
+    // 検索用サーチバー
+    @IBOutlet weak var searchText: UISearchBar!
     @IBOutlet weak var idoLabel: UILabel! // 緯度
     @IBOutlet weak var keidoLabel: UILabel!//経度
         
+//    // searchBarへの入力に対する処理
+//    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+//        //キーボードを閉じる
+//        view.endEditing(true)
+//        if let searchWord = searchBar.text {
+//            print("①検索地名:\(searchWord)") // キーボードからsearchBarに入力した地名の表示 ①
+//        //入力されていたら、地名を検索する
+//            searchPlace(keyword: searchWord)
+//        }
+//    }
+//
+//    // 地名の検索  searchPlaceメソッド 第一引数：keyword 検索したい語句
+//    func searchPlace(keyword:String) {
+//        // keyword をurlエンコードする
+//        guard let keyword_encode = keyword.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) else {
+//            return
+//        }
+//        // keyword_encode を使って、リクエストurlを組み立てる
+//        guard let req_url = URL(string: "https://geocode.csis.u-tokyo.ac.jp/cgi-bin/simple_geocode.cgi?addr=\(keyword_encode)") else {
+//            return
+//        }
+        
+//        feedUrl = req_url // パースするときに使っている
+//        print("②feedUrl:\(feedUrl)")//入力されていたら、アドレスを表示する。
+//        //feedUrlの中身をパースする
+//            print("パース開始")
+//            let parser: XMLParser! = XMLParser(contentsOf: feedUrl)
+//            parser.delegate = self
+//            parser.parse()
+//        self.tableView.reloadData() //tableViewへ表示する
+//    }
+    
     
     // 地形図表示の濃淡を決めるスライダー
     @IBAction func sliderDidChange(_ slider: UISlider) {
@@ -32,10 +67,6 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
         let nextView = storyboard.instantiateViewController(withIdentifier: "Search") as! SearchController
         self.dismiss(animated: true) //画面表示を消去
         self.present(nextView, animated: true, completion: nil)
-
-        //presentingViewController?.dismiss(animated: true) と書く方が、
-        //よりリファレンスに忠実なのでしょうかねぇ。
-        
     }
     
     // 国土地理院が提供する色別標高図のURL
@@ -50,6 +81,9 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
     //======================================================
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+//       //テキストフィールドのデリゲート　キーボード関連
+//        inputText.delegate = self
         
         locManager = CLLocationManager()
         locManager.delegate = self
@@ -72,7 +106,7 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
         let temp = UserDefaults.standard.string(forKey: "targetPlace")
         let ido = UserDefaults.standard.string(forKey: "targetLatitude")
         let keido = UserDefaults.standard.string(forKey: "targetLongitude")
-        inputText.text = temp
+//        inputText.text = temp
         idoLabel.text = ido
         keidoLabel.text = keido
         
