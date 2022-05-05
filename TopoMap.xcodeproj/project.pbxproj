@@ -18,7 +18,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		7F03F56D275CAAB000A46B21 /* 主な山岳＿新.csv */ = {isa = PBXFileReference; lastKnownFileType = text; name = "主な山岳＿新.csv"; path = "../../../../Desktop/主な山岳＿新.csv"; sourceTree = "<group>"; };
+		7F176072275E1EF8003B0063 /* 主な山岳＿十進.csv */ = {isa = PBXFileReference; lastKnownFileType = text; path = "主な山岳＿十進.csv"; sourceTree = "<group>"; };
 		7F3B137027002B2000ED6E96 /* TopoMap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TopoMap.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7F3B137327002B2000ED6E96 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7F3B137527002B2000ED6E96 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -68,8 +68,8 @@
 				7F3B137727002B2000ED6E96 /* ViewController.swift */,
 				7F3B137927002B2000ED6E96 /* Main.storyboard */,
 				7F7CE8342716B48600A0E784 /* Search.swift */,
-				7F03F56D275CAAB000A46B21 /* 主な山岳＿新.csv */,
 				7F3B137C27002B2200ED6E96 /* Assets.xcassets */,
+				7F176072275E1EF8003B0063 /* 主な山岳＿十進.csv */,
 				7F3B137E27002B2200ED6E96 /* LaunchScreen.storyboard */,
 				7F3B138127002B2200ED6E96 /* Info.plist */,
 			);

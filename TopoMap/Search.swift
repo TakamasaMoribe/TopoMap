@@ -13,15 +13,13 @@ import MapKit
 import CoreLocation
 
 class SearchController: UIViewController, UITextFieldDelegate {
-    
-    @IBOutlet weak var textField: UITextField!
-    // 検索用テキストフィールド
-    @IBOutlet weak var tableView: UITableView!
-    // back ボタンを押したとき 画面遷移する
-//    let storyboard = UIStoryboard(name: "Next",bundle: nil)
-//    guard let viewController =  storyboard.instantiateInitialViewController() as? NextViewController else { return }
 
-    //present(viewController, animated: true) //ココ
+    // 検索用テキストフィールド
+    @IBOutlet weak var textField: UITextField!
+
+    @IBOutlet weak var tableView: UITableView!
+    
+    // back ボタンを押したとき 画面遷移する
     @IBAction func backButton(_ sender: Any) {
         let storyboard: UIStoryboard = self.storyboard!
         let nextView = storyboard.instantiateViewController(withIdentifier: "Map") as! ViewController
