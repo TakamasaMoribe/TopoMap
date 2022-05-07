@@ -14,13 +14,27 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
   //
 
     @IBOutlet weak var mapView: MKMapView!
+    
     // 検索用テキストフィールド
     @IBOutlet weak var inputText: UITextField!
+    
     // 検索用サーチバー
     @IBOutlet weak var searchText: UISearchBar!
+    
     @IBOutlet weak var idoLabel: UILabel! // 緯度
     @IBOutlet weak var keidoLabel: UILabel!//経度
+
+    
+    // ツールバー中の検索ボタンをクリックしたとき
+    @IBAction func seachButtonClicked(_ sender: UIBarButtonItem) {
         
+        let storyboard: UIStoryboard = self.storyboard!
+        let nextView = storyboard.instantiateViewController(withIdentifier: "Search") as! SearchController
+        self.dismiss(animated: true) //画面表示を消去
+        self.present(nextView, animated: true, completion: nil)
+        
+    }
+    
 //    // searchBarへの入力に対する処理
 //    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
 //        //キーボードを閉じる
@@ -61,13 +75,6 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
         }
     }
   
-    // Search ボタンを押したとき 画面遷移する
-    @IBAction func tapSearchButton(_ sender: Any) {
-        let storyboard: UIStoryboard = self.storyboard!
-        let nextView = storyboard.instantiateViewController(withIdentifier: "Search") as! SearchController
-        self.dismiss(animated: true) //画面表示を消去
-        self.present(nextView, animated: true, completion: nil)
-    }
     
     // 国土地理院が提供する色別標高図のURL
     // ここを変えるだけで、様々な地図データを表示できる！

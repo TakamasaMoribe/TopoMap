@@ -2,7 +2,7 @@
 //  Search.swift
 //  TopoMap
 //
-//  Created by 森部高昌 on 2021/10/20.
+//  Created by 森部高昌 on 2022/05/05
 //  検索地名の受け渡しはできている
 //  tableView に表示される候補から選択すれば、緯度経度も得られる
 //  Back ボタンを押して画面遷移をするとき　ViewControllerの従属関係に問題がある
