@@ -20,6 +20,9 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
     
     // 検索用サーチバー
     @IBOutlet weak var searchText: UISearchBar!
+
+    // 地名表示用ラベル
+    @IBOutlet weak var inputLabel: UILabel!
     
     @IBOutlet weak var idoLabel: UILabel! // 緯度
     @IBOutlet weak var keidoLabel: UILabel!//経度
@@ -86,6 +89,18 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
     
 
     //======================================================
+    
+//    override func viewDidAppear(_ animated: Bool) {
+//        super.viewDidAppear(animated)
+//        
+//        let temp = UserDefaults.standard.string(forKey: "targetPlace")
+//        let ido = UserDefaults.standard.string(forKey: "targetLatitude")
+//        let keido = UserDefaults.standard.string(forKey: "targetLongitude")
+//        inputLabel.text = temp
+//        idoLabel.text = ido
+//        keidoLabel.text = keido
+//    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -113,7 +128,7 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
         let temp = UserDefaults.standard.string(forKey: "targetPlace")
         let ido = UserDefaults.standard.string(forKey: "targetLatitude")
         let keido = UserDefaults.standard.string(forKey: "targetLongitude")
-//        inputText.text = temp
+        inputLabel.text = temp
         idoLabel.text = ido
         keidoLabel.text = keido
         

@@ -14,18 +14,23 @@ import CoreLocation
 
 class SearchController: UIViewController, UITextFieldDelegate {
 
-    // 検索用テキストフィールド
+    // 検索地名入力用テキストフィールド
     @IBOutlet weak var textField: UITextField!
-
+    
+    // 検索結果を表示する tableView
     @IBOutlet weak var tableView: UITableView!
     
-    // back ボタンを押したとき 画面遷移する
-    @IBAction func backButton(_ sender: Any) {
+    // toolBarのBack ボタンを押したとき 画面遷移する
+    @IBAction func backButtonClicked(_ sender: UIBarButtonItem) {
         let storyboard: UIStoryboard = self.storyboard!
         let nextView = storyboard.instantiateViewController(withIdentifier: "Map") as! ViewController
         self.dismiss(animated: true) //画面表示を消去
         self.present(nextView, animated: true, completion: nil)
+        
     }
+    
+    
+    
     
     private var searchCompleter = MKLocalSearchCompleter()
     
@@ -43,9 +48,9 @@ class SearchController: UIViewController, UITextFieldDelegate {
         let region = MKCoordinateRegion(center: tokyoStation, span: span)
         searchCompleter.region = region
         
-        searchCompleter.resultTypes = .pointOfInterest // 関連する場所
+//        searchCompleter.resultTypes = .pointOfInterest // 関連する場所
 //        searchCompleter.resultTypes = .address //地図上の位置のみ検索する
-//        searchCompleter.resultTypes = .query //
+        searchCompleter.resultTypes = .query //
     }
     
     @IBAction func textFieldEditingChanged(_ sender: Any) {
@@ -91,15 +96,15 @@ class SearchController: UIViewController, UITextFieldDelegate {
                   }
                 }
                 else {
-                    print("緯度経度が見つかりません")//ここもOK
+                    print("緯度経度のデータが見つかりません")//ここもOK
                 }
                 })
             }
             //デフォルト動作を行うのでtureを返す。返り値型をBoolにしているため、この記述がないとエラーになる。
            return true
         }
-        
 }
+
 
 extension SearchController: UITableViewDelegate, UITableViewDataSource {
     
