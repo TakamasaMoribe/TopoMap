@@ -132,7 +132,7 @@
                             </toolbar>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="bQA-TN-Tmd"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" red="0.26052441240000002" green="0.5" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
                     <connections>
                         <outlet property="tableView" destination="sEI-RO-jR9" id="uSe-bc-4Jq"/>

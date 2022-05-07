@@ -25,7 +25,11 @@ class SearchController: UIViewController, UITextFieldDelegate {
         let storyboard: UIStoryboard = self.storyboard!
         let nextView = storyboard.instantiateViewController(withIdentifier: "Map") as! ViewController
         self.dismiss(animated: true) //画面表示を消去
-        self.present(nextView, animated: true, completion: nil)
+  //      self.present(nextView, animated: true, completion: nil)
+        
+        self.present(nextView,animated: true, completion: { () in
+            nextView.inputLabel.text = self.textField.text
+        })
         
     }
     
@@ -88,9 +92,10 @@ class SearchController: UIViewController, UITextFieldDelegate {
                       // Userdeaults.standard に保存する
                        UserDefaults.standard.set(targetLatitude, forKey:"targetLatitude")
                        UserDefaults.standard.set(targetLongitude, forKey:"targetLongitude")
+                       UserDefaults.standard.synchronize()
                        print(targetLatitude) //不要になる
                        print(targetLongitude) //不要になる
-                       // このあとに、地図画面に戻る
+                       // このあとに、地図画面に戻るようにする
  
                    }
                   }
@@ -134,6 +139,7 @@ extension SearchController: UITableViewDelegate, UITableViewDataSource {
                 print("選択したセルの内容:\(selectedText)") // 正しく表示される
                 // Userdeaults.standard に保存する
                  UserDefaults.standard.set(selectedText, forKey: "targetPlace")
+                UserDefaults.standard.synchronize()
             }
        }
 }

@@ -133,6 +133,20 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
         keidoLabel.text = keido
         
         }
+    
+    
+//    override func loadView() {
+//            
+//            let temp = UserDefaults.standard.string(forKey: "targetPlace")
+//            let ido = UserDefaults.standard.string(forKey: "targetLatitude")
+//            let keido = UserDefaults.standard.string(forKey: "targetLongitude")
+//            inputLabel.text = temp
+//            idoLabel.text = ido
+//            keidoLabel!.text = keido
+//        }
+    
+        
+        
 
     
     //======================================================
