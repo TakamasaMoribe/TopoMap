@@ -32,9 +32,7 @@ class SearchController: UIViewController, UITextFieldDelegate {
         })
         
     }
-    
-    
-    
+        
     
     private var searchCompleter = MKLocalSearchCompleter()
     
