@@ -85,8 +85,13 @@ class SearchController: UIViewController, UITextFieldDelegate {
                        UserDefaults.standard.set(targetLongitude, forKey:"targetLongitude")
                        print(targetLatitude) //不要になる
                        print(targetLongitude) //不要になる
+                       // このあとに、地図画面に戻る
+ 
                    }
                   }
+                }
+                else {
+                    print("緯度経度が見つかりません")//ここもOK
                 }
                 })
             }
