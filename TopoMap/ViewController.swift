@@ -32,11 +32,17 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
         super.viewDidLoad()
         
         let temp = UserDefaults.standard.string(forKey: "targetPlace")
-        let ido = UserDefaults.standard.string(forKey: "targetLatitude")
-        let keido = UserDefaults.standard.string(forKey: "targetLongitude")
+        let ido = UserDefaults.standard.double(forKey: "targetLatitude")
+        let keido = UserDefaults.standard.double(forKey: "targetLongitude")
         inputLabel.text = temp
-        idoLabel.text = ido
-        keidoLabel.text = keido
+//        idoLabel.text = ido
+//        keidoLabel.text = keido
+        let targetPlace = CLLocationCoordinate2D( latitude: ido,longitude: keido)
+        let span = MKCoordinateSpan (latitudeDelta: 0.01,longitudeDelta: 0.01)
+        let targetRegion = MKCoordinateRegion(center: targetPlace, span: span)
+        
+        mapView.setRegion(targetRegion, animated: false)
+        
                 
         locManager = CLLocationManager()
         locManager.delegate = self
