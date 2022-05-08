@@ -42,7 +42,7 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
         let span = MKCoordinateSpan (latitudeDelta: 0.01,longitudeDelta: 0.01)
         let targetRegion = MKCoordinateRegion(center: targetPlace, span: span)
         
-        mapView.setRegion(targetRegion, animated: false)
+        self.mapView.setRegion(targetRegion, animated:true)
         
                 
         locManager = CLLocationManager()
@@ -79,16 +79,17 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
             renderer.alpha = CGFloat(slider.value)
         }
     }
-      
-    // CLLocationManagerのdelegate：現在位置取得
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations:[CLLocation]) {
-        //"mapView"に地図を表示する　よくある範囲設定をしてみた
-        var region:MKCoordinateRegion = mapView.region
-        region.span.latitudeDelta = 0.01
-        region.span.longitudeDelta = 0.01
-        
-        mapView.userTrackingMode = .followWithHeading
-    }
+
+// 検索した場所を表示するために、一時的にコメントアウトしている
+//    // CLLocationManagerのdelegate：現在位置取得
+//    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations:[CLLocation]) {
+//        //"mapView"に地図を表示する　よくある範囲設定をしてみた
+//        var region:MKCoordinateRegion = mapView.region
+//        region.span.latitudeDelta = 0.01
+//        region.span.longitudeDelta = 0.01
+//
+//        mapView.userTrackingMode = .followWithHeading
+//    }
     
     //  位置情報の使用許可・・・一回目の起動時にだけ呼ばれる ----------------------------
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
