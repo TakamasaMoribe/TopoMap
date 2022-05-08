@@ -19,18 +19,6 @@
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="2Jy-fX-Qrv">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             </mapView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ido" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e1P-et-cRl">
-                                <rect key="frame" x="53" y="79" width="157" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="keido" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Znl-UL-Pcu">
-                                <rect key="frame" x="53" y="118" width="157" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SHF-Ky-pmY">
                                 <rect key="frame" x="0.0" y="623" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
@@ -43,8 +31,8 @@
                                     </barButtonItem>
                                 </items>
                             </toolbar>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Aw-C0-NBT">
-                                <rect key="frame" x="53" y="39" width="192" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Target" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Aw-C0-NBT">
+                                <rect key="frame" x="53" y="39" width="192" height="48"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
@@ -62,29 +50,21 @@
                         <constraints>
                             <constraint firstItem="2Jy-fX-Qrv" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="0NM-Br-bHe"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="rgr-ci-ehc" secondAttribute="bottom" constant="80" id="36s-NZ-JRg"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="e1P-et-cRl" secondAttribute="trailing" constant="165" id="JFe-7t-fec"/>
-                            <constraint firstItem="Znl-UL-Pcu" firstAttribute="top" secondItem="e1P-et-cRl" secondAttribute="bottom" constant="18" id="OlX-Ny-Gte"/>
-                            <constraint firstItem="e1P-et-cRl" firstAttribute="leading" secondItem="Znl-UL-Pcu" secondAttribute="leading" id="WIe-O9-NXf"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="rgr-ci-ehc" secondAttribute="trailing" constant="84" id="WU0-Kg-RQ4"/>
                             <constraint firstItem="2Jy-fX-Qrv" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="ZGi-yy-cS7"/>
                             <constraint firstItem="rgr-ci-ehc" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="111" id="nvx-t5-TBn"/>
-                            <constraint firstItem="e1P-et-cRl" firstAttribute="trailing" secondItem="Znl-UL-Pcu" secondAttribute="trailing" id="pro-85-2pq"/>
-                            <constraint firstItem="e1P-et-cRl" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="53" id="ttw-uV-VDQ"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="2Jy-fX-Qrv" secondAttribute="bottom" id="uen-8I-ANK"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="2Jy-fX-Qrv" secondAttribute="trailing" id="yk9-x8-CLf"/>
-                            <constraint firstItem="e1P-et-cRl" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="79" id="znb-ci-dap"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="idoLabel" destination="e1P-et-cRl" id="D5D-Ts-a8I"/>
                         <outlet property="inputLabel" destination="3Aw-C0-NBT" id="EqF-g0-x2t"/>
-                        <outlet property="keidoLabel" destination="Znl-UL-Pcu" id="yfM-FC-Kw0"/>
                         <outlet property="mapView" destination="2Jy-fX-Qrv" id="bRM-7d-3NE"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1044" y="-11"/>
+            <point key="canvasLocation" x="-1044" y="-11.244377811094454"/>
         </scene>
         <!--Search Controller-->
         <scene sceneID="efo-q3-ZFu">

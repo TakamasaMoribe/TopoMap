@@ -35,15 +35,13 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
         let ido = UserDefaults.standard.double(forKey: "targetLatitude")
         let keido = UserDefaults.standard.double(forKey: "targetLongitude")
         inputLabel.text = temp
-//        idoLabel.text = ido
-//        keidoLabel.text = keido
-        
+
         let targetPlace = CLLocationCoordinate2D( latitude: ido,longitude: keido)
         let span = MKCoordinateSpan (latitudeDelta: 0.01,longitudeDelta: 0.01)
         let targetRegion = MKCoordinateRegion(center: targetPlace, span: span)
         
         self.mapView.setRegion(targetRegion, animated:true)
-        
+
                 
         locManager = CLLocationManager()
         locManager.delegate = self
@@ -80,7 +78,7 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
         }
     }
 
-// 検索した場所を表示するために、一時的にコメントアウトしている
+// 検索した場所を表示するために、一時的にコメントアウトしている ///////////////////////////////////////////////
 //    // CLLocationManagerのdelegate：現在位置取得
 //    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations:[CLLocation]) {
 //        //"mapView"に地図を表示する　よくある範囲設定をしてみた
