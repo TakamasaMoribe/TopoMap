@@ -37,6 +37,7 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
         inputLabel.text = temp
 //        idoLabel.text = ido
 //        keidoLabel.text = keido
+        
         let targetPlace = CLLocationCoordinate2D( latitude: ido,longitude: keido)
         let span = MKCoordinateSpan (latitudeDelta: 0.01,longitudeDelta: 0.01)
         let targetRegion = MKCoordinateRegion(center: targetPlace, span: span)
