@@ -24,11 +24,13 @@ class SearchController: UIViewController, UITextFieldDelegate {
     @IBAction func backButtonClicked(_ sender: UIBarButtonItem) {
         let storyboard: UIStoryboard = self.storyboard!
         let nextView = storyboard.instantiateViewController(withIdentifier: "Map") as! ViewController
-        self.dismiss(animated: true) //画面表示を消去
-  //      self.present(nextView, animated: true, completion: nil)
         
         self.present(nextView,animated: true, completion: { () in
             nextView.inputLabel.text = self.textField.text
+  //      self.dismiss(animated: true) //画面表示を消去
+  //      self.present(nextView, animated: true, completion: nil)
+        
+
         })
         
     }

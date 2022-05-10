@@ -89,7 +89,7 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
 //        mapView.userTrackingMode = .followWithHeading
 //    }
     
-    //  位置情報の使用許可・・・一回目の起動時にだけ呼ばれる ----------------------------
+    //  位置情報の使用許可・・・初回起動時にだけ呼ばれる ----------------------------
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
      let status = manager.authorizationStatus
         switch status {
