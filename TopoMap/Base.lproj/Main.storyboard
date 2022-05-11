@@ -31,15 +31,17 @@
                                     </barButtonItem>
                                 </items>
                             </toolbar>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Target" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Aw-C0-NBT">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Target" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Aw-C0-NBT">
                                 <rect key="frame" x="53" y="39" width="192" height="48"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="48" id="gDW-Eq-IfZ"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <slider opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.20000000000000001" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="rgr-ci-ehc">
-                                <rect key="frame" x="95" y="555" width="184" height="31"/>
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.20000000000000001" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="rgr-ci-ehc">
+                                <rect key="frame" x="109" y="557" width="184" height="31"/>
                                 <connections>
                                     <action selector="sliderDidChange:" destination="BYZ-38-t0r" eventType="valueChanged" id="XBV-BJ-fEw"/>
                                 </connections>
@@ -49,7 +51,10 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="2Jy-fX-Qrv" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="0NM-Br-bHe"/>
+                            <constraint firstItem="3Aw-C0-NBT" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="39" id="0zQ-5V-qUz"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="rgr-ci-ehc" secondAttribute="bottom" constant="80" id="36s-NZ-JRg"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="3Aw-C0-NBT" secondAttribute="trailing" constant="130" id="45m-tS-GnS"/>
+                            <constraint firstItem="3Aw-C0-NBT" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="53" id="Sgf-az-ZxW"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="rgr-ci-ehc" secondAttribute="trailing" constant="84" id="WU0-Kg-RQ4"/>
                             <constraint firstItem="2Jy-fX-Qrv" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="ZGi-yy-cS7"/>
                             <constraint firstItem="rgr-ci-ehc" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="111" id="nvx-t5-TBn"/>
@@ -96,7 +101,7 @@
                                 </connections>
                             </textField>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="sEI-RO-jR9">
-                                <rect key="frame" x="20" y="62" width="335" height="517"/>
+                                <rect key="frame" x="20" y="62" width="335" height="482"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
