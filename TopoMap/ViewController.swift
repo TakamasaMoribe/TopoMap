@@ -18,51 +18,7 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
     @IBOutlet weak var inputLabel: UILabel! // 地名
     @IBOutlet weak var idoLabel: UILabel!   // 緯度
     @IBOutlet weak var keidoLabel: UILabel! // 経度
-    
-    // 国土地理院が提供する色別標高図のURL。ここを変えると、様々な地図データを表示できる
-    private let tileOverlay = MKTileOverlay(urlTemplate: "https://cyberjapandata.gsi.go.jp/xyz/std/{z}/{x}/{y}.png")
-    //https://cyberjapandata.gsi.go.jp/xyz/relief/{z}/{x}/{y}.png
-
-    // ロケーションマネージャーのインスタンスを作成する
-    var locManager: CLLocationManager!
-    
-    
-    //======================================================
-    override func viewDidLoad() {
-        super.viewDidLoad()
         
-        let temp = UserDefaults.standard.string(forKey: "targetPlace")
-        let ido = UserDefaults.standard.double(forKey: "targetLatitude")
-        let keido = UserDefaults.standard.double(forKey: "targetLongitude")
-        inputLabel.text = temp
-
-        let targetPlace = CLLocationCoordinate2D( latitude: ido,longitude: keido)
-        let span = MKCoordinateSpan (latitudeDelta: 0.01,longitudeDelta: 0.01)
-        let targetRegion = MKCoordinateRegion(center: targetPlace, span: span)
-        
-        self.mapView.setRegion(targetRegion, animated:true)
-
-                
-        locManager = CLLocationManager()
-        locManager.delegate = self
- 
-        locManager.desiredAccuracy = kCLLocationAccuracyHundredMeters //誤差100m程度の精度
-        //kCLLocationAccuracyNearestTenMeters    誤差10m程度の精度
-        //kCLLocationAccuracyBest    最高精度(デフォルト値)
-        locManager.distanceFilter = 5//精度は5ｍにしてみた
-
-        // 位置情報の使用の許可を得て、取得する
-        locManager.requestWhenInUseAuthorization()
-
-        locationManagerDidChangeAuthorization(locManager)
-            //authorizationStatus() がdeprecated になったため、上のメソッドで対応している
-        
-        mapView.delegate = self
-        mapView.addOverlay(tileOverlay, level: .aboveLabels)
-
-        }
-    //======================================================
-    
     // ツールバー中の検索ボタンをクリックしたとき、検索画面に遷移する
     @IBAction func seachButtonClicked(_ sender: UIBarButtonItem) {
         let storyboard: UIStoryboard = self.storyboard!
@@ -77,6 +33,49 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
             renderer.alpha = CGFloat(slider.value)
         }
     }
+    
+    // 国土地理院が提供する色別標高図のURL。ここを変えると、様々な地図データを表示できる
+    private let tileOverlay = MKTileOverlay(urlTemplate: "https://cyberjapandata.gsi.go.jp/xyz/std/{z}/{x}/{y}.png")
+    //https://cyberjapandata.gsi.go.jp/xyz/relief/{z}/{x}/{y}.png
+
+    // ロケーションマネージャーのインスタンスを作成する
+    var locManager: CLLocationManager!
+    
+    
+    //======================================================
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        mapView.delegate = self
+        mapView.addOverlay(tileOverlay, level: .aboveLabels) // 地理院地図
+        
+        let temp = UserDefaults.standard.string(forKey: "targetPlace")
+        let ido = UserDefaults.standard.double(forKey: "targetLatitude")
+        let keido = UserDefaults.standard.double(forKey: "targetLongitude")
+        inputLabel.text = temp
+
+        let targetPlace = CLLocationCoordinate2D( latitude: ido,longitude: keido)
+        let span = MKCoordinateSpan (latitudeDelta: 0.01,longitudeDelta: 0.01)
+        let targetRegion = MKCoordinateRegion(center: targetPlace, span: span)
+        
+        self.mapView.setRegion(targetRegion, animated:true)
+                
+        locManager = CLLocationManager()
+        locManager.delegate = self
+ 
+        locManager.desiredAccuracy = kCLLocationAccuracyHundredMeters //誤差100m程度の精度
+        //kCLLocationAccuracyNearestTenMeters    誤差10m程度の精度
+        //kCLLocationAccuracyBest    最高精度(デフォルト値)
+        locManager.distanceFilter = 5//精度は5ｍにしてみた
+
+        // 位置情報の使用の許可を得て、取得する
+        locManager.requestWhenInUseAuthorization()
+
+        locationManagerDidChangeAuthorization(locManager)
+            //authorizationStatus() がdeprecated になったため、上のメソッドで対応している
+    }
+    
+    //======================================================
 
 // 検索した場所を表示するために、一時的にコメントアウトしている ///////////////////////////////////////////////
 //    // CLLocationManagerのdelegate：現在位置取得
@@ -89,7 +88,7 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
 //        mapView.userTrackingMode = .followWithHeading
 //    }
     
-    //  位置情報の使用許可・・・初回起動時にだけ呼ばれる ----------------------------
+    //  位置情報の使用許可・・・初回起動時にだけ呼ばれる --------------------------------
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
      let status = manager.authorizationStatus
         switch status {
@@ -101,13 +100,11 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
         default:
             break
         }
-    }
-    // ------------------------------------------------------------------------
-    
+    } // -----------------------------------------------------------------------
+
 }
 
-
-// 地理院地図の表示
+// 地理院地図の表示 オーバーレイとして
 extension ViewController {
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
         return MKTileOverlayRenderer(overlay: overlay)

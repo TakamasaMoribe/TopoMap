@@ -5,7 +5,6 @@
 //  Created by 森部高昌 on 2022/05/05
 //  検索地名の受け渡しはできている
 //  tableView に表示される候補から選択すれば、緯度経度も得られる
-//  Back ボタンを押して画面遷移をするとき　ViewControllerの従属関係に問題がある
 
 
 import UIKit
@@ -24,17 +23,17 @@ class SearchController: UIViewController, UITextFieldDelegate {
     @IBAction func backButtonClicked(_ sender: UIBarButtonItem) {
         let storyboard: UIStoryboard = self.storyboard!
         let nextView = storyboard.instantiateViewController(withIdentifier: "Map") as! ViewController
-        
         self.present(nextView,animated: true, completion: { () in
             nextView.inputLabel.text = self.textField.text
-  //      self.dismiss(animated: true) //画面表示を消去
-  //      self.present(nextView, animated: true, completion: nil)
-        
-
+        // self.dismiss(animated: true) //画面表示を消去
         })
-        
     }
-        
+    
+    @IBAction func textFieldEditingChanged(_ sender: Any) {
+        // テキストフィールドに入力されたとき
+        searchCompleter.queryFragment = textField.text!
+    }
+
     
     private var searchCompleter = MKLocalSearchCompleter()
     
@@ -57,12 +56,7 @@ class SearchController: UIViewController, UITextFieldDelegate {
         searchCompleter.resultTypes = .query //
     }
     
-    @IBAction func textFieldEditingChanged(_ sender: Any) {
-        // テキストフィールドに入力されたとき
-        searchCompleter.queryFragment = textField.text!
-    }
 
-    
     //--------------------------------------------------
     // tableView から選択して、リターンボタンを押したときはうまくいく
     
@@ -95,8 +89,6 @@ class SearchController: UIViewController, UITextFieldDelegate {
                        UserDefaults.standard.synchronize()
                        print(targetLatitude) //不要になる
                        print(targetLongitude) //不要になる
-                       // このあとに、地図画面に戻るようにする
- 
                    }
                   }
                 }
@@ -114,7 +106,7 @@ class SearchController: UIViewController, UITextFieldDelegate {
 extension SearchController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return searchCompleter.results.count
+        return searchCompleter.results.count // 検索結果の個数
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
