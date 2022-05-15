@@ -14,6 +14,8 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
 
     @IBOutlet weak var mapView: MKMapView!
     
+    @IBOutlet weak var mySlider: UISlider!
+    
     // 表示用ラベル
     @IBOutlet weak var inputLabel: UILabel! // 地名
     @IBOutlet weak var idoLabel: UILabel!   // 緯度
@@ -49,6 +51,8 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
         mapView.delegate = self
         mapView.addOverlay(tileOverlay, level: .aboveLabels) // 地理院地図
         
+        mySlider.value = 0.2 //スライダーの初期値
+        
         let temp = UserDefaults.standard.string(forKey: "targetPlace")
         let ido = UserDefaults.standard.double(forKey: "targetLatitude")
         let keido = UserDefaults.standard.double(forKey: "targetLongitude")
@@ -58,7 +62,16 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
         let span = MKCoordinateSpan (latitudeDelta: 0.01,longitudeDelta: 0.01)
         let targetRegion = MKCoordinateRegion(center: targetPlace, span: span)
         
-        self.mapView.setRegion(targetRegion, animated:true)
+        // MapViewに中心点を設定.
+        mapView.setCenter(targetPlace, animated: true)
+        mapView.setRegion(targetRegion, animated:true)
+        
+        // ピンを生成.
+        let myPin: MKPointAnnotation = MKPointAnnotation()
+        // 座標を設定.
+        myPin.coordinate = targetPlace
+        // MapViewにピンを追加.
+        mapView.addAnnotation(myPin)
                 
         locManager = CLLocationManager()
         locManager.delegate = self
