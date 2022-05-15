@@ -141,7 +141,7 @@ extension SearchController: MKLocalSearchCompleterDelegate {
     
     // 正常に検索結果が更新されたとき
     func completerDidUpdateResults(_ completer: MKLocalSearchCompleter) {
-        tableView.reloadData()
+        tableView.reloadData() // テーブルのデータを書き直す
     }
     
     // 検索が失敗したとき
