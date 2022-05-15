@@ -24,7 +24,7 @@ class SearchController: UIViewController, UITextFieldDelegate {
         let storyboard: UIStoryboard = self.storyboard!
         let nextView = storyboard.instantiateViewController(withIdentifier: "Map") as! ViewController
         self.present(nextView,animated: true, completion: { () in
-            nextView.inputLabel.text = self.textField.text
+        // nextView.inputLabel.text = self.textField.text // テキストも同時に引き継ぐ
         // self.dismiss(animated: true) //画面表示を消去
         })
     }
