@@ -53,7 +53,8 @@ class SearchController: UIViewController, UITextFieldDelegate {
         
 //        searchCompleter.resultTypes = .pointOfInterest // 関連する場所
 //        searchCompleter.resultTypes = .address //地図上の位置のみ検索する
-        searchCompleter.resultTypes = .query //
+//        searchCompleter.resultTypes = .query //
+        
     }
     
 
@@ -89,6 +90,17 @@ class SearchController: UIViewController, UITextFieldDelegate {
                        UserDefaults.standard.synchronize()
                        print(targetLatitude) //不要になる
                        print(targetLongitude) //不要になる
+                       
+                       
+                       // 地図画面へ遷移する 位置情報があれば、遷移する
+                       let storyboard: UIStoryboard = self.storyboard!
+                       let nextView = storyboard.instantiateViewController(withIdentifier: "Map") as! ViewController
+                       self.present(nextView,animated: true, completion: nil) //{ () in
+                       // nextView.inputLabel.text = self.textField.text // テキストも同時に引き継ぐ
+                       // self.dismiss(animated: true) //画面表示を消去
+                       //})
+                       
+                       
                    }
                   }
                 }
@@ -115,10 +127,9 @@ extension SearchController: UITableViewDelegate, UITableViewDataSource {
     // セルを生成して返却するメソッドで、セルの数だけ呼び出される
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        //
         let completion = searchCompleter.results[indexPath.row]
-                cell.textLabel?.text = completion.title
-                cell.detailTextLabel?.text = completion.subtitle
+                cell.textLabel?.text = completion.title // 場所の名前
+                cell.detailTextLabel?.text = completion.subtitle // 住所など
         
         return cell
     }
