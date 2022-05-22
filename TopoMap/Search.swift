@@ -104,11 +104,15 @@ class SearchController: UIViewController, UITextFieldDelegate {
 
 
 extension SearchController: UITableViewDelegate, UITableViewDataSource {
+    // UITableViewDataSource と UITableViewDelegate のプロトコルを追加しています。
+    // これに必然的に、以下の2つのメソッドを実装が必要になります。
     
+    // UITableView に表示したいセルの数を取得する
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return searchCompleter.results.count // 検索結果の個数
     }
-    
+
+    // セルを生成して返却するメソッドで、セルの数だけ呼び出される
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         //
@@ -119,7 +123,7 @@ extension SearchController: UITableViewDelegate, UITableViewDataSource {
         return cell
     }
     
-    
+    // didSelectRowAtがCellを触ったといことを感知している
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
            print(indexPath.section) // 不要になる
            print(indexPath.row) // 不要になる

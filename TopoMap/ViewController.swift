@@ -57,7 +57,8 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
         let ido = UserDefaults.standard.double(forKey: "targetLatitude")
         let keido = UserDefaults.standard.double(forKey: "targetLongitude")
         //inputLabel.text = temp
-
+        
+        // 保存した値を読み込む
         let targetPlace = CLLocationCoordinate2D( latitude: ido,longitude: keido)
         let span = MKCoordinateSpan (latitudeDelta: 0.01,longitudeDelta: 0.01)
         let targetRegion = MKCoordinateRegion(center: targetPlace, span: span)
