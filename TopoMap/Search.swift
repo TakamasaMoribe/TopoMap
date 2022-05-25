@@ -45,11 +45,11 @@ class SearchController: UIViewController, UITextFieldDelegate {
         tableView.dataSource = self
         searchCompleter.delegate = self
 
-        // 東京駅を中心にして検索する
-        let tokyoStation = CLLocationCoordinate2DMake(35.6811673, 139.7670516) // 東京駅
-        let span = MKCoordinateSpan(latitudeDelta: 1.0, longitudeDelta: 1.0) // ここは適当な値です
-        let region = MKCoordinateRegion(center: tokyoStation, span: span)
-        searchCompleter.region = region
+//        // 東京駅を中心にして検索する
+//        let tokyoStation = CLLocationCoordinate2DMake(35.6811673, 139.7670516) // 東京駅
+//        let span = MKCoordinateSpan(latitudeDelta: 1.0, longitudeDelta: 1.0) // ここは適当な値です
+//        let region = MKCoordinateRegion(center: tokyoStation, span: span)
+//        searchCompleter.region = region
         
 //        searchCompleter.resultTypes = .pointOfInterest // 関連する場所
 //        searchCompleter.resultTypes = .address //地図上の位置のみ検索する
@@ -68,46 +68,46 @@ class SearchController: UIViewController, UITextFieldDelegate {
             if let searchKey = textField.text {
              //入力された文字をデバッグエリアに表示
              print("searchKey:\(searchKey)") //・・・・・・できる
-            //CLGeocoderインスタンスを取得
-            let geocoder = CLGeocoder()
-            //入力された文字から位置情報を取得
-            geocoder.geocodeAddressString(searchKey, completionHandler: { (placemarks, error) in
-            //位置情報が存在する場合（定数geocoderに値が入ってる場合)はunwrapPlacemarksに取り出す。
-                if let unwrapPlacemarks = placemarks {
-                  //1件目の情報を取り出す
-                 if let firstPlacemark = unwrapPlacemarks.first {
-                   //位置情報を取り出す
-                   if let location = firstPlacemark.location {
-                     //位置情報から緯度経度をtargetCoordinateに取り出す
-                       let targetCoordinate = location.coordinate //不要になる
-                       let targetLatitude = location.coordinate.latitude
-                       let targetLongitude = location.coordinate.longitude
-                      //緯度経度をデバッグエリアに表示・・・・検索値と一致すればできる
-                      print("targetCoordinate:\(targetCoordinate)") //不要になる
-                      // Userdeaults.standard に保存する
-                       UserDefaults.standard.set(targetLatitude, forKey:"targetLatitude")
-                       UserDefaults.standard.set(targetLongitude, forKey:"targetLongitude")
-                       UserDefaults.standard.synchronize()
-                       print(targetLatitude) //不要になる
-                       print(targetLongitude) //不要になる
-                       
-                       
-                       // 地図画面へ遷移する 位置情報があれば、遷移する
-                       let storyboard: UIStoryboard = self.storyboard!
-                       let nextView = storyboard.instantiateViewController(withIdentifier: "Map") as! ViewController
-                       self.present(nextView,animated: true, completion: nil) //{ () in
-                       // nextView.inputLabel.text = self.textField.text // テキストも同時に引き継ぐ
-                       // self.dismiss(animated: true) //画面表示を消去
-                       //})
-                       
-                       
-                   }
-                  }
-                }
-                else {
-                    print("緯度経度のデータが見つかりません")//ここもOK
-                }
-                })
+//            //CLGeocoderインスタンスを取得
+//            let geocoder = CLGeocoder()
+//            //入力された文字から位置情報を取得
+//            geocoder.geocodeAddressString(searchKey, completionHandler: { (placemarks, error) in
+//            //位置情報が存在する場合（定数geocoderに値が入ってる場合)はunwrapPlacemarksに取り出す。
+//                if let unwrapPlacemarks = placemarks {
+//                  //1件目の情報を取り出す
+//                 if let firstPlacemark = unwrapPlacemarks.first {
+//                   //位置情報を取り出す
+//                   if let location = firstPlacemark.location {
+//                     //位置情報から緯度経度をtargetCoordinateに取り出す
+//                       let targetCoordinate = location.coordinate //不要になる
+//                       let targetLatitude = location.coordinate.latitude
+//                       let targetLongitude = location.coordinate.longitude
+//                      //緯度経度をデバッグエリアに表示・・・・検索地名に緯度経度のデータが付随していれば可能
+//                      print("targetCoordinate:\(targetCoordinate)") //不要になる
+//                      // Userdeaults.standard に保存する
+//                       UserDefaults.standard.set(targetLatitude, forKey:"targetLatitude")
+//                       UserDefaults.standard.set(targetLongitude, forKey:"targetLongitude")
+//                       UserDefaults.standard.synchronize()
+//                       print(targetLatitude) //確認用　不要になる
+//                       print(targetLongitude) //確認用　不要になる
+//
+//
+//                       // 地図画面へ遷移する 位置情報があれば、遷移する
+//                       let storyboard: UIStoryboard = self.storyboard!
+//                       let nextView = storyboard.instantiateViewController(withIdentifier: "Map") as! ViewController
+//                       self.present(nextView,animated: true, completion: nil) //{ () in
+//                       // nextView.inputLabel.text = self.textField.text // テキストも同時に引き継ぐ
+//                       // self.dismiss(animated: true) //画面表示を消去
+//                       //})
+//
+//
+//                   }
+//                  }
+//                }
+//                else {
+//                    print("緯度経度のデータが見つかりません")//ここもOK
+//                }
+//                })
             }
             //デフォルト動作を行うのでtureを返す。返り値型をBoolにしているため、この記述がないとエラーになる。
            return true
