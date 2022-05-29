@@ -88,9 +88,6 @@ class SearchController: UIViewController, UITextFieldDelegate {
                        UserDefaults.standard.set(targetLatitude, forKey:"targetLatitude")
                        UserDefaults.standard.set(targetLongitude, forKey:"targetLongitude")
                        UserDefaults.standard.synchronize()
-                       print(targetLatitude) //不要になる
-                       print(targetLongitude) //不要になる
-                       
                        
                        // 地図画面へ遷移する 位置情報があれば、遷移する
                        let storyboard: UIStoryboard = self.storyboard!
