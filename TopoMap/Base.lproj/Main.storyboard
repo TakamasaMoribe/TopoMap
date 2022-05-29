@@ -119,12 +119,13 @@
                         <color key="backgroundColor" systemColor="systemGray4Color"/>
                     </view>
                     <connections>
+                        <outlet property="mySearchBar" destination="XEx-s9-Xhm" id="caS-71-M5k"/>
                         <outlet property="tableView" destination="sEI-RO-jR9" id="uSe-bc-4Jq"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ajX-f8-EFv" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-308" y="-11.244377811094454"/>
+            <point key="canvasLocation" x="-337" y="-11"/>
         </scene>
     </scenes>
     <resources>
