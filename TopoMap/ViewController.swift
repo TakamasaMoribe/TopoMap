@@ -69,7 +69,7 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
 
         // ピンを生成
         let myPin: MKPointAnnotation = MKPointAnnotation()
-        // ピンの座標を設定
+        // ピンの座標を設定・・・・位置がおかしい。画面の中央に表示される　targetPlaceの値が変？
         myPin.coordinate = targetPlace
         // ピンのタイトルを設定
         myPin.title = temp //"検索地点"

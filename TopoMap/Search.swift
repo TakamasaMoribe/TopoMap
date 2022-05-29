@@ -59,53 +59,60 @@ class SearchController: UIViewController, UITextFieldDelegate {
     
 
     //--------------------------------------------------
-    // tableView から選択して、リターンボタンを押したときはうまくいく
+    // tableView から選択したあとに、リターンボタンを押したときはうまくいく
+    // tableView のセルを選択したあとに、地図画面に遷移するようにしたい
     
         func textFieldShouldReturn(_ textField: UITextField) -> Bool {
           //キーボードを閉じる。resignFirstResponderはdelegateメソッド
           textField.resignFirstResponder()
-          //入力された文字を取り出す
-            if let searchKey = textField.text {
-             //入力された文字をデバッグエリアに表示
-             print("searchKey:\(searchKey)") //・・・・・・できる
-            //CLGeocoderインスタンスを取得
-            let geocoder = CLGeocoder()
-            //入力された文字から位置情報を取得
-            geocoder.geocodeAddressString(searchKey, completionHandler: { (placemarks, error) in
-            //位置情報が存在する場合（定数geocoderに値が入ってる場合)はunwrapPlacemarksに取り出す。
-                if let unwrapPlacemarks = placemarks {
-                  //1件目の情報を取り出す
-                 if let firstPlacemark = unwrapPlacemarks.first {
-                   //位置情報を取り出す
-                   if let location = firstPlacemark.location {
-                     //位置情報から緯度経度をtargetCoordinateに取り出す
-                       let targetCoordinate = location.coordinate //不要になる
-                       let targetLatitude = location.coordinate.latitude
-                       let targetLongitude = location.coordinate.longitude
-                      //緯度経度をデバッグエリアに表示・・・・検索値と一致すればできる
-                      print("targetCoordinate:\(targetCoordinate)") //不要になる
-                      // Userdeaults.standard に保存する
-                       UserDefaults.standard.set(targetLatitude, forKey:"targetLatitude")
-                       UserDefaults.standard.set(targetLongitude, forKey:"targetLongitude")
-                       UserDefaults.standard.synchronize()
-                       
-                       // 地図画面へ遷移する 位置情報があれば、遷移する
-                       let storyboard: UIStoryboard = self.storyboard!
-                       let nextView = storyboard.instantiateViewController(withIdentifier: "Map") as! ViewController
-                       self.present(nextView,animated: true, completion: nil) //{ () in
-                       // nextView.inputLabel.text = self.textField.text // テキストも同時に引き継ぐ
-                       // self.dismiss(animated: true) //画面表示を消去
-                       //})
-                       
-                       
-                   }
-                  }
+            
+        // セルの内容を取り出してみる
+        //入力された文字を取り出す
+          if let searchKey = textField.text {
+           //入力された文字をデバッグエリアに表示
+           print("searchKey:\(searchKey)") // 確認用
+
+          //CLGeocoderインスタンスを取得
+          let geocoder = CLGeocoder()
+          //入力された文字から位置情報を取得
+          geocoder.geocodeAddressString(searchKey, completionHandler: { (placemarks, error) in
+          //位置情報が存在する場合（定数geocoderに値が入ってる場合)はunwrapPlacemarksに取り出す。
+              if let unwrapPlacemarks = placemarks {
+                //1件目の情報を取り出す
+               if let firstPlacemark = unwrapPlacemarks.first {
+                 //位置情報を取り出す
+                 if let location = firstPlacemark.location {
+                   //位置情報から緯度経度をtargetCoordinateに取り出す
+                     print("location\(location)")
+                     let targetCoordinate = location.coordinate //確認用
+                     let targetLatitude = location.coordinate.latitude
+                     let targetLongitude = location.coordinate.longitude
+
+                    print("位置情報が見つかりました:\(targetCoordinate)") //確認用
+                    // Userdeaults.standard に保存する
+                     UserDefaults.standard.set(targetLatitude, forKey:"targetLatitude")
+                     UserDefaults.standard.set(targetLongitude, forKey:"targetLongitude")
+                     UserDefaults.standard.synchronize()
+                     
+                     // 地図画面へ遷移する 位置情報があれば、遷移する
+                     let storyboard: UIStoryboard = self.storyboard!
+                     let nextView = storyboard.instantiateViewController(withIdentifier: "Map") as! ViewController
+                     self.present(nextView,animated: true, completion: nil) //{ () in
+                     // nextView.inputLabel.text = self.textField.text // テキストも同時に引き継ぐ
+                     //self.dismiss(animated: true) //画面表示を消去
+                     //})
+                     
+                 }
                 }
-                else {
-                    print("緯度経度のデータが見つかりません")//ここもOK
-                }
-                })
-            }
+
+              }
+              else {
+                  print("緯度経度のデータが見つかりません")//ここもOK
+              }
+              })
+          }
+            
+
             //デフォルト動作を行うのでtureを返す。返り値型をBoolにしているため、この記述がないとエラーになる。
            return true
         }
@@ -115,47 +122,46 @@ class SearchController: UIViewController, UITextFieldDelegate {
 extension SearchController: UITableViewDelegate, UITableViewDataSource {
     // UITableViewDataSource と UITableViewDelegate のプロトコルを追加しています。
     // これに必然的に、以下の2つのメソッドを実装が必要になります。
+    // セルの数の取得とセルの生成
     
     // UITableView に表示したいセルの数を取得する
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return searchCompleter.results.count // 検索結果の個数
     }
 
-    // セルを生成して返却するメソッドで、セルの数だけ呼び出される
+    // セルの数だけ呼び出されて、各セルに得られた値を代入して生成する
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         let completion = searchCompleter.results[indexPath.row]
                 cell.textLabel?.text = completion.title // 場所の名前
                 cell.detailTextLabel?.text = completion.subtitle // 住所など
-        
         return cell
     }
     
     // didSelectRowAtがCellを触ったといことを感知している
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-           print(indexPath.section) // 不要になる
-           print(indexPath.row) // 不要になる
-        print("第\(indexPath.section)セクションの\(indexPath.row)番セルが選択されました") // 不要になる
+        print("第\(indexPath.section)セクションの\(indexPath.row)番セルが選択されました") // 確認用
         
         let cell: UITableViewCell = self.tableView(tableView, cellForRowAt: indexPath)
             if let selectedText = cell.textLabel?.text! {
-                textField.text = selectedText // 不要になる
+                if let detailText = cell.detailTextLabel?.text! {
+                //textField.text = selectedText // 確認用
                 print("選択したセルの内容:\(selectedText)") // 正しく表示される
-                // Userdeaults.standard に保存する
-                 UserDefaults.standard.set(selectedText, forKey: "targetPlace")
-                UserDefaults.standard.synchronize()
+                    print("detail:\(detailText)") //  正しく表示される
+//              // Userdeaults.standard に保存する
+                UserDefaults.standard.set(selectedText, forKey: "targetPlace")
+                    
+                }
             }
        }
 }
 
 
 extension SearchController: MKLocalSearchCompleterDelegate {
-    
     // 正常に検索結果が更新されたとき
     func completerDidUpdateResults(_ completer: MKLocalSearchCompleter) {
         tableView.reloadData() // テーブルのデータを書き直す
     }
-    
     // 検索が失敗したとき
     func completer(_ completer: MKLocalSearchCompleter, didFailWithError error: Error) {
         // エラー処理
