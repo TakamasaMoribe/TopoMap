@@ -42,29 +42,19 @@ class SearchController: UIViewController, UITextFieldDelegate,UISearchBarDelegat
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         //textField.delegate = self
         mySearchBar.delegate = self
         tableView.delegate = self
         tableView.dataSource = self
         searchCompleter.delegate = self
-
-//        // 東京駅を中心にして検索する
-//        let tokyoStation = CLLocationCoordinate2DMake(35.6811673, 139.7670516) // 東京駅
-//        let span = MKCoordinateSpan(latitudeDelta: 1.0, longitudeDelta: 1.0) // ここは適当な値です
-//        let region = MKCoordinateRegion(center: tokyoStation, span: span)
-//        searchCompleter.region = region
-        
-//        searchCompleter.resultTypes = .pointOfInterest // 関連する場所
-//        searchCompleter.resultTypes = .address //地図上の位置のみ検索する
-//        searchCompleter.resultTypes = .query //
-        
     }
 
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         //var filterdArr: [String] = []
         if let searchKey = mySearchBar.text {
+            
+        searchCompleter.queryFragment = mySearchBar.text! // 有効な感じ
             //入力された文字をデバッグエリアに表示
             print("searchKey:\(searchKey)") // 確認用
             
@@ -79,25 +69,24 @@ class SearchController: UIViewController, UITextFieldDelegate,UISearchBarDelegat
                    //位置情報を取り出す
                    if let location = firstPlacemark.location {
                      //位置情報から緯度経度をtargetCoordinateに取り出す
-                       print("location\(location)")
+                       print("location\(location)")//確認用
                        let targetCoordinate = location.coordinate //確認用
                        let targetLatitude = location.coordinate.latitude
                        let targetLongitude = location.coordinate.longitude
 
                       print("位置情報が見つかりました:\(targetCoordinate)") //確認用
-                       
                        // Userdeaults.standard に保存する
                         UserDefaults.standard.set(targetLatitude, forKey:"targetLatitude")
                         UserDefaults.standard.set(targetLongitude, forKey:"targetLongitude")
                         UserDefaults.standard.synchronize()
                        
-                       // 地図画面へ遷移する 位置情報があれば、遷移する
-                       let storyboard: UIStoryboard = self.storyboard!
-                       let nextView = storyboard.instantiateViewController(withIdentifier: "Map") as! ViewController
-                       self.present(nextView,animated: true, completion: nil) //{ () in
-                       // nextView.inputLabel.text = self.textField.text // テキストも同時に引き継ぐ
-                       //self.dismiss(animated: true) //画面表示を消去
-                       //})
+//                       // 地図画面へ遷移する 位置情報があれば、遷移する
+//                       let storyboard: UIStoryboard = self.storyboard!
+//                       let nextView = storyboard.instantiateViewController(withIdentifier: "Map") as! ViewController
+//                       self.present(nextView,animated: true, completion: nil) //{ () in
+//                       // nextView.inputLabel.text = self.textField.text // テキストも同時に引き継ぐ
+//                       //self.dismiss(animated: true) //画面表示を消去
+//                       //})
             
                    }
                  }
@@ -118,51 +107,6 @@ class SearchController: UIViewController, UITextFieldDelegate,UISearchBarDelegat
 //          //キーボードを閉じる。resignFirstResponderはdelegateメソッド
 //          textField.resignFirstResponder()
 //
-//        // セルの内容を取り出してみる
-//        //入力された文字を取り出す
-//          if let searchKey = textField.text {
-//           //入力された文字をデバッグエリアに表示
-//           print("searchKey:\(searchKey)") // 確認用
-//
-//          //CLGeocoderインスタンスを取得
-//          let geocoder = CLGeocoder()
-//          //入力された文字から位置情報を取得
-//          geocoder.geocodeAddressString(searchKey, completionHandler: { (placemarks, error) in
-//          //位置情報が存在する場合（定数geocoderに値が入ってる場合)はunwrapPlacemarksに取り出す。
-//              if let unwrapPlacemarks = placemarks {
-//                //1件目の情報を取り出す
-//               if let firstPlacemark = unwrapPlacemarks.first {
-//                 //位置情報を取り出す
-//                 if let location = firstPlacemark.location {
-//                   //位置情報から緯度経度をtargetCoordinateに取り出す
-//                     print("location\(location)")
-//                     let targetCoordinate = location.coordinate //確認用
-//                     let targetLatitude = location.coordinate.latitude
-//                     let targetLongitude = location.coordinate.longitude
-//
-//                    print("位置情報が見つかりました:\(targetCoordinate)") //確認用
-//                    // Userdeaults.standard に保存する
-//                     UserDefaults.standard.set(targetLatitude, forKey:"targetLatitude")
-//                     UserDefaults.standard.set(targetLongitude, forKey:"targetLongitude")
-//                     UserDefaults.standard.synchronize()
-//
-//                     // 地図画面へ遷移する 位置情報があれば、遷移する
-//                     let storyboard: UIStoryboard = self.storyboard!
-//                     let nextView = storyboard.instantiateViewController(withIdentifier: "Map") as! ViewController
-//                     self.present(nextView,animated: true, completion: nil) //{ () in
-//                     // nextView.inputLabel.text = self.textField.text // テキストも同時に引き継ぐ
-//                     //self.dismiss(animated: true) //画面表示を消去
-//                     //})
-//
-//                 }
-//                }
-//
-//              }
-//              else {
-//                  print("緯度経度のデータが見つかりません")//ここもOK
-//              }
-//              })
-//          }
 //            //デフォルト動作を行うのでtureを返す。返り値型をBoolにしているため、この記述がないとエラーになる。
 //           return true
 //        }
@@ -194,19 +138,20 @@ extension SearchController: UITableViewDelegate, UITableViewDataSource {
     // didSelectRowAtがCellを触ったといことを感知している
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("第\(indexPath.section)セクションの\(indexPath.row)番セルが選択されました") // 確認用
-        
         let cell: UITableViewCell = self.tableView(tableView, cellForRowAt: indexPath)
             if let selectedText = cell.textLabel?.text! {
                 if let detailText = cell.detailTextLabel?.text! {
                 //textField.text = selectedText // 確認用
                 print("選択したセルの内容:\(selectedText)") // 正しく表示される
                     print("detail:\(detailText)") //  正しく表示される
-//              // Userdeaults.standard に保存する
+                // Userdeaults.standard に保存する
                 UserDefaults.standard.set(selectedText, forKey: "targetPlace")
                     
                 }
             }
        }
+    
+    
 }
 
 
