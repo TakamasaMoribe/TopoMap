@@ -44,6 +44,7 @@ class SearchController: UIViewController, UITextFieldDelegate,UISearchBarDelegat
         super.viewDidLoad()
         
         //textField.delegate = self
+        mySearchBar.delegate = self
         tableView.delegate = self
         tableView.dataSource = self
         searchCompleter.delegate = self
@@ -59,7 +60,7 @@ class SearchController: UIViewController, UITextFieldDelegate,UISearchBarDelegat
 //        searchCompleter.resultTypes = .query //
         
     }
- 
+
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         //var filterdArr: [String] = []
