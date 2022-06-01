@@ -58,8 +58,8 @@ class SearchController: UIViewController, UITextFieldDelegate,UISearchBarDelegat
             
         searchCompleter.queryFragment = mySearchBar.text! // 有効な感じ
             //searchCompleter.resultTypes = .pointOfInterest // 関連する場所
-            searchCompleter.resultTypes = .address // 地図上の位置のみ
-            //searchCompleter.resultTypes = .query //
+            //searchCompleter.resultTypes = .address // 地図上の位置のみ
+            searchCompleter.resultTypes = .query //
             
             //入力された文字をデバッグエリアに表示
             print("searchKey:\(searchKey)") // 確認用
@@ -76,23 +76,6 @@ class SearchController: UIViewController, UITextFieldDelegate,UISearchBarDelegat
                    if let location = firstPlacemark.location {
                      //位置情報から緯度経度をtargetCoordinateに取り出す
                        print("location\(location)")//確認用
-                       let targetCoordinate = location.coordinate //確認用
-                       let targetLatitude = location.coordinate.latitude
-                       let targetLongitude = location.coordinate.longitude
-
-                      print("位置情報が見つかりました:\(targetCoordinate)") //確認用
-                       // Userdeaults.standard に保存する
-                        UserDefaults.standard.set(targetLatitude, forKey:"targetLatitude")
-                        UserDefaults.standard.set(targetLongitude, forKey:"targetLongitude")
-                        UserDefaults.standard.synchronize()
-                       
-// 地図画面へ遷移する 位置情報があれば、遷移する
-// let storyboard: UIStoryboard = self.storyboard!
-// let nextView = storyboard.instantiateViewController(withIdentifier: "Map") as! ViewController
-//  self.present(nextView,animated: true, completion: nil) //{ () in
-// nextView.inputLabel.text = self.textField.text // テキストも同時に引き継ぐ
-//self.dismiss(animated: true) //画面表示を消去
-//})
                        
                    } // if let location
                  } // if let firstPlacemark
@@ -105,18 +88,6 @@ class SearchController: UIViewController, UITextFieldDelegate,UISearchBarDelegat
         }// if let searchKey
         
     } //func searchBarSearchButtonClicked(
-
-//--------------------------------------------------
-// tableView から選択したあとに、リターンボタンを押したときはうまくいく
-// tableView のセルを選択したあとに、地図画面に遷移するようにしたい
-//        func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-//          //キーボードを閉じる。resignFirstResponderはdelegateメソッド
-//          textField.resignFirstResponder()
-//
-//
-//デフォルト動作を行うのでtureを返す。返り値型をBoolにしているため、この記述がないとエラーになる。
-//           return true
-//        }
         
 
 } // class SearchController:
@@ -151,10 +122,54 @@ extension SearchController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("第\(indexPath.section)セクションの\(indexPath.row)番セル") // 確認用
         let cell: UITableViewCell = self.tableView(tableView, cellForRowAt: indexPath)
-            if let selectedText = cell.textLabel?.text! { //選んだセルに地名があれば
-                // 次を実行する　緯度経度を取得することができるか？
+            if let selectedText = cell.detailTextLabel?.text! { //選んだセルに住所があれば
                 print("選択したセルの内容:\(selectedText)") // 確認用
+                // 次を実行する　緯度経度を取得することができるか？
+                //↓
 
+                let searchPlace = selectedText
+                //CLGeocoderインスタンスを取得
+                let geocoder2nd = CLGeocoder()//geocoder2nd
+                //入力された文字から位置情報を取得
+                geocoder2nd.geocodeAddressString(searchPlace, completionHandler: { (placemarks, error) in
+                //位置情報が存在する場合（定数geocoderに値が入ってる場合)はunwrapPlacemarksに取り出す。
+                    if let unwrapPlacemarks = placemarks {
+                      //1件目の情報を取り出す
+                     if let firstPlacemark = unwrapPlacemarks.first {
+                       //位置情報を取り出す
+                       if let location = firstPlacemark.location {
+                         //位置情報から緯度経度をtargetCoordinateに取り出す
+                           print("location\(location)")//確認用
+                           let targetCoordinate = location.coordinate //確認用
+                           let targetLatitude = location.coordinate.latitude
+                           let targetLongitude = location.coordinate.longitude
+
+                          print("2nd位置情報:\(targetCoordinate)") //確認用
+                           // Userdeaults.standard に保存する
+                           UserDefaults.standard.set(selectedText, forKey:"targetPlace")
+                            UserDefaults.standard.set(targetLatitude, forKey:"targetLatitude")
+                            UserDefaults.standard.set(targetLongitude, forKey:"targetLongitude")
+                            UserDefaults.standard.synchronize()
+                           
+    // 地図画面へ遷移する 位置情報があれば、遷移する
+    // let storyboard: UIStoryboard = self.storyboard!
+    // let nextView = storyboard.instantiateViewController(withIdentifier: "Map") as! ViewController
+    //  self.present(nextView,animated: true, completion: nil) //{ () in
+    // nextView.inputLabel.text = self.textField.text // テキストも同時に引き継ぐ
+    //self.dismiss(animated: true) //画面表示を消去
+    //})
+                           
+                       } // if let location
+                     } // if let firstPlacemark
+                    } // if let unwrapPlacemark
+                    else {
+                    print("緯度経度のデータが見つかりません")//ここもOK
+                    }
+                })//geocoder.geocodeAddressString(searchPlace,
+                
+                
+                
+                //↑
             }
        }
         
