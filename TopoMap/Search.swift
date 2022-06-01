@@ -37,8 +37,10 @@ class SearchController: UIViewController, UITextFieldDelegate,UISearchBarDelegat
 //        searchCompleter.queryFragment = textField.text!
 //    }
 
-    
+
+    //private var targetCoordinate : CLLocationCoordinate2D
     private var searchCompleter = MKLocalSearchCompleter()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,6 +57,10 @@ class SearchController: UIViewController, UITextFieldDelegate,UISearchBarDelegat
         if let searchKey = mySearchBar.text {
             
         searchCompleter.queryFragment = mySearchBar.text! // 有効な感じ
+            //searchCompleter.resultTypes = .pointOfInterest // 関連する場所
+            searchCompleter.resultTypes = .address // 地図上の位置のみ
+            //searchCompleter.resultTypes = .query //
+            
             //入力された文字をデバッグエリアに表示
             print("searchKey:\(searchKey)") // 確認用
             
@@ -79,14 +85,16 @@ class SearchController: UIViewController, UITextFieldDelegate,UISearchBarDelegat
                         UserDefaults.standard.set(targetLatitude, forKey:"targetLatitude")
                         UserDefaults.standard.set(targetLongitude, forKey:"targetLongitude")
                         UserDefaults.standard.synchronize()
+
+                       
                        
 //                       // 地図画面へ遷移する 位置情報があれば、遷移する
 //                       let storyboard: UIStoryboard = self.storyboard!
 //                       let nextView = storyboard.instantiateViewController(withIdentifier: "Map") as! ViewController
 //                       self.present(nextView,animated: true, completion: nil) //{ () in
-//                       // nextView.inputLabel.text = self.textField.text // テキストも同時に引き継ぐ
-//                       //self.dismiss(animated: true) //画面表示を消去
-//                       //})
+                       // nextView.inputLabel.text = self.textField.text // テキストも同時に引き継ぐ
+                       //self.dismiss(animated: true) //画面表示を消去
+                       //})
             
                    }
                  }
@@ -115,11 +123,12 @@ class SearchController: UIViewController, UITextFieldDelegate,UISearchBarDelegat
 
 }
 
-
+//検索の結果は MKLocalSearchCompleter の results プロパティに入っています。 ここには先述の MKLocalSearchCompletion が配列で格納されているので、それをテーブルビューで表示するだけです。//
 extension SearchController: UITableViewDelegate, UITableViewDataSource {
     // UITableViewDataSource と UITableViewDelegate のプロトコルを追加しています。
     // これに必然的に、以下の2つのメソッドを実装が必要になります。
     // セルの数の取得とセルの生成
+
     
     // UITableView に表示したいセルの数を取得する
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -130,12 +139,13 @@ extension SearchController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         let completion = searchCompleter.results[indexPath.row]
+        
                 cell.textLabel?.text = completion.title // 場所の名前
                 cell.detailTextLabel?.text = completion.subtitle // 住所など
         return cell
     }
     
-    // didSelectRowAtがCellを触ったといことを感知している
+    // didSelectRowAtがCellを触ったことを感知している
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("第\(indexPath.section)セクションの\(indexPath.row)番セルが選択されました") // 確認用
         let cell: UITableViewCell = self.tableView(tableView, cellForRowAt: indexPath)
@@ -144,6 +154,7 @@ extension SearchController: UITableViewDelegate, UITableViewDataSource {
                 //textField.text = selectedText // 確認用
                 print("選択したセルの内容:\(selectedText)") // 正しく表示される
                     print("detail:\(detailText)") //  正しく表示される
+//                    print("targetCoordinate:\(targetCoordinate)") //
                 // Userdeaults.standard に保存する
                 UserDefaults.standard.set(selectedText, forKey: "targetPlace")
                     
