@@ -85,43 +85,42 @@ class SearchController: UIViewController, UITextFieldDelegate,UISearchBarDelegat
                         UserDefaults.standard.set(targetLatitude, forKey:"targetLatitude")
                         UserDefaults.standard.set(targetLongitude, forKey:"targetLongitude")
                         UserDefaults.standard.synchronize()
-
                        
+// 地図画面へ遷移する 位置情報があれば、遷移する
+// let storyboard: UIStoryboard = self.storyboard!
+// let nextView = storyboard.instantiateViewController(withIdentifier: "Map") as! ViewController
+//  self.present(nextView,animated: true, completion: nil) //{ () in
+// nextView.inputLabel.text = self.textField.text // テキストも同時に引き継ぐ
+//self.dismiss(animated: true) //画面表示を消去
+//})
                        
-//                       // 地図画面へ遷移する 位置情報があれば、遷移する
-//                       let storyboard: UIStoryboard = self.storyboard!
-//                       let nextView = storyboard.instantiateViewController(withIdentifier: "Map") as! ViewController
-//                       self.present(nextView,animated: true, completion: nil) //{ () in
-                       // nextView.inputLabel.text = self.textField.text // テキストも同時に引き継ぐ
-                       //self.dismiss(animated: true) //画面表示を消去
-                       //})
-            
-                   }
-                 }
-                }
+                   } // if let location
+                 } // if let firstPlacemark
+                } // if let unwrapPlacemark
                 else {
                 print("緯度経度のデータが見つかりません")//ここもOK
-            }
-            })
+                }
+            })//geocoder.geocodeAddressString(searchKey,
     
-    }
-    
+        }// if let searchKey
+        
+    } //func searchBarSearchButtonClicked(
 
-    //--------------------------------------------------
-    // tableView から選択したあとに、リターンボタンを押したときはうまくいく
-    // tableView のセルを選択したあとに、地図画面に遷移するようにしたい
-    
+//--------------------------------------------------
+// tableView から選択したあとに、リターンボタンを押したときはうまくいく
+// tableView のセルを選択したあとに、地図画面に遷移するようにしたい
 //        func textFieldShouldReturn(_ textField: UITextField) -> Bool {
 //          //キーボードを閉じる。resignFirstResponderはdelegateメソッド
 //          textField.resignFirstResponder()
 //
-//            //デフォルト動作を行うのでtureを返す。返り値型をBoolにしているため、この記述がないとエラーになる。
+//
+//デフォルト動作を行うのでtureを返す。返り値型をBoolにしているため、この記述がないとエラーになる。
 //           return true
 //        }
         
-    }
 
-}
+} // class SearchController:
+
 
 //検索の結果は MKLocalSearchCompleter の results プロパティに入っています。 ここには先述の MKLocalSearchCompletion が配列で格納されているので、それをテーブルビューで表示するだけです。//
 extension SearchController: UITableViewDelegate, UITableViewDataSource {
@@ -140,6 +139,9 @@ extension SearchController: UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         let completion = searchCompleter.results[indexPath.row]
         
+        print("searchCompleter.results:\(searchCompleter.results)")//配列に入っている
+        print("completion:\(completion)")
+        print("indexPath.row:\(indexPath.row)")
                 cell.textLabel?.text = completion.title // 場所の名前
                 cell.detailTextLabel?.text = completion.subtitle // 住所など
         return cell
@@ -147,23 +149,16 @@ extension SearchController: UITableViewDelegate, UITableViewDataSource {
     
     // didSelectRowAtがCellを触ったことを感知している
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("第\(indexPath.section)セクションの\(indexPath.row)番セルが選択されました") // 確認用
+        print("第\(indexPath.section)セクションの\(indexPath.row)番セル") // 確認用
         let cell: UITableViewCell = self.tableView(tableView, cellForRowAt: indexPath)
-            if let selectedText = cell.textLabel?.text! {
-                if let detailText = cell.detailTextLabel?.text! {
-                //textField.text = selectedText // 確認用
-                print("選択したセルの内容:\(selectedText)") // 正しく表示される
-                    print("detail:\(detailText)") //  正しく表示される
-//                    print("targetCoordinate:\(targetCoordinate)") //
-                // Userdeaults.standard に保存する
-                UserDefaults.standard.set(selectedText, forKey: "targetPlace")
-                    
-                }
+            if let selectedText = cell.textLabel?.text! { //選んだセルに地名があれば
+                // 次を実行する　緯度経度を取得することができるか？
+                print("選択したセルの内容:\(selectedText)") // 確認用
+
             }
        }
-    
-    
-}
+        
+} //extension SearchController: UITableViewDelegate, UITableViewDataSource {
 
 
 extension SearchController: MKLocalSearchCompleterDelegate {
