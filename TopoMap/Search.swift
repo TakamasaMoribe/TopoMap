@@ -3,9 +3,7 @@
 //  TopoMap
 //
 //  Created by 森部高昌 on 2022/05/05
-//  検索地名の受け渡しはできている
-//  tableView に表示される候補から選択すれば、緯度経度も得られる
-
+//  2022/06/04
 
 import UIKit
 import MapKit
@@ -45,8 +43,7 @@ class SearchController: UIViewController, UITextFieldDelegate,UISearchBarDelegat
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         //var filterdArr: [String] = []
         if let searchKey = mySearchBar.text {
-
-        searchCompleter.queryFragment = mySearchBar.text! // 有効な感じ
+            searchCompleter.queryFragment = searchKey // searchBarに入力した文字
             //searchCompleter.resultTypes = .pointOfInterest // 関連する場所
             //searchCompleter.resultTypes = .address // 地図上の位置のみ
             searchCompleter.resultTypes = .query //
@@ -54,26 +51,26 @@ class SearchController: UIViewController, UITextFieldDelegate,UISearchBarDelegat
             //入力された文字をデバッグエリアに表示
             print("searchKey:\(searchKey)") // 確認用
 
-            //CLGeocoderインスタンスを取得
-            let geocoder = CLGeocoder()
-            //入力された文字から位置情報を取得
-            geocoder.geocodeAddressString(searchKey, completionHandler: { (placemarks, error) in
-            //位置情報が存在する場合（定数geocoderに値が入ってる場合)はunwrapPlacemarksに取り出す。
-                if let unwrapPlacemarks = placemarks {
-                  //1件目の情報を取り出す
-                 if let firstPlacemark = unwrapPlacemarks.first {
-                   //位置情報を取り出す
-                   if let location = firstPlacemark.location {
-                     //位置情報から緯度経度をtargetCoordinateに取り出す
-                       print("location\(location)")//確認用
-
-                   } // if let location
-                 } // if let firstPlacemark
-                } // if let unwrapPlacemark
-                else {
-                print("緯度経度のデータが見つかりません")//ここもOK
-                }
-            })//geocoder.geocodeAddressString(searchKey,
+//            //CLGeocoderインスタンスを取得
+//            let geocoder = CLGeocoder()
+//            //入力された文字から位置情報を取得
+//            geocoder.geocodeAddressString(searchKey, completionHandler: { (placemarks, error) in
+//            //位置情報が存在する場合（定数geocoderに値が入ってる場合)はunwrapPlacemarksに取り出す。
+//                if let unwrapPlacemarks = placemarks {
+//                  //1件目の情報を取り出す
+//                 if let firstPlacemark = unwrapPlacemarks.first {
+//                   //位置情報を取り出す
+//                   if let location = firstPlacemark.location {
+//                     //位置情報から緯度経度をtargetCoordinateに取り出す
+//                       print("location\(location)")//確認用
+//
+//                   } // if let location
+//                 } // if let firstPlacemark
+//                } // if let unwrapPlacemark
+//                else {
+//                print("緯度経度のデータが見つかりません")//ここもOK
+//                }
+//            })//geocoder.geocodeAddressString(searchKey,
 
         }// if let searchKey
 
