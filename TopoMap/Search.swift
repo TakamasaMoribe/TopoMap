@@ -80,6 +80,7 @@ extension SearchController: UITableViewDelegate, UITableViewDataSource {
         print("第\(indexPath.section)セクションの\(indexPath.row)番セル") // 確認用
         let cell: UITableViewCell = self.tableView(tableView, cellForRowAt: indexPath)
             if let selectedText = cell.detailTextLabel?.text! { //選んだセルに住所があれば
+                let selectedPlace = cell.textLabel?.text // 選んだセルの地名
                 print("選択したセルの内容:\(selectedText)") // 確認用
                 // 次を実行する　緯度経度を取得することができる
                 //↓
@@ -110,11 +111,16 @@ extension SearchController: UITableViewDelegate, UITableViewDataSource {
                             UserDefaults.standard.set(targetLatitude, forKey:"targetLatitude")
                             UserDefaults.standard.set(targetLongitude, forKey:"targetLongitude")
                             UserDefaults.standard.synchronize()
-    // 地図画面へ遷移する　
+    // 地図画面へ遷移する
        let storyboard: UIStoryboard = self.storyboard!
        let nextView = storyboard.instantiateViewController(withIdentifier: "Map") as! ViewController
        self.present(nextView,animated: true, completion: { () in
-       // nextView.inputLabel.text = self.textField.text // テキストも同時に引き継ぐ
+           nextView.myPin.title = selectedPlace // テキストも同時に引き継ぐか？
+           nextView.myPin.subtitle = selectedText // テキストも同時に引き継ぐか？
+//           nextView.ido = selectedText // テキストも同時に引き継ぐか？
+           
+           print("selectedPlace:\(selectedPlace)")
+           print("selectedText:\(selectedText)")
        // self.dismiss(animated: true) //画面表示を消去
        })
                            

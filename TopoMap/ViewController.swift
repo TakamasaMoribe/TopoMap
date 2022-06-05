@@ -34,6 +34,9 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
     // 国土地理院が提供する色別標高図のURL。ここを変えると、様々な地図データを表示できる
     private let tileOverlay = MKTileOverlay(urlTemplate: "https://cyberjapandata.gsi.go.jp/xyz/std/{z}/{x}/{y}.png")
     //https://cyberjapandata.gsi.go.jp/xyz/relief/{z}/{x}/{y}.png
+    
+    // 地図上に立てるピンを生成すする
+    let myPin: MKPointAnnotation = MKPointAnnotation()
 
     // ロケーションマネージャーのインスタンスを作成する
     var locManager: CLLocationManager!
@@ -56,15 +59,15 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
         mapView.setCenter(targetPlace, animated: true)
         mapView.setRegion(targetRegion, animated:true)
 
-        // ピンを生成
-        let myPin: MKPointAnnotation = MKPointAnnotation()
+//        // ピンを生成
+//        let myPin: MKPointAnnotation = MKPointAnnotation()
         // ピンの座標を設定・・・・位置がおかしい。画面の中央に表示される　targetPlaceの値が変？
         myPin.coordinate = targetPlace
         // ピンのタイトルを設定
-        myPin.title = temp //"検索地点"
+        //myPin.title = temp //"検索地点"
         print("title:\(myPin.title)")
         // ピンのタイトルを設定
-        myPin.subtitle = String(ido)
+        //myPin.subtitle = String(ido)
         print("subtitle:\(myPin.subtitle)")
         // MapViewにピンを追加.
         mapView.addAnnotation(myPin)
