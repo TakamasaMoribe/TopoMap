@@ -15,11 +15,6 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
     @IBOutlet weak var mapView: MKMapView!
     
     @IBOutlet weak var mySlider: UISlider!
-    
-    // 表示用ラベル
-    @IBOutlet weak var inputLabel: UILabel! // 地名
-    @IBOutlet weak var idoLabel: UILabel!   // 緯度
-    @IBOutlet weak var keidoLabel: UILabel! // 経度
         
     // ツールバー中の検索ボタンをクリックしたとき、検索画面に遷移する
     @IBAction func seachButtonClicked(_ sender: UIBarButtonItem) {
@@ -48,11 +43,6 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        mapView.delegate = self
-//        mapView.addOverlay(tileOverlay, level: .aboveLabels) // 地理院地図
-//
-//        mySlider.value = 0.1 //スライダーの初期値
-        
         let temp = UserDefaults.standard.string(forKey: "targetPlace")
         let ido = UserDefaults.standard.double(forKey: "targetLatitude")
         let keido = UserDefaults.standard.double(forKey: "targetLongitude")
@@ -73,8 +63,10 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
         myPin.coordinate = targetPlace
         // ピンのタイトルを設定
         myPin.title = temp //"検索地点"
+        print("title:\(myPin.title)")
         // ピンのタイトルを設定
         myPin.subtitle = String(ido)
+        print("subtitle:\(myPin.subtitle)")
         // MapViewにピンを追加.
         mapView.addAnnotation(myPin)
         

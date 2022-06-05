@@ -41,40 +41,15 @@ class SearchController: UIViewController, UITextFieldDelegate,UISearchBarDelegat
 
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        //var filterdArr: [String] = []
+        // サーチバーに入力した文字を検索する
         if let searchKey = mySearchBar.text {
             searchCompleter.queryFragment = searchKey // searchBarに入力した文字
+            searchCompleter.resultTypes = .query //
             //searchCompleter.resultTypes = .pointOfInterest // 関連する場所
             //searchCompleter.resultTypes = .address // 地図上の位置のみ
-            searchCompleter.resultTypes = .query //
-
-            //入力された文字をデバッグエリアに表示
             print("searchKey:\(searchKey)") // 確認用
-
-//            //CLGeocoderインスタンスを取得
-//            let geocoder = CLGeocoder()
-//            //入力された文字から位置情報を取得
-//            geocoder.geocodeAddressString(searchKey, completionHandler: { (placemarks, error) in
-//            //位置情報が存在する場合（定数geocoderに値が入ってる場合)はunwrapPlacemarksに取り出す。
-//                if let unwrapPlacemarks = placemarks {
-//                  //1件目の情報を取り出す
-//                 if let firstPlacemark = unwrapPlacemarks.first {
-//                   //位置情報を取り出す
-//                   if let location = firstPlacemark.location {
-//                     //位置情報から緯度経度をtargetCoordinateに取り出す
-//                       print("location\(location)")//確認用
-//
-//                   } // if let location
-//                 } // if let firstPlacemark
-//                } // if let unwrapPlacemark
-//                else {
-//                print("緯度経度のデータが見つかりません")//ここもOK
-//                }
-//            })//geocoder.geocodeAddressString(searchKey,
-
-        }// if let searchKey
-
-    } //func searchBarSearchButtonClicked(
+        }
+    }
         
 
 } // class SearchController:
@@ -85,7 +60,6 @@ extension SearchController: UITableViewDelegate, UITableViewDataSource {
     // UITableViewDataSource と UITableViewDelegate のプロトコルを追加しています。
     // これに必然的に、以下の2つのメソッドを実装が必要になります。
     // セルの数の取得とセルの生成
-
     
     // UITableView に表示したいセルの数を取得する
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -107,7 +81,7 @@ extension SearchController: UITableViewDelegate, UITableViewDataSource {
         let cell: UITableViewCell = self.tableView(tableView, cellForRowAt: indexPath)
             if let selectedText = cell.detailTextLabel?.text! { //選んだセルに住所があれば
                 print("選択したセルの内容:\(selectedText)") // 確認用
-                // 次を実行する　緯度経度を取得することができるか？
+                // 次を実行する　緯度経度を取得することができる
                 //↓
 
                 let searchPlace = selectedText
