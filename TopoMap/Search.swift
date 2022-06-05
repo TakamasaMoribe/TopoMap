@@ -40,8 +40,8 @@ class SearchController: UIViewController, UITextFieldDelegate,UISearchBarDelegat
     }
 
     
+    // サーチバーに入力した文字を検索する
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        // サーチバーに入力した文字を検索する
         if let searchKey = mySearchBar.text {
             searchCompleter.queryFragment = searchKey // searchBarに入力した文字
             searchCompleter.resultTypes = .query //
@@ -66,12 +66,12 @@ extension SearchController: UITableViewDelegate, UITableViewDataSource {
         return searchCompleter.results.count // 検索結果の個数
     }
 
-    // セルの数だけ呼び出されて、各セルに得られた値を代入して生成する
+    // セルの数だけ呼び出されて、得られた値を各セルに代入して生成(表示)する
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         let completion = searchCompleter.results[indexPath.row]//配列に入っている
-                cell.textLabel?.text = completion.title // 場所の名前
-                cell.detailTextLabel?.text = completion.subtitle // 住所など
+                cell.textLabel?.text = completion.title // 場所の名前表示
+                cell.detailTextLabel?.text = completion.subtitle // 住所など表示
         return cell
     }
     
@@ -79,8 +79,8 @@ extension SearchController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("第\(indexPath.section)セクションの\(indexPath.row)番セル") // 確認用
         let cell: UITableViewCell = self.tableView(tableView, cellForRowAt: indexPath)
+        if let selectedPlace = cell.textLabel?.text { // 選んだセルに地名があれば
             if let selectedText = cell.detailTextLabel?.text! { //選んだセルに住所があれば
-                let selectedPlace = cell.textLabel?.text // 選んだセルの地名
                 print("選択したセルの内容:\(selectedText)") // 確認用
                 // 次を実行する　緯度経度を取得することができる
                 //↓
@@ -115,9 +115,10 @@ extension SearchController: UITableViewDelegate, UITableViewDataSource {
        let storyboard: UIStoryboard = self.storyboard!
        let nextView = storyboard.instantiateViewController(withIdentifier: "Map") as! ViewController
        self.present(nextView,animated: true, completion: { () in
-           nextView.myPin.title = selectedPlace // pin をnextViewの変数にした
-           nextView.myPin.subtitle = selectedText // 引き継ぎが可能になった
-//           nextView.ido = selectedText // テキストも同時に引き継ぐか？
+           nextView.myPin.subtitle = selectedText //  pin をnextViewの変数にした
+           nextView.myPin.title = selectedPlace //　引き継ぎが可能になった
+
+    //           nextView.ido = selectedText // テキストも同時に引き継ぐか？
            
            print("selectedPlace:\(selectedPlace)")
            print("selectedText:\(selectedText)")
@@ -137,6 +138,7 @@ extension SearchController: UITableViewDelegate, UITableViewDataSource {
                 
                 //↑
             }
+        }
        }
         
 } //extension SearchController: UITableViewDelegate, UITableViewDataSource {

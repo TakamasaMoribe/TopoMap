@@ -46,7 +46,7 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let temp = UserDefaults.standard.string(forKey: "targetPlace")
+// let temp = UserDefaults.standard.string(forKey: "targetPlace")
         let ido = UserDefaults.standard.double(forKey: "targetLatitude")
         let keido = UserDefaults.standard.double(forKey: "targetLongitude")
         
@@ -55,27 +55,20 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
         let span = MKCoordinateSpan (latitudeDelta: 0.01,longitudeDelta: 0.01)
         let targetRegion = MKCoordinateRegion(center: targetPlace, span: span)
         
-        // MapViewに中心点を設定.
+        // MapViewに中心点を設定
         mapView.setCenter(targetPlace, animated: true)
         mapView.setRegion(targetRegion, animated:true)
-
-//        // ピンを生成
-//        let myPin: MKPointAnnotation = MKPointAnnotation()
-        // ピンの座標を設定・・・・位置がおかしい。画面の中央に表示される　targetPlaceの値が変？
-        myPin.coordinate = targetPlace
-        // ピンのタイトルを設定
-        //myPin.title = temp //"検索地点"
-        print("title:\(myPin.title)")
-        // ピンのタイトルを設定
-        //myPin.subtitle = String(ido)
-        print("subtitle:\(myPin.subtitle)")
-        // MapViewにピンを追加.
-        mapView.addAnnotation(myPin)
         
         mapView.addOverlay(tileOverlay, level: .aboveLabels) // 地理院地図の表示
         if let renderer = mapView.renderer(for: tileOverlay) {
-            renderer.alpha = 0.1 // 地理院地図の透明度の初期値　スライダーで可変
+            renderer.alpha = 0.5 // 地理院地図の透明度の初期値　スライダーで可変
         }
+        
+        // ピンの座標を設定・・・・位置がおかしい。画面の中央に表示される　targetPlaceの値が変？
+        myPin.coordinate = targetPlace
+        // MapViewにピンを追加.
+        mapView.addAnnotation(myPin)
+        
                 
         locManager = CLLocationManager()
         locManager.delegate = self
