@@ -3,7 +3,7 @@
 //  TopoMap
 //
 //  Created by 森部高昌 on 2021/10/09.
-//
+//  2022/06/05
 
 import UIKit
 import MapKit
@@ -63,7 +63,7 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
         
         mapView.addOverlay(tileOverlay, level: .aboveLabels) // 地理院地図の表示
         if let renderer = mapView.renderer(for: tileOverlay) {
-            renderer.alpha = 0.5 // 地理院地図の透明度の初期値　スライダーで可変
+            renderer.alpha = 0.1 // 地理院地図の透明度の初期値　スライダーで可変
         }
         
         // ピンの座標を設定・・・・位置がおかしい。画面の中央に表示される　targetPlaceの値が変？
