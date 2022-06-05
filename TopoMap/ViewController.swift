@@ -46,6 +46,8 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        mapView.delegate = self
+        
 // let temp = UserDefaults.standard.string(forKey: "targetPlace")
         let ido = UserDefaults.standard.double(forKey: "targetLatitude")
         let keido = UserDefaults.standard.double(forKey: "targetLongitude")
