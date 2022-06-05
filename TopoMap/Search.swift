@@ -115,8 +115,8 @@ extension SearchController: UITableViewDelegate, UITableViewDataSource {
        let storyboard: UIStoryboard = self.storyboard!
        let nextView = storyboard.instantiateViewController(withIdentifier: "Map") as! ViewController
        self.present(nextView,animated: true, completion: { () in
-           nextView.myPin.title = selectedPlace // テキストも同時に引き継ぐか？
-           nextView.myPin.subtitle = selectedText // テキストも同時に引き継ぐか？
+           nextView.myPin.title = selectedPlace // pin をnextViewの変数にした
+           nextView.myPin.subtitle = selectedText // 引き継ぎが可能になった
 //           nextView.ido = selectedText // テキストも同時に引き継ぐか？
            
            print("selectedPlace:\(selectedPlace)")
