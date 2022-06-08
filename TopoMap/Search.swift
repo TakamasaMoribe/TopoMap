@@ -49,6 +49,8 @@ class SearchController: UIViewController, UITextFieldDelegate,UISearchBarDelegat
             //searchCompleter.resultTypes = .address // 地図上の位置のみ
             print("searchKey:\(searchKey)") // 確認用
         }
+        
+        self.mySearchBar.endEditing(true)
     }
         
 
