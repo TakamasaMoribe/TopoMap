@@ -3,7 +3,7 @@
 //  TopoMap
 //
 //  Created by 森部高昌 on 2022/05/05
-//  2022/06/05
+//  2022/06/08
 
 import UIKit
 import MapKit
@@ -80,16 +80,16 @@ extension SearchController: UITableViewDelegate, UITableViewDataSource {
         print("第\(indexPath.section)セクションの\(indexPath.row)番セル") // 確認用
         let cell: UITableViewCell = self.tableView(tableView, cellForRowAt: indexPath)
         if let selectedPlace = cell.textLabel?.text { // 選んだセルに地名があれば
-            if let selectedText = cell.detailTextLabel?.text! { //選んだセルに住所があれば
-                print("選択したセルの内容:\(selectedText)") // 確認用
+            if let selectedAddress = cell.detailTextLabel?.text! { //選んだセルに住所があれば
+                print("選択したセルの内容:\(selectedAddress)") // 確認用
                 // 次を実行する　緯度経度を取得することができる
                 //↓
 
-                let searchPlace = selectedText
+                let searchPlace = selectedAddress
                 //CLGeocoderインスタンスを取得
-                let geocoder2nd = CLGeocoder()//geocoder2nd
+                let geocoder = CLGeocoder()//geocoder
                 //入力された文字から位置情報を取得
-                geocoder2nd.geocodeAddressString(searchPlace, completionHandler: { (placemarks, error) in
+                geocoder.geocodeAddressString(searchPlace, completionHandler: { (placemarks, error) in
                 //位置情報が存在する場合（定数geocoderに値が入ってる場合)はunwrapPlacemarksに取り出す。
 
                     if let unwrapPlacemarks = placemarks {
@@ -105,9 +105,9 @@ extension SearchController: UITableViewDelegate, UITableViewDataSource {
                            let targetLatitude = location.coordinate.latitude
                            let targetLongitude = location.coordinate.longitude
 
-                          print("2nd位置情報:\(targetCoordinate)") //確認用
+                          print("位置情報:\(targetCoordinate)") //確認用
                            // Userdeaults.standard に保存する
-                           UserDefaults.standard.set(selectedText, forKey:"targetPlace")
+                           UserDefaults.standard.set(selectedAddress, forKey:"targetPlace")
                             UserDefaults.standard.set(targetLatitude, forKey:"targetLatitude")
                             UserDefaults.standard.set(targetLongitude, forKey:"targetLongitude")
                             UserDefaults.standard.synchronize()
@@ -115,13 +115,13 @@ extension SearchController: UITableViewDelegate, UITableViewDataSource {
        let storyboard: UIStoryboard = self.storyboard!
        let nextView = storyboard.instantiateViewController(withIdentifier: "Map") as! ViewController
        self.present(nextView,animated: true, completion: { () in
-           nextView.myPin.subtitle = selectedText //  pin をnextViewの変数にした
+           nextView.myPin.subtitle = selectedAddress //  pin をnextViewの変数にした
            nextView.myPin.title = selectedPlace //　引き継ぎが可能になった
 
-    //           nextView.ido = selectedText // テキストも同時に引き継ぐか？
+    //           nextView.ido = selectedAddress // テキストも同時に引き継ぐか？
            
            print("selectedPlace:\(selectedPlace)")
-           print("selectedText:\(selectedText)")
+           print("selectedAddress:\(selectedAddress)")
        // self.dismiss(animated: true) //画面表示を消去
        })
                            

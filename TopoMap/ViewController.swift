@@ -3,7 +3,7 @@
 //  TopoMap
 //
 //  Created by 森部高昌 on 2021/10/09.
-//  2022/06/05
+//  2022/06/08
 
 import UIKit
 import MapKit
@@ -35,12 +35,13 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
     private let tileOverlay = MKTileOverlay(urlTemplate: "https://cyberjapandata.gsi.go.jp/xyz/std/{z}/{x}/{y}.png")
     //https://cyberjapandata.gsi.go.jp/xyz/relief/{z}/{x}/{y}.png
     
-    // 地図上に立てるピンを生成すする
+    // 地図上に立てるピンを生成する
     let myPin: MKPointAnnotation = MKPointAnnotation()
 
     // ロケーションマネージャーのインスタンスを作成する
     var locManager: CLLocationManager!
-    
+    var myLatitude:Double = 35.6743169 // 検索地点の緯度の初期値　木場公園
+    var myLongitude:Double = 139.8086198 // 検索地点の軽度の初期値　木場公園
     
     //======================================================
     override func viewDidLoad() {
@@ -49,11 +50,11 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
         mapView.delegate = self
         
 // let temp = UserDefaults.standard.string(forKey: "targetPlace")
-        let ido = UserDefaults.standard.double(forKey: "targetLatitude")
-        let keido = UserDefaults.standard.double(forKey: "targetLongitude")
+        myLatitude = UserDefaults.standard.double(forKey: "targetLatitude")
+        myLongitude = UserDefaults.standard.double(forKey: "targetLongitude")
         
         // 保存した値を読み込む
-        let targetPlace = CLLocationCoordinate2D( latitude: ido,longitude: keido)
+        let targetPlace = CLLocationCoordinate2D( latitude: myLatitude,longitude: myLongitude)
         let span = MKCoordinateSpan (latitudeDelta: 0.01,longitudeDelta: 0.01)
         let targetRegion = MKCoordinateRegion(center: targetPlace, span: span)
         
