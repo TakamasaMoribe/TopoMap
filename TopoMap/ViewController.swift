@@ -3,14 +3,14 @@
 //  TopoMap
 //
 //  Created by 森部高昌 on 2021/10/09.
-//  2022/06/08
+//  2022/06/11
 
 import UIKit
 import MapKit
 import CoreLocation
 
 
-class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelegate, UITextFieldDelegate {
+class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelegate {
 
     @IBOutlet weak var mapView: MKMapView!
     
