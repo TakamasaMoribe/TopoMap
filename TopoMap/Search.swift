@@ -3,7 +3,7 @@
 //  TopoMap
 //
 //  Created by 森部高昌 on 2022/05/05
-//  2022/06/08
+//  2022/06/11
 
 import UIKit
 import MapKit
@@ -17,12 +17,12 @@ class SearchController: UIViewController, UITextFieldDelegate,UISearchBarDelegat
     // 検索結果を表示する tableView
     @IBOutlet weak var tableView: UITableView!
     
-    // toolBarのBack ボタンを押したとき 画面遷移する
+    // toolBarのBack ボタンを押したとき、地図画面(起動画面)に遷移する
     @IBAction func backButtonClicked(_ sender: UIBarButtonItem) {
         let storyboard: UIStoryboard = self.storyboard!
         let nextView = storyboard.instantiateViewController(withIdentifier: "Map") as! ViewController
         self.present(nextView,animated: true, completion: { () in
-        // nextView.inputLabel.text = self.textField.text // テキストも同時に引き継ぐ
+        // nextView.inputLabel.text = self.textField.text // テキストも引き継ぐ
         // self.dismiss(animated: true) //画面表示を消去
         })
     }
@@ -32,11 +32,13 @@ class SearchController: UIViewController, UITextFieldDelegate,UISearchBarDelegat
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //textField.delegate = self
         mySearchBar.delegate = self
         tableView.delegate = self
         tableView.dataSource = self
         searchCompleter.delegate = self
+        // サーチバーにフォーカスをあてる
+        mySearchBar.becomeFirstResponder()
+
     }
 
     
@@ -49,26 +51,26 @@ class SearchController: UIViewController, UITextFieldDelegate,UISearchBarDelegat
             //searchCompleter.resultTypes = .address // 地図上の位置のみ
             print("searchKey:\(searchKey)") // 確認用
         }
-        
-        self.mySearchBar.endEditing(true)
+        self.mySearchBar.endEditing(true) // 入力終了(EnterKey)で、キーボードをしまう
     }
         
 
 } // class SearchController:
 
 
-//検索の結果は MKLocalSearchCompleter の results プロパティに入っています。 ここには先述の MKLocalSearchCompletion が配列で格納されているので、それをテーブルビューで表示するだけです。//
+
+//検索の結果は MKLocalSearchCompleter の results プロパティに入る。
+//MKLocalSearchCompletion が配列で格納されているので、それをテーブルビューで表示する。
 extension SearchController: UITableViewDelegate, UITableViewDataSource {
-    // UITableViewDataSource と UITableViewDelegate のプロトコルを追加しています。
-    // これに必然的に、以下の2つのメソッドを実装が必要になります。
-    // セルの数の取得とセルの生成
+    // ２つのプロトコルを追加しているので、2つのメソッドを実装が必要になる。
+    // セルの数の取得と、セルの生成
     
-    // UITableView に表示したいセルの数を取得する
+    // numberOfRowsInSection　表示したいセルの数を取得する
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return searchCompleter.results.count // 検索結果の個数
+        return searchCompleter.results.count // 検索して得られた結果の個数
     }
 
-    // セルの数だけ呼び出されて、得られた値を各セルに代入して生成(表示)する
+    // cellForRowAt　得られた値をセルに代入して生成(表示)する
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         let completion = searchCompleter.results[indexPath.row]//配列に入っている
@@ -77,31 +79,29 @@ extension SearchController: UITableViewDelegate, UITableViewDataSource {
         return cell
     }
     
-    // didSelectRowAtがCellを触ったことを感知している
+    // didSelectRowAt　Cellを選択した(触った)ことを感知している
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("第\(indexPath.section)セクションの\(indexPath.row)番セル") // 確認用
         let cell: UITableViewCell = self.tableView(tableView, cellForRowAt: indexPath)
         if let selectedPlace = cell.textLabel?.text { // 選んだセルに地名があれば
-            if let selectedAddress = cell.detailTextLabel?.text! { //選んだセルに住所があれば
+            if let selectedAddress = cell.detailTextLabel?.text! { //さらに住所があれば
                 print("選択したセルの内容:\(selectedAddress)") // 確認用
-                // 次を実行する　緯度経度を取得することができる
-                //↓
-
+                
+                //↓　緯度経度を取得する
                 let searchPlace = selectedAddress
-                //CLGeocoderインスタンスを取得
+                //CLGeocoderインスタンスを生成する
                 let geocoder = CLGeocoder()//geocoder
-                //入力された文字から位置情報を取得
+                //入力された文字から位置情報を取得する
                 geocoder.geocodeAddressString(searchPlace, completionHandler: { (placemarks, error) in
-                //位置情報が存在する場合（定数geocoderに値が入ってる場合)はunwrapPlacemarksに取り出す。
-
+                //位置情報が存在する場合(geocoderに値がある時)はunwrapPlacemarksに取り出す。
                     if let unwrapPlacemarks = placemarks {
                         print("unwrapPlacemarks:\(unwrapPlacemarks)")
-                      //1件目の情報を取り出す
-                     if let firstPlacemark = unwrapPlacemarks.first {
-                         print("firstPlacemark:\(firstPlacemark)")
-                       //位置情報を取り出す
-                       if let location = firstPlacemark.location {
-                           print("location:\(location)")
+                        //1件目の情報を取り出す
+                        if let firstPlacemark = unwrapPlacemarks.first {
+                        print("firstPlacemark:\(firstPlacemark)")
+                            //位置情報を取り出す
+                            if let location = firstPlacemark.location {
+                            print("location:\(location)")
                          //位置情報から緯度経度をtargetCoordinateに取り出す
                            let targetCoordinate = location.coordinate //確認用
                            let targetLatitude = location.coordinate.latitude
@@ -117,33 +117,28 @@ extension SearchController: UITableViewDelegate, UITableViewDataSource {
        let storyboard: UIStoryboard = self.storyboard!
        let nextView = storyboard.instantiateViewController(withIdentifier: "Map") as! ViewController
        self.present(nextView,animated: true, completion: { () in
-           nextView.myPin.subtitle = selectedAddress //  pin をnextViewの変数にした
-           nextView.myPin.title = selectedPlace //　引き継ぎが可能になった
-
-    //           nextView.ido = selectedAddress // テキストも同時に引き継ぐか？
-           
-           print("selectedPlace:\(selectedPlace)")
-           print("selectedAddress:\(selectedAddress)")
-       // self.dismiss(animated: true) //画面表示を消去
+           nextView.myPin.title = selectedPlace // 地名　pinをnextViewの変数にした
+           nextView.myPin.subtitle = selectedAddress // 住所　引き継ぎが可能
+           // nextView.ido = selectedAddress // 緯度経度も同時に引き継ぐか？
+           print("selectedPlace:\(selectedPlace)") //確認用
+           print("selectedAddress:\(selectedAddress)") //確認用
+           // self.dismiss(animated: true) //画面表示を消去
        })
                            
-                           
-                           
-                       } // if let location
-                     } // if let firstPlacemark
-                    } // if let unwrapPlacemark
+                       } // if let location =
+                     } // if let firstPlacemark =
+                    } // if let unwrapPlacemark =
                     else {
                     print("緯度経度のデータが見つかりません")//ここもOK
                     }
                 })//geocoder.geocodeAddressString(searchPlace,
-                
-                
+                                
                 //↑
-            }
-        }
-       }
-        
+            } // if let selectedAddress =
+        } // if let selectedPlace =
+    } //func tableView(
 } //extension SearchController: UITableViewDelegate, UITableViewDataSource {
+
 
 
 extension SearchController: MKLocalSearchCompleterDelegate {

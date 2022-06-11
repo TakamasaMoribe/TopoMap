@@ -77,7 +77,7 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
         locManager = CLLocationManager()
         locManager.delegate = self
  
-        locManager.desiredAccuracy = kCLLocationAccuracyHundredMeters //誤差100m程度の精度
+        locManager.desiredAccuracy = kCLLocationAccuracyHundredMeters//誤差100m程度の精度
         //kCLLocationAccuracyNearestTenMeters    誤差10m程度の精度
         //kCLLocationAccuracyBest    最高精度(デフォルト値)
         locManager.distanceFilter = 5//精度は5ｍにしてみた
