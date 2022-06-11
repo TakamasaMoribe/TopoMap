@@ -48,31 +48,32 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
         super.viewDidLoad()
         
         mapView.delegate = self
-        
-// let temp = UserDefaults.standard.string(forKey: "targetPlace")
+
+        // 保存した値を読み込む
+        // let temp = UserDefaults.standard.string(forKey: "targetPlace")
         myLatitude = UserDefaults.standard.double(forKey: "targetLatitude")
         myLongitude = UserDefaults.standard.double(forKey: "targetLongitude")
-        
-        // 保存した値を読み込む
+
+        // 表示する地図の中心位置＝検索地点＝Pinを置く位置
         let targetPlace = CLLocationCoordinate2D( latitude: myLatitude,longitude: myLongitude)
         let span = MKCoordinateSpan (latitudeDelta: 0.01,longitudeDelta: 0.01)
         let targetRegion = MKCoordinateRegion(center: targetPlace, span: span)
-        
         // MapViewに中心点を設定
         mapView.setCenter(targetPlace, animated: true)
         mapView.setRegion(targetRegion, animated:true)
         
-        mapView.addOverlay(tileOverlay, level: .aboveLabels) // 地理院地図の表示
-        if let renderer = mapView.renderer(for: tileOverlay) {
-            renderer.alpha = 0.1 // 地理院地図の透明度の初期値　スライダーで可変
-        }
-        
-        // ピンの座標を設定・・・・位置がおかしい。画面の中央に表示される　targetPlaceの値が変？
-        myPin.coordinate = targetPlace
+        // ピンの座標を設定。画面の中央に表示される
+        myPin.coordinate = targetPlace // 目的地
         // MapViewにピンを追加.
         mapView.addAnnotation(myPin)
         
+        mapView.addOverlay(tileOverlay, level: .aboveLabels) // 地理院地図の表示
+        if let renderer = mapView.renderer(for: tileOverlay) {
+            renderer.alpha = 0.1 // 地理院地図の透明度の初期値　　スライダーで可変
+        }
                 
+        // 現在地の取得
+        // ロケーションマネージャーのインスタンスを作成する
         locManager = CLLocationManager()
         locManager.delegate = self
  
@@ -83,9 +84,8 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
 
         // 位置情報の使用の許可を得て、取得する
         locManager.requestWhenInUseAuthorization()
-
         locationManagerDidChangeAuthorization(locManager)
-            //authorizationStatus() がdeprecated になったため、上のメソッドで対応している
+
     }
     
     //======================================================
