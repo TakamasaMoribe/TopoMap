@@ -38,7 +38,6 @@ class SearchController: UIViewController, UITextFieldDelegate,UISearchBarDelegat
         searchCompleter.delegate = self
         // サーチバーにフォーカスをあてる
         mySearchBar.becomeFirstResponder()
-
     }
 
     
@@ -54,7 +53,6 @@ class SearchController: UIViewController, UITextFieldDelegate,UISearchBarDelegat
         self.mySearchBar.endEditing(true) // 入力終了(EnterKey)で、キーボードをしまう
     }
         
-
 } // class SearchController:
 
 
@@ -62,15 +60,15 @@ class SearchController: UIViewController, UITextFieldDelegate,UISearchBarDelegat
 //検索の結果は MKLocalSearchCompleter の results プロパティに入る。
 //MKLocalSearchCompletion が配列で格納されているので、それをテーブルビューで表示する。
 extension SearchController: UITableViewDelegate, UITableViewDataSource {
-    // ２つのプロトコルを追加しているので、2つのメソッドを実装が必要になる。
+    // ２つのプロトコルを追加している。以下２つのメソッドを実装が必要になる。
     // セルの数の取得と、セルの生成
     
-    // numberOfRowsInSection　表示したいセルの数を取得する
+    // セルの数の取得　numberOfRowsInSection　表示したいセルの数を取得する
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return searchCompleter.results.count // 検索して得られた結果の個数
     }
 
-    // cellForRowAt　得られた値をセルに代入して生成(表示)する
+    // セルの生成　cellForRowAt　得られた値をセルに代入して生成(表示)する
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         let completion = searchCompleter.results[indexPath.row]//配列に入っている
