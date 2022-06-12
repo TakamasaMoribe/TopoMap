@@ -107,7 +107,7 @@ extension SearchController: UITableViewDelegate, UITableViewDataSource {
 
                           print("位置情報:\(targetCoordinate)") //確認用
                            // Userdeaults.standard に保存する
-                           UserDefaults.standard.set(selectedAddress, forKey:"targetPlace")
+                           UserDefaults.standard.set(selectedPlace, forKey:"targetPlace")
                             UserDefaults.standard.set(targetLatitude, forKey:"targetLatitude")
                             UserDefaults.standard.set(targetLongitude, forKey:"targetLongitude")
                             UserDefaults.standard.synchronize()
@@ -131,7 +131,7 @@ extension SearchController: UITableViewDelegate, UITableViewDataSource {
                     }
                 })//geocoder.geocodeAddressString(searchPlace,
                                 
-                //↑
+                //↑ 緯度経度の取得　終わり
             } // if let selectedAddress =
         } // if let selectedPlace =
     } //func tableView(

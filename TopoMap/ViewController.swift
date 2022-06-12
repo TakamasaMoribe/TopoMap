@@ -38,7 +38,7 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
     // 地図上に立てるピンを生成する
     let myPin: MKPointAnnotation = MKPointAnnotation()
 
-    // ロケーションマネージャーのインスタンスを作成する
+    // ロケーションマネージャーのインスタンスを生成する
     var locManager: CLLocationManager!
     var myLatitude:Double = 35.6743169 // 検索地点の緯度の初期値　木場公園
     var myLongitude:Double = 139.8086198 // 検索地点の軽度の初期値　木場公園
@@ -50,7 +50,7 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
         mapView.delegate = self
 
         // 保存した値を読み込む
-        // let temp = UserDefaults.standard.string(forKey: "targetPlace")
+        let selectedPlace = UserDefaults.standard.string(forKey: "targetPlace")
         myLatitude = UserDefaults.standard.double(forKey: "targetLatitude")
         myLongitude = UserDefaults.standard.double(forKey: "targetLongitude")
 
@@ -64,6 +64,8 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
         
         // ピンの座標を設定。画面の中央に表示される
         myPin.coordinate = targetPlace // 目的地
+        myPin.title = selectedPlace // 地名
+        // myPin.subtitle = selectedAddress // 住所 引き継いでいない
         // MapViewにピンを追加.
         mapView.addAnnotation(myPin)
         
@@ -117,7 +119,7 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
 
 }
 
-// 地理院地図の表示 オーバーレイとして
+// 地理院地図の表示 オーバーレイとして表示する
 extension ViewController {
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
         return MKTileOverlayRenderer(overlay: overlay)
