@@ -3,7 +3,7 @@
 //  TopoMap
 //
 //  Created by 森部高昌 on 2021/10/09.
-//  2022/06/11
+//  2022/06/15
 
 import UIKit
 import MapKit
@@ -24,16 +24,16 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
         self.present(nextView, animated: true, completion: nil)
     }
         
-    // 地形図表示の濃淡を決めるスライダーの設定
+    // 地理院地図　表示の濃淡を決めるスライダーの設定
     @IBAction func sliderDidChange(_ slider: UISlider) {
-        if let renderer = mapView.renderer(for: tileOverlay) {
-            renderer.alpha = CGFloat(slider.value)
+        if let renderer = mapView.renderer(for: gsiTileOverlay) { // 地理院地図
+            renderer.alpha = CGFloat(slider.value) // 濃淡のプロパティ値＝スライダ値
         }
     }
     
     // 国土地理院が提供する色別標高図のURL。ここを変えると、様々な地図データを表示できる
-    private let tileOverlay = MKTileOverlay(urlTemplate: "https://cyberjapandata.gsi.go.jp/xyz/std/{z}/{x}/{y}.png")
-    //https://cyberjapandata.gsi.go.jp/xyz/relief/{z}/{x}/{y}.png
+    private let gsiTileOverlay = MKTileOverlay(urlTemplate: "https://cyberjapandata.gsi.go.jp/xyz/std/{z}/{x}/{y}.png")
+        //レリーフhttps://cyberjapandata.gsi.go.jp/xyz/relief/{z}/{x}/{y}.png
     
     // 地図上に立てるピンを生成する
     let myPin: MKPointAnnotation = MKPointAnnotation()
@@ -62,31 +62,31 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
         mapView.setCenter(targetPlace, animated: true)
         mapView.setRegion(targetRegion, animated:true)
         
-        // ピンの座標を設定。画面の中央に表示される
-        myPin.coordinate = targetPlace // 目的地
-        myPin.title = selectedPlace // 地名
-        // myPin.subtitle = selectedAddress // 住所 引き継いでいない
-        // MapViewにピンを追加.
-        mapView.addAnnotation(myPin)
+        // ピンの座標とタイトルを設定。画面の中央に表示される
+        myPin.coordinate = targetPlace // 目的地の座標
+        myPin.title = selectedPlace    // 選択した地名
+        // myPin.subtitle = selectedAddress // 住所は引き継いでいない
+        mapView.addAnnotation(myPin) // MapViewにピンを追加する
         
-        mapView.addOverlay(tileOverlay, level: .aboveLabels) // 地理院地図の表示
-        if let renderer = mapView.renderer(for: tileOverlay) {
-            renderer.alpha = 0.1 // 地理院地図の透明度の初期値　　スライダーで可変
-        }
+        mapView.addOverlay(gsiTileOverlay, level: .aboveLabels) // 地理院地図の表示
+            if let renderer = mapView.renderer(for: gsiTileOverlay) {
+                renderer.alpha = 0.1 // 地理院地図の透明度の初期値　　スライダーで可変
+            }
+        
                 
-        // 現在地の取得
-        // ロケーションマネージャーのインスタンスを作成する
-        locManager = CLLocationManager()
-        locManager.delegate = self
- 
-        locManager.desiredAccuracy = kCLLocationAccuracyHundredMeters//誤差100m程度の精度
-        //kCLLocationAccuracyNearestTenMeters    誤差10m程度の精度
-        //kCLLocationAccuracyBest    最高精度(デフォルト値)
-        locManager.distanceFilter = 5//精度は5ｍにしてみた
-
-        // 位置情報の使用の許可を得て、取得する
-        locManager.requestWhenInUseAuthorization()
-        locationManagerDidChangeAuthorization(locManager)
+//        // 現在地の取得　コメントアウトしてみた 0615
+//        // ロケーションマネージャーのインスタンスを作成する
+//        locManager = CLLocationManager()
+//        locManager.delegate = self
+//
+//        locManager.desiredAccuracy = kCLLocationAccuracyHundredMeters//誤差100m程度の精度
+//        //kCLLocationAccuracyNearestTenMeters    誤差10m程度の精度
+//        //kCLLocationAccuracyBest    最高精度(デフォルト値)
+//        locManager.distanceFilter = 5//精度は5ｍにしてみた
+//
+//        // 位置情報の使用の許可を得て、取得する
+//        locManager.requestWhenInUseAuthorization()
+//        locationManagerDidChangeAuthorization(locManager)
 
     }
     
@@ -103,21 +103,22 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
 //        mapView.userTrackingMode = .followWithHeading
 //    }
     
-    //  位置情報の使用許可・・・初回起動時にだけ呼ばれる --------------------------------
-    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
-     let status = manager.authorizationStatus
-        switch status {
-        case .authorizedAlways, .authorizedWhenInUse:
-            locManager.startUpdatingLocation() // 取得を開始する
-            break
-        case .notDetermined, .denied, .restricted:
-            break
-        default:
-            break
-        }
-    } // -----------------------------------------------------------------------
+//    //  位置情報の使用許可・・・初回起動時にだけ呼ばれる --------------------------------
+//    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
+//     let status = manager.authorizationStatus
+//        switch status {
+//        case .authorizedAlways, .authorizedWhenInUse:
+//            locManager.startUpdatingLocation() // 取得を開始する
+//            break
+//        case .notDetermined, .denied, .restricted:
+//            break
+//        default:
+//            break
+//        }
+//    } // -----------------------------------------------------------------------
 
 }
+
 
 // 地理院地図の表示 オーバーレイとして表示する
 extension ViewController {
