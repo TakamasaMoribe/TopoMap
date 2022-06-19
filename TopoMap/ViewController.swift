@@ -32,8 +32,10 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
     }
     
     // 国土地理院が提供する色別標高図のURL。ここを変えると、様々な地図データを表示できる
-    private let gsiTileOverlay = MKTileOverlay(urlTemplate: "https://cyberjapandata.gsi.go.jp/xyz/std/{z}/{x}/{y}.png")
-        //レリーフhttps://cyberjapandata.gsi.go.jp/xyz/relief/{z}/{x}/{y}.png
+    private let gsiTileOverlay = MKTileOverlay(urlTemplate:
+    "https://cyberjapandata.gsi.go.jp/xyz/std/{z}/{x}/{y}.png") // 標準
+      //"https://cyberjapandata.gsi.go.jp/xyz/std/{z}/{x}/{y}.png") // 標準
+      //"https://cyberjapandata.gsi.go.jp/xyz/relief/{z}/{x}/{y}.png") //relief
     
     // 地図上に立てるピンを生成する
     let myPin: MKPointAnnotation = MKPointAnnotation()

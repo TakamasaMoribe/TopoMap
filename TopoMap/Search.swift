@@ -47,7 +47,6 @@ class SearchController: UIViewController, UITextFieldDelegate,UISearchBarDelegat
             searchCompleter.resultTypes = .query //
             //searchCompleter.resultTypes = .pointOfInterest // 関連する場所
             //searchCompleter.resultTypes = .address // 地図上の位置のみ
-            print("searchKey:\(searchKey)") // 確認用
         }
         self.mySearchBar.endEditing(true) // 入力終了(EnterKey)で、キーボードをしまう
     }
@@ -112,7 +111,8 @@ extension SearchController: UITableViewDelegate, UITableViewDataSource {
        self.present(nextView,animated: true, completion: { () in
            nextView.myPin.title = selectedPlace // 地名　pinをnextViewの変数にした
            nextView.myPin.subtitle = selectedAddress // 住所　引き継ぎが可能
-           // nextView.ido = selectedAddress // 緯度経度も同時に引き継ぐか？
+           nextView.myLatitude = targetLatitude // 緯度も同時に引き継ぐ?
+           nextView.myLongitude = targetLongitude // 経度も同時に引き継ぐ?
            // self.dismiss(animated: true) //画面表示を消去
        })
                            
