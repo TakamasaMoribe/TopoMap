@@ -36,16 +36,20 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
     // 国土地理院が提供する色別標高図のURL。ここを変えると、様々な地図データを表示できる
     private let gsiTileOverlayStd = MKTileOverlay(urlTemplate:
     "https://cyberjapandata.gsi.go.jp/xyz/std/{z}/{x}/{y}.png") // 標準
-      //"https://cyberjapandata.gsi.go.jp/xyz/std/{z}/{x}/{y}.png") // 標準
-      //"https://cyberjapandata.gsi.go.jp/xyz/relief/{z}/{x}/{y}.png") //relief
+    private let gsiTileOverlayRel = MKTileOverlay(urlTemplate:
+    "https://cyberjapandata.gsi.go.jp/xyz/relief/{z}/{x}/{y}.png") //relief
     
     // 地図上に立てるピンを生成する
     let myPin: MKPointAnnotation = MKPointAnnotation()
 
     // ロケーションマネージャーのインスタンスを生成する
     var locManager: CLLocationManager!
-    var myLatitude:Double = 35.6743169 // 検索地点の緯度の初期値　木場公園
-    var myLongitude:Double = 139.8086198 // 検索地点の軽度の初期値　木場公園
+    
+    // 検索地点の初期値を設定する
+    var myPlace:String = "木場公園"
+    var myAddress:String = "〒135-0042,東京都江東区,木場４丁目"
+    var myLatitude:Double = 35.6743169 // 木場公園の緯度
+    var myLongitude:Double = 139.8086198 // 木場公園の経度
     
     //======================================================
     override func viewDidLoad() {
@@ -54,7 +58,9 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
         mapView.delegate = self
 
         // 保存した値を読み込む
-        let selectedPlace = UserDefaults.standard.string(forKey: "targetPlace")
+        //let selectedPlace = UserDefaults.standard.string(forKey: "targetPlace")
+        myPlace = UserDefaults.standard.string(forKey: "targetPlace")!
+        myAddress = UserDefaults.standard.string(forKey: "targetAddress")!
         myLatitude = UserDefaults.standard.double(forKey: "targetLatitude")
         myLongitude = UserDefaults.standard.double(forKey: "targetLongitude")
 
@@ -66,10 +72,10 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
         mapView.setCenter(targetPlace, animated: true)
         mapView.setRegion(targetRegion, animated:true)
         
-        // ピンの座標とタイトルを設定。画面の中央に表示される
-        myPin.coordinate = targetPlace // 目的地の座標
-        myPin.title = selectedPlace    // 選択した地名
-        // myPin.subtitle = selectedAddress // 住所は引き継いでいない
+        // ピンの座標とタイトルを設定。ピンの位置が画面の中央になる
+        myPin.coordinate = targetPlace   // 目的地の座標
+        myPin.title = myPlace            // 選択した地名
+        myPin.subtitle = myAddress       // 選択した住所
         mapView.addAnnotation(myPin) // MapViewにピンを追加する
         
         mapView.addOverlay(gsiTileOverlayStd, level: .aboveLabels) // 地理院地図の表示
@@ -92,7 +98,7 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
 //        locManager.requestWhenInUseAuthorization()
 //        locationManagerDidChangeAuthorization(locManager)
 
-    }
+    } // end of override func viewDidLoad ・・・
     
     //======================================================
 
@@ -121,7 +127,7 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
 //        }
 //    } // -----------------------------------------------------------------------
 
-}
+} // end of class ViewController ・・・
 
 
 // 地理院地図の表示 オーバーレイとして表示する

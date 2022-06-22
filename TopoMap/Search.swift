@@ -98,6 +98,7 @@ extension SearchController: UITableViewDelegate, UITableViewDataSource {
 
                            // Userdeaults.standard に保存する
                            UserDefaults.standard.set(selectedPlace, forKey:"targetPlace")
+                            UserDefaults.standard.set(selectedAddress, forKey:"targetAddress")
                             UserDefaults.standard.set(targetLatitude, forKey:"targetLatitude")
                             UserDefaults.standard.set(targetLongitude, forKey:"targetLongitude")
                             UserDefaults.standard.synchronize()
