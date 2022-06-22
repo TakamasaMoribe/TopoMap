@@ -3,7 +3,7 @@
 //  TopoMap
 //
 //  Created by 森部高昌 on 2022/05/05
-//  2022/06/11
+//  2022/06/22
 
 import UIKit
 import MapKit
@@ -14,7 +14,7 @@ class SearchController: UIViewController, UITextFieldDelegate,UISearchBarDelegat
     // 検索地名入力用　サーチバー
     @IBOutlet weak var mySearchBar: UISearchBar!
     
-    // 検索結果を表示する tableView
+    // 検索結果表示用　テーブルビュー
     @IBOutlet weak var tableView: UITableView!
     
     // toolBarのBack ボタンを押したとき、地図画面(起動画面)に遷移する
@@ -88,17 +88,13 @@ extension SearchController: UITableViewDelegate, UITableViewDataSource {
                 geocoder.geocodeAddressString(searchPlace, completionHandler: { (placemarks, error) in
                 //位置情報が存在する場合(geocoderに値がある時)はunwrapPlacemarksに取り出す。
                     if let unwrapPlacemarks = placemarks {
-                        print("unwrapPlacemarks:\(unwrapPlacemarks)")
                         //1件目の情報を取り出す
                         if let firstPlacemark = unwrapPlacemarks.first {
-                        print("firstPlacemark:\(firstPlacemark)")
                             //位置情報を取り出す
                             if let location = firstPlacemark.location {
-                            print("location:\(location)")
-                         //位置情報から緯度経度をtargetCoordinateに取り出す
-//                           let targetCoordinate = location.coordinate //確認用
-                           let targetLatitude = location.coordinate.latitude
-                           let targetLongitude = location.coordinate.longitude
+                                //位置情報から緯度経度をtargetCoordinateに取り出す
+                                let targetLatitude = location.coordinate.latitude
+                                let targetLongitude = location.coordinate.longitude
 
                            // Userdeaults.standard に保存する
                            UserDefaults.standard.set(selectedPlace, forKey:"targetPlace")
