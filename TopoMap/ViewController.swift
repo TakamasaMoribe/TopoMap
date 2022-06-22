@@ -3,7 +3,9 @@
 //  TopoMap
 //
 //  Created by 森部高昌 on 2021/10/09.
-//  2022/06/15
+//  2022/06/22
+//  初期値として、①前回の検索地点を表示する。②いつも同じ地点を表示する。
+// 等高線地図とレリーフ地図の同居は可能か？
 
 import UIKit
 import MapKit
@@ -26,13 +28,13 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
         
     // 地理院地図　表示の濃淡を決めるスライダーの設定
     @IBAction func sliderDidChange(_ slider: UISlider) {
-        if let renderer = mapView.renderer(for: gsiTileOverlay) { // 地理院地図
+        if let renderer = mapView.renderer(for: gsiTileOverlayStd) { // 地理院地図
             renderer.alpha = CGFloat(slider.value) // 濃淡のプロパティ値＝スライダ値
         }
     }
     
     // 国土地理院が提供する色別標高図のURL。ここを変えると、様々な地図データを表示できる
-    private let gsiTileOverlay = MKTileOverlay(urlTemplate:
+    private let gsiTileOverlayStd = MKTileOverlay(urlTemplate:
     "https://cyberjapandata.gsi.go.jp/xyz/std/{z}/{x}/{y}.png") // 標準
       //"https://cyberjapandata.gsi.go.jp/xyz/std/{z}/{x}/{y}.png") // 標準
       //"https://cyberjapandata.gsi.go.jp/xyz/relief/{z}/{x}/{y}.png") //relief
@@ -70,8 +72,8 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
         // myPin.subtitle = selectedAddress // 住所は引き継いでいない
         mapView.addAnnotation(myPin) // MapViewにピンを追加する
         
-        mapView.addOverlay(gsiTileOverlay, level: .aboveLabels) // 地理院地図の表示
-            if let renderer = mapView.renderer(for: gsiTileOverlay) {
+        mapView.addOverlay(gsiTileOverlayStd, level: .aboveLabels) // 地理院地図の表示
+            if let renderer = mapView.renderer(for: gsiTileOverlayStd) {
                 renderer.alpha = 0.1 // 地理院地図の透明度の初期値　　スライダーで可変
             }
         
