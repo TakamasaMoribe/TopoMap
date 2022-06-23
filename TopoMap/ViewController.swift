@@ -85,7 +85,7 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
             if let renderer = mapView.renderer(for: gsiTileOverlayStd) {
                 renderer.alpha = 0.1 // 地理院地図の透明度の初期値　　スライダーで可変
             }
-        mapView.addOverlay(gsiTileOverlayRel, level: .aboveLabels) // 標準地図
+        mapView.addOverlay(gsiTileOverlayRel, level: .aboveLabels) // レリーフ地図
             if let renderer = mapView.renderer(for: gsiTileOverlayRel) {
                 renderer.alpha = 0.1 // 地理院地図の透明度の初期値　　スライダーで可変
             }

@@ -3,7 +3,7 @@
 //  TopoMap
 //
 //  Created by 森部高昌 on 2022/05/05
-//  2022/06/22
+//  2022/06/23
 
 import UIKit
 import MapKit
@@ -46,7 +46,7 @@ class SearchController: UIViewController, UITextFieldDelegate,UISearchBarDelegat
             searchCompleter.queryFragment = searchKey // searchBarに入力した文字
             searchCompleter.resultTypes = .query //
             //searchCompleter.resultTypes = .pointOfInterest // 関連する場所
-            //searchCompleter.resultTypes = .address // 地図上の位置のみ
+            //searchCompleter.resultTypes = .address         // 地図上の位置のみ
         }
         self.mySearchBar.endEditing(true) // 入力終了(EnterKey)で、キーボードをしまう
     }
@@ -106,10 +106,10 @@ extension SearchController: UITableViewDelegate, UITableViewDataSource {
        let storyboard: UIStoryboard = self.storyboard!
        let nextView = storyboard.instantiateViewController(withIdentifier: "Map") as! ViewController
        self.present(nextView,animated: true, completion: { () in
-           nextView.myPin.title = selectedPlace // 地名　pinをnextViewの変数にした
+           nextView.myPin.title = selectedPlace      // 地名　pinをnextViewの変数にした
            nextView.myPin.subtitle = selectedAddress // 住所　引き継ぎが可能
-           nextView.myLatitude = targetLatitude // 緯度も同時に引き継ぐ?
-           nextView.myLongitude = targetLongitude // 経度も同時に引き継ぐ?
+           nextView.myLatitude = targetLatitude      // 緯度も同時に引き継ぐ?
+           nextView.myLongitude = targetLongitude    // 経度も同時に引き継ぐ?
            // self.dismiss(animated: true) //画面表示を消去
        })
                            
