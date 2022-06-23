@@ -3,9 +3,9 @@
 //  TopoMap
 //
 //  Created by 森部高昌 on 2021/10/09.
-//  2022/06/22
+//  2022/06/23
 //  初期値として、①前回の検索地点を表示する。②いつも同じ地点を表示する。
-// 等高線地図とレリーフ地図の同居は可能か？
+// 等高線地図とレリーフ地図の同居は、macではできた。iPhoneではできていない
 
 import UIKit
 import MapKit
@@ -26,10 +26,13 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
         self.present(nextView, animated: true, completion: nil)
     }
         
-    // 地理院地図　表示の濃淡を決めるスライダーの設定
+    // 地理院地図　表示の濃淡を決めるスライダーの設定 標準地図とレリーフ地図
     @IBAction func sliderDidChange(_ slider: UISlider) {
         if let renderer = mapView.renderer(for: gsiTileOverlayStd) { // 標準地図
             renderer.alpha = CGFloat(slider.value) // 濃淡のプロパティ値＝スライダ値
+        }
+        if let renderer = mapView.renderer(for: gsiTileOverlayRel) { // レリーフ地図
+            renderer.alpha = CGFloat(slider.value) * 0.5// スライダ値*0.8
         }
     }
     
@@ -82,7 +85,10 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
             if let renderer = mapView.renderer(for: gsiTileOverlayStd) {
                 renderer.alpha = 0.1 // 地理院地図の透明度の初期値　　スライダーで可変
             }
-        
+        mapView.addOverlay(gsiTileOverlayRel, level: .aboveLabels) // 標準地図
+            if let renderer = mapView.renderer(for: gsiTileOverlayRel) {
+                renderer.alpha = 0.1 // 地理院地図の透明度の初期値　　スライダーで可変
+            }
                 
 //        // 現在地の取得　コメントアウトしてみた 0615
 //        // ロケーションマネージャーのインスタンスを作成する
