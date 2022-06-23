@@ -28,16 +28,16 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
         
     // 地理院地図　表示の濃淡を決めるスライダーの設定
     @IBAction func sliderDidChange(_ slider: UISlider) {
-        if let renderer = mapView.renderer(for: gsiTileOverlayStd) { // 地理院地図
+        if let renderer = mapView.renderer(for: gsiTileOverlayStd) { // 標準地図
             renderer.alpha = CGFloat(slider.value) // 濃淡のプロパティ値＝スライダ値
         }
     }
     
     // 国土地理院が提供する色別標高図のURL。ここを変えると、様々な地図データを表示できる
     private let gsiTileOverlayStd = MKTileOverlay(urlTemplate:
-    "https://cyberjapandata.gsi.go.jp/xyz/std/{z}/{x}/{y}.png") // 標準
+    "https://cyberjapandata.gsi.go.jp/xyz/std/{z}/{x}/{y}.png")    // Std:標準地図
     private let gsiTileOverlayRel = MKTileOverlay(urlTemplate:
-    "https://cyberjapandata.gsi.go.jp/xyz/relief/{z}/{x}/{y}.png") //relief
+    "https://cyberjapandata.gsi.go.jp/xyz/relief/{z}/{x}/{y}.png") //Rel:レリーフ
     
     // 地図上に立てるピンを生成する
     let myPin: MKPointAnnotation = MKPointAnnotation()
@@ -58,7 +58,6 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
         mapView.delegate = self
 
         // 保存した値を読み込む
-        //let selectedPlace = UserDefaults.standard.string(forKey: "targetPlace")
         myPlace = UserDefaults.standard.string(forKey: "targetPlace")!
         myAddress = UserDefaults.standard.string(forKey: "targetAddress")!
         myLatitude = UserDefaults.standard.double(forKey: "targetLatitude")
@@ -76,9 +75,10 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
         myPin.coordinate = targetPlace   // 目的地の座標
         myPin.title = myPlace            // 選択した地名
         myPin.subtitle = myAddress       // 選択した住所
-        mapView.addAnnotation(myPin) // MapViewにピンを追加する
+        mapView.addAnnotation(myPin)     // MapViewにピンを追加する
         
-        mapView.addOverlay(gsiTileOverlayStd, level: .aboveLabels) // 地理院地図の表示
+        // 地理院地図のオーバーレイ表示
+        mapView.addOverlay(gsiTileOverlayStd, level: .aboveLabels) // 標準地図
             if let renderer = mapView.renderer(for: gsiTileOverlayStd) {
                 renderer.alpha = 0.1 // 地理院地図の透明度の初期値　　スライダーで可変
             }
