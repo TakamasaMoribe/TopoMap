@@ -34,7 +34,7 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
             renderer.alpha = CGFloat(slider.value) // 濃淡のプロパティ値＝スライダ値
         }
         if let renderer = mapView.renderer(for: gsiTileOverlayRel) { // レリーフ地図
-            renderer.alpha = CGFloat(slider.value) * 0.5// スライダ値*0.8
+            renderer.alpha = CGFloat(slider.value) * 0.5// スライダ値*0.5
         }
     }
     
@@ -94,8 +94,8 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
                 
 //        // 現在地の取得　コメントアウトしてみた 0615
 //        // ロケーションマネージャーのインスタンスを作成する
-//        locManager = CLLocationManager()
-//        locManager.delegate = self
+        locManager = CLLocationManager()
+        locManager.delegate = self
 //
 //        locManager.desiredAccuracy = kCLLocationAccuracyHundredMeters//誤差100m程度の精度
 //        //kCLLocationAccuracyNearestTenMeters    誤差10m程度の精度
@@ -103,8 +103,8 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
 //        locManager.distanceFilter = 5//精度は5ｍにしてみた
 //
 //        // 位置情報の使用の許可を得て、取得する
-//        locManager.requestWhenInUseAuthorization()
-//        locationManagerDidChangeAuthorization(locManager)
+        locManager.requestWhenInUseAuthorization()
+        locationManagerDidChangeAuthorization(locManager)
 
     } // end of override func viewDidLoad ・・・
     
@@ -112,28 +112,28 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
 
 // 検索した場所を表示するために、一時的にコメントアウトしている ///////////////////////////////////////////////
 //    // CLLocationManagerのdelegate：現在位置取得
-//    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations:[CLLocation]) {
-//        //"mapView"に地図を表示する　よくある範囲設定をしてみた
-//        var region:MKCoordinateRegion = mapView.region
-//        region.span.latitudeDelta = 0.01
-//        region.span.longitudeDelta = 0.01
-//
-//        mapView.userTrackingMode = .followWithHeading
-//    }
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations:[CLLocation]) {
+        //"mapView"に地図を表示する　よくある範囲設定をしてみた
+        var region:MKCoordinateRegion = mapView.region
+        region.span.latitudeDelta = 0.01
+        region.span.longitudeDelta = 0.01
+
+        mapView.userTrackingMode = .followWithHeading
+    }
     
 //    //  位置情報の使用許可・・・初回起動時にだけ呼ばれる --------------------------------
-//    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
-//     let status = manager.authorizationStatus
-//        switch status {
-//        case .authorizedAlways, .authorizedWhenInUse:
-//            locManager.startUpdatingLocation() // 取得を開始する
-//            break
-//        case .notDetermined, .denied, .restricted:
-//            break
-//        default:
-//            break
-//        }
-//    } // -----------------------------------------------------------------------
+    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
+     let status = manager.authorizationStatus
+        switch status {
+        case .authorizedAlways, .authorizedWhenInUse:
+            locManager.startUpdatingLocation() // 取得を開始する
+            break
+        case .notDetermined, .denied, .restricted:
+            break
+        default:
+            break
+        }
+    } // -----------------------------------------------------------------------
 
 } // end of class ViewController ・・・
 
@@ -144,4 +144,5 @@ extension ViewController {
         return MKTileOverlayRenderer(overlay: overlay)
     }
 }
+
 
