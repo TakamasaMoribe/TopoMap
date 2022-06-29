@@ -50,9 +50,7 @@ class SearchController: UIViewController, UITextFieldDelegate,UISearchBarDelegat
         }
         self.mySearchBar.endEditing(true) // 入力終了(EnterKey)で、キーボードをしまう
     }
-        
 } // end of class SearchController
-
 
 
 
@@ -95,7 +93,8 @@ extension SearchController: UITableViewDelegate, UITableViewDataSource {
                                 //位置情報から緯度経度をtargetCoordinateに取り出す
                                 let targetLatitude = location.coordinate.latitude
                                 let targetLongitude = location.coordinate.longitude
-
+                                //let subLocality = firstPlacemark.subLocality// 地名
+                                //print("地名:\(subLocality)")
                            // Userdeaults.standard に保存する
                            UserDefaults.standard.set(selectedPlace, forKey:"targetPlace")
                             UserDefaults.standard.set(selectedAddress, forKey:"targetAddress")
@@ -138,4 +137,37 @@ extension SearchController: MKLocalSearchCompleterDelegate {
         // エラー処理
     }
 }
+
+
+
+
+
+//@objc private func mapDidTap(_ gesture: UITapGestureRecognizer) {
+//    let coordinate = map.convert(gesture.location(in: map), toCoordinateFrom: map)
+//    let location = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
+//    CLGeocoder().reverseGeocodeLocation(location) { placemarks, error in
+//        guard
+//            let placemark = placemarks?.first, error == nil,
+//            let administrativeArea = placemark.administrativeArea, // 都道府県
+//            let locality = placemark.locality, // 市区町村
+//            let thoroughfare = placemark.thoroughfare, // 地名(丁目)
+//            let subThoroughfare = placemark.subThoroughfare, // 番地
+//            let postalCode = placemark.postalCode, // 郵便番号
+//            let location = placemark.location // 緯度経度情報
+//            else {
+//                self.geocodeLabel.text = ""
+//                return
+//        }
+//
+//        self.geocodeLabel.text = """
+//            〒\(postalCode)
+//            \(administrativeArea)\(locality)\(thoroughfare)\(subThoroughfare)
+//            \(location.coordinate.latitude), \(location.coordinate.longitude)
+//        """
+//    }
+//}
+
+
+
+
 
