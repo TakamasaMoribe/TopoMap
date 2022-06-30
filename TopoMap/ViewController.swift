@@ -104,7 +104,7 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
 //
 //        // 位置情報の使用の許可を得て、取得する
         locManager.requestWhenInUseAuthorization()
-        locationManagerDidChangeAuthorization(locManager)
+//        locationManagerDidChangeAuthorization(locManager)
 
     } // end of override func viewDidLoad ・・・
     
@@ -122,18 +122,18 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
     }
     
 //    //  位置情報の使用許可・・・初回起動時にだけ呼ばれる --------------------------------
-    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
-     let status = manager.authorizationStatus
-        switch status {
-        case .authorizedAlways, .authorizedWhenInUse:
-            locManager.startUpdatingLocation() // 取得を開始する
-            break
-        case .notDetermined, .denied, .restricted:
-            break
-        default:
-            break
-        }
-    } // -----------------------------------------------------------------------
+//    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
+//     let status = manager.authorizationStatus
+//        switch status {
+//        case .authorizedAlways, .authorizedWhenInUse:
+//            locManager.startUpdatingLocation() // 取得を開始する
+//            break
+//        case .notDetermined, .denied, .restricted:
+//            break
+//        default:
+//            break
+//        }
+//    } // -----------------------------------------------------------------------
 
 } // end of class ViewController ・・・
 
