@@ -3,7 +3,7 @@
 //  TopoMap
 //
 //  Created by 森部高昌 on 2021/10/09.
-//  2022/06/23
+//  2022/07/02
 //  初期値として、①前回の検索地点を表示する。②いつも同じ地点を表示する。
 //　○等高線地図とレリーフ地図の同居は、macシミュレータではできた。
 //　◯実機では、日本指で画面を上にドラッグして、３Dモードにする必要があるようだ。
@@ -92,48 +92,49 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
                 renderer.alpha = 0.1 // 地理院地図の透明度の初期値　　スライダーで可変
             }
                 
-//        // 現在地の取得　コメントアウトしてみた 0615
-//        // ロケーションマネージャーのインスタンスを作成する
+        // 現在地の取得
+        // ロケーションマネージャーのインスタンスを作成する
         locManager = CLLocationManager()
         locManager.delegate = self
-//
-//        locManager.desiredAccuracy = kCLLocationAccuracyHundredMeters//誤差100m程度の精度
-//        //kCLLocationAccuracyNearestTenMeters    誤差10m程度の精度
-//        //kCLLocationAccuracyBest    最高精度(デフォルト値)
-//        locManager.distanceFilter = 5//精度は5ｍにしてみた
-//
-//        // 位置情報の使用の許可を得て、取得する
+        //locManager.desiredAccuracy = kCLLocationAccuracyHundredMeters//誤差100m程度の精度
+        //kCLLocationAccuracyNearestTenMeters    誤差10m程度の精度
+        //kCLLocationAccuracyBest    最高精度(デフォルト値)
+        //locManager.distanceFilter = 10//10ｍ移動したら、位置情報を更新する
+        
+        // 位置情報の使用の許可を得て、取得する
         locManager.requestWhenInUseAuthorization()
-//        locationManagerDidChangeAuthorization(locManager)
+        // locationManagerDidChangeAuthorization(locManager)
 
     } // end of override func viewDidLoad ・・・
     
     //======================================================
 
-// 検索した場所を表示するために、一時的にコメントアウトしている ///////////////////////////////////////////////
-//    // CLLocationManagerのdelegate：現在位置取得
+    
+    // 現在位置取得関係 ------------------------------
+    // CLLocationManagerのdelegate
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations:[CLLocation]) {
         //"mapView"に地図を表示する　よくある範囲設定をしてみた
         var region:MKCoordinateRegion = mapView.region
         region.span.latitudeDelta = 0.01
         region.span.longitudeDelta = 0.01
 
-        mapView.userTrackingMode = .followWithHeading
+        mapView.userTrackingMode = .followWithHeading // HeadingUp
     }
     
-//    //  位置情報の使用許可・・・初回起動時にだけ呼ばれる --------------------------------
-//    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
-//     let status = manager.authorizationStatus
-//        switch status {
-//        case .authorizedAlways, .authorizedWhenInUse:
-//            locManager.startUpdatingLocation() // 取得を開始する
-//            break
-//        case .notDetermined, .denied, .restricted:
-//            break
-//        default:
-//            break
-//        }
-//    } // -----------------------------------------------------------------------
+    //  位置情報の使用許可を確認して、取得する
+    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
+     let status = manager.authorizationStatus
+        switch status {
+        case .authorizedAlways, .authorizedWhenInUse:
+            locManager.startUpdatingLocation() // 取得を開始する
+            break
+        case .notDetermined, .denied, .restricted:
+            break
+        default:
+            break
+        }
+    }
+    // -----------------------------------------------------------------------
 
 } // end of class ViewController ・・・
 
