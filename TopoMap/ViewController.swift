@@ -6,7 +6,7 @@
 //  2022/07/02
 //  初期値として、①前回の検索地点を表示する。②いつも同じ地点を表示する。
 //　○等高線地図とレリーフ地図の同居は、macシミュレータではできた。
-//　◯実機では、日本指で画面を上にドラッグして、３Dモードにする必要があるようだ。
+//　◯広い範囲を指定すれば、レリーフ地図も表示できる。
 //　◯現在地から検索地点へ線を引く機能を追加する予定　ツールバーに実行アイコンを置く
 
 import UIKit
@@ -110,7 +110,7 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
     //======================================================
 
     
-    // 現在位置取得関係 ------------------------------
+    // 現在位置取得関係 ----------------------------------------------------
     // CLLocationManagerのdelegate
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations:[CLLocation]) {
         //"mapView"に地図を表示する　よくある範囲設定をしてみた
