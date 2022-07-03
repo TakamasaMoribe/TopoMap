@@ -19,15 +19,7 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
     @IBOutlet weak var mapView: MKMapView!
     
     @IBOutlet weak var mySlider: UISlider!
-        
-    // ツールバー中の検索ボタンをクリックしたとき、検索画面に遷移する
-    @IBAction func seachButtonClicked(_ sender: UIBarButtonItem) {
-        let storyboard: UIStoryboard = self.storyboard!
-        let nextView = storyboard.instantiateViewController(withIdentifier: "Search") as! SearchController
-        self.dismiss(animated: true) //画面表示を消去
-        self.present(nextView, animated: true, completion: nil)
-    }
-        
+    
     // 地理院地図　表示の濃淡を決めるスライダーの設定 標準地図とレリーフ地図
     @IBAction func sliderDidChange(_ slider: UISlider) {
         if let renderer = mapView.renderer(for: gsiTileOverlayStd) { // 標準地図
@@ -36,6 +28,14 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
         if let renderer = mapView.renderer(for: gsiTileOverlayRel) { // レリーフ地図
             renderer.alpha = CGFloat(slider.value) * 0.5// スライダ値*0.5
         }
+    }
+        
+    // ツールバー内の検索ボタンをクリックしたとき、検索画面に遷移する
+    @IBAction func seachButtonClicked(_ sender: UIBarButtonItem) {
+        let storyboard: UIStoryboard = self.storyboard!
+        let nextView = storyboard.instantiateViewController(withIdentifier: "Search") as! SearchController
+        self.dismiss(animated: true) //画面表示を消去
+        self.present(nextView, animated: true, completion: nil)
     }
     
     // 国土地理院が提供する色別標高図のURL。ここを変えると、様々な地図データを表示できる
@@ -56,7 +56,27 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
     var myLatitude:Double = 35.6743169 // 木場公園の緯度
     var myLongitude:Double = 139.8086198 // 木場公園の経度
     
-    //======================================================
+    
+    // ツールバー内の現在地ボタンをクリックした時
+    @IBAction func currentButtonClicked(_ sender: UIBarButtonItem) {
+        
+        // 現在地の取得
+        // ロケーションマネージャーのインスタンスを作成する
+        locManager = CLLocationManager()
+        locManager.delegate = self
+        //locManager.desiredAccuracy = kCLLocationAccuracyHundredMeters//誤差100m程度の精度
+        //kCLLocationAccuracyNearestTenMeters    誤差10m程度の精度
+        //kCLLocationAccuracyBest    最高精度(デフォルト値)
+        //locManager.distanceFilter = 10//10ｍ移動したら、位置情報を更新する
+
+        // 位置情報の使用の許可を得て、取得する
+        locManager.requestWhenInUseAuthorization()
+        // locationManagerDidChangeAuthorization(locManager)
+    
+    }
+    
+    
+    //==============================================================================
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -100,14 +120,14 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
 //        //kCLLocationAccuracyNearestTenMeters    誤差10m程度の精度
 //        //kCLLocationAccuracyBest    最高精度(デフォルト値)
 //        //locManager.distanceFilter = 10//10ｍ移動したら、位置情報を更新する
-//        
+//
 //        // 位置情報の使用の許可を得て、取得する
 //        locManager.requestWhenInUseAuthorization()
 //        // locationManagerDidChangeAuthorization(locManager)
 
     } // end of override func viewDidLoad ・・・
     
-    //======================================================
+    //==============================================================================
 
     
     // 現在位置取得関係 ----------------------------------------------------
