@@ -71,7 +71,9 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
 
         // 位置情報の使用の許可を得て、取得する
         locManager.requestWhenInUseAuthorization()
-        // locationManagerDidChangeAuthorization(locManager)
+        
+        //locManager.startUpdatingLocation() // 取得を開始する
+        locManager.stopUpdatingLocation()// 取得を終了する
     
     }
     
@@ -111,19 +113,7 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
             if let renderer = mapView.renderer(for: gsiTileOverlayRel) {
                 renderer.alpha = 0.1 // 地理院地図の透明度の初期値　　スライダーで可変
             }
-                
-//        // 現在地の取得
-//        // ロケーションマネージャーのインスタンスを作成する
-//        locManager = CLLocationManager()
-//        locManager.delegate = self
-//        //locManager.desiredAccuracy = kCLLocationAccuracyHundredMeters//誤差100m程度の精度
-//        //kCLLocationAccuracyNearestTenMeters    誤差10m程度の精度
-//        //kCLLocationAccuracyBest    最高精度(デフォルト値)
-//        //locManager.distanceFilter = 10//10ｍ移動したら、位置情報を更新する
-//
-//        // 位置情報の使用の許可を得て、取得する
-//        locManager.requestWhenInUseAuthorization()
-//        // locationManagerDidChangeAuthorization(locManager)
+
 
     } // end of override func viewDidLoad ・・・
     

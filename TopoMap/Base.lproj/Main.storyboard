@@ -30,7 +30,7 @@
                                 <rect key="frame" x="0.0" y="623" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                 <items>
-                                    <barButtonItem title="現在地" width="20" id="LHm-Va-eU1">
+                                    <barButtonItem title="現在地更新" width="20" id="LHm-Va-eU1">
                                         <connections>
                                             <action selector="currentButtonClicked:" destination="BYZ-38-t0r" id="umN-mk-drb"/>
                                         </connections>
