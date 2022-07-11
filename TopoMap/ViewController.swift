@@ -3,7 +3,7 @@
 //  TopoMap
 //
 //  Created by 森部高昌 on 2021/10/09.
-//  2022/07/02
+//  2022/07/10
 //  初期値として、①前回の検索地点を表示する。②いつも同じ地点を表示する。
 //　○等高線地図とレリーフ地図の同居は、macシミュレータではできた。
 //　◯広い範囲を指定すれば、レリーフ地図も表示できる。
@@ -19,6 +19,9 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
     @IBOutlet weak var mapView: MKMapView!
     
     @IBOutlet weak var mySlider: UISlider!
+    
+    @IBOutlet weak var directionSwitch: UISwitch! //地図表示の向き
+    
     
     // 地理院地図　表示の濃淡を決めるスライダーの設定 標準地図とレリーフ地図
     @IBAction func sliderDidChange(_ slider: UISlider) {
@@ -57,23 +60,23 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
     var myLongitude:Double = 139.8086198 // 木場公園の経度
     
     
-    // ツールバー内の現在地ボタンをクリックした時
+    // ツールバー内の「現在地更新」ボタンをクリックした時
     @IBAction func currentButtonClicked(_ sender: UIBarButtonItem) {
         
         // 現在地の取得
         // ロケーションマネージャーのインスタンスを作成する
         locManager = CLLocationManager()
         locManager.delegate = self
+        //locManager.requestLocation()
         //locManager.desiredAccuracy = kCLLocationAccuracyHundredMeters//誤差100m程度の精度
         //kCLLocationAccuracyNearestTenMeters    誤差10m程度の精度
         //kCLLocationAccuracyBest    最高精度(デフォルト値)
         //locManager.distanceFilter = 10//10ｍ移動したら、位置情報を更新する
 
-        // 位置情報の使用の許可を得て、取得する
-        locManager.requestWhenInUseAuthorization()
-        
+        // 位置情報の使用の許可を得て、取得する・・・ここに書かなくても良いか？
+        //locManager.requestWhenInUseAuthorization()
         //locManager.startUpdatingLocation() // 取得を開始する
-        locManager.stopUpdatingLocation()// 取得を終了する
+        //locManager.stopUpdatingLocation() // 取得を終了する
     
     }
     
@@ -127,8 +130,15 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
         var region:MKCoordinateRegion = mapView.region
         region.span.latitudeDelta = 0.01
         region.span.longitudeDelta = 0.01
-
-        mapView.userTrackingMode = .followWithHeading // HeadingUp
+        
+        if directionSwitch .isOn {
+            mapView.userTrackingMode = .followWithHeading // HeadingUp
+        } else {
+            mapView.userTrackingMode = .follow //
+        }
+        //mapView.userTrackingMode = .followWithHeading // HeadingUp
+        //
+        //mapView.userTrackingMode = .none
     }
     
     //  位置情報の使用許可を確認して、取得する
@@ -137,6 +147,7 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
         switch status {
         case .authorizedAlways, .authorizedWhenInUse:
             locManager.startUpdatingLocation() // 取得を開始する
+            //locManager.stopUpdatingLocation()// 取得を終了する
             break
         case .notDetermined, .denied, .restricted:
             break

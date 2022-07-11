@@ -21,7 +21,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
                             </mapView>
                             <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.10000000000000001" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="rgr-ci-ehc">
-                                <rect key="frame" x="109" y="508" width="184" height="31"/>
+                                <rect key="frame" x="159" y="543" width="184" height="31"/>
                                 <connections>
                                     <action selector="sliderDidChange:" destination="BYZ-38-t0r" eventType="valueChanged" id="XBV-BJ-fEw"/>
                                 </connections>
@@ -46,21 +46,29 @@
                                 </items>
                                 <toolbarAppearance key="standardAppearance"/>
                             </toolbar>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="yBD-SP-5VJ">
+                                <rect key="frame" x="16" y="503" width="49" height="31"/>
+                                <color key="onTintColor" red="0.0" green="0.83114748579999997" blue="0.40409519700000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </switch>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="2Jy-fX-Qrv" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="0NM-Br-bHe"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="rgr-ci-ehc" secondAttribute="bottom" constant="80" id="36s-NZ-JRg"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="rgr-ci-ehc" secondAttribute="trailing" constant="84" id="WU0-Kg-RQ4"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="rgr-ci-ehc" secondAttribute="bottom" constant="45" id="36s-NZ-JRg"/>
+                            <constraint firstItem="yBD-SP-5VJ" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="PlD-KJ-6Kw"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="rgr-ci-ehc" secondAttribute="trailing" constant="34" id="WU0-Kg-RQ4"/>
                             <constraint firstItem="2Jy-fX-Qrv" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="ZGi-yy-cS7"/>
-                            <constraint firstItem="rgr-ci-ehc" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="111" id="nvx-t5-TBn"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="yBD-SP-5VJ" secondAttribute="bottom" constant="84" id="fUz-B6-F5b"/>
+                            <constraint firstItem="rgr-ci-ehc" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="161" id="nvx-t5-TBn"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="2Jy-fX-Qrv" secondAttribute="bottom" id="uen-8I-ANK"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="2Jy-fX-Qrv" secondAttribute="trailing" id="yk9-x8-CLf"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="yBD-SP-5VJ" secondAttribute="trailing" constant="312" id="zHP-nK-XaQ"/>
                         </constraints>
                     </view>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="directionSwitch" destination="yBD-SP-5VJ" id="G8q-Gs-j28"/>
                         <outlet property="mapView" destination="2Jy-fX-Qrv" id="bRM-7d-3NE"/>
                         <outlet property="mySlider" destination="rgr-ci-ehc" id="KrQ-18-F4x"/>
                     </connections>
