@@ -110,7 +110,7 @@ extension SearchController: UITableViewDelegate, UITableViewDataSource {
            nextView.myLatitude = targetLatitude      // 緯度も同時に引き継ぐ?
            nextView.myLongitude = targetLongitude    // 経度も同時に引き継ぐ?
        })
-                           
+
                        } // if let location =
                      } // if let firstPlacemark =
                     } // if let unwrapPlacemark =
