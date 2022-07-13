@@ -29,7 +29,7 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
             renderer.alpha = CGFloat(slider.value) // 濃淡のプロパティ値＝スライダ値
         }
         if let renderer = mapView.renderer(for: gsiTileOverlayRel) { // レリーフ地図
-            renderer.alpha = CGFloat(slider.value) * 0.5// スライダ値*0.5
+            renderer.alpha = CGFloat(slider.value) * 0.3// スライダ値*0.3
         }
     }
         
