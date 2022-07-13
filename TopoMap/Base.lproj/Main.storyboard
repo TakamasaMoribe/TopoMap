@@ -20,17 +20,20 @@
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="2Jy-fX-Qrv">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                             </mapView>
-                            <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.10000000000000001" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="rgr-ci-ehc">
-                                <rect key="frame" x="157" y="500" width="136" height="1"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.10000000000000001" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="rgr-ci-ehc">
+                                <rect key="frame" x="157" y="450" width="136" height="31"/>
                                 <connections>
                                     <action selector="sliderDidChange:" destination="BYZ-38-t0r" eventType="valueChanged" id="XBV-BJ-fEw"/>
                                 </connections>
                             </slider>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="yBD-SP-5VJ">
+                                <rect key="frame" x="16" y="462" width="51" height="31"/>
+                                <color key="onTintColor" red="0.0" green="0.83114748579999997" blue="0.40409519700000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </switch>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" verticalHuggingPriority="249" verticalCompressionResistancePriority="751" preservesSuperviewLayoutMargins="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SHF-Ky-pmY">
-                                <rect key="frame" x="0.0" y="524" width="320" height="44"/>
+                                <rect key="frame" x="0.0" y="510" width="320" height="44"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="44" id="5st-bV-aT2"/>
+                                    <constraint firstAttribute="height" constant="44" id="cOW-Np-mt1"/>
                                 </constraints>
                                 <items>
                                     <barButtonItem title="現在地更新" width="20" id="LHm-Va-eU1">
@@ -49,23 +52,22 @@
                                 </items>
                                 <toolbarAppearance key="standardAppearance"/>
                             </toolbar>
-                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="yBD-SP-5VJ">
-                                <rect key="frame" x="16" y="462" width="51" height="31"/>
-                                <color key="onTintColor" red="0.0" green="0.83114748579999997" blue="0.40409519700000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            </switch>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="2Jy-fX-Qrv" secondAttribute="trailing" id="0zz-vi-Pe9"/>
-                            <constraint firstItem="yBD-SP-5VJ" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="Ajp-me-ltu"/>
-                            <constraint firstItem="2Jy-fX-Qrv" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="CSZ-3v-t1e"/>
-                            <constraint firstItem="yBD-SP-5VJ" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="462" id="HIR-xs-dkn"/>
-                            <constraint firstItem="SHF-Ky-pmY" firstAttribute="bottom" secondItem="2Jy-fX-Qrv" secondAttribute="bottom" id="ME3-1u-Red"/>
-                            <constraint firstAttribute="bottom" secondItem="2Jy-fX-Qrv" secondAttribute="bottom" id="fAG-dH-cz9"/>
-                            <constraint firstItem="SHF-Ky-pmY" firstAttribute="leading" secondItem="2Jy-fX-Qrv" secondAttribute="leading" id="khW-tZ-zoU"/>
-                            <constraint firstItem="SHF-Ky-pmY" firstAttribute="trailing" secondItem="2Jy-fX-Qrv" secondAttribute="trailing" id="q4n-8z-XzM"/>
-                            <constraint firstItem="2Jy-fX-Qrv" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="zOv-Xi-RPX"/>
+                            <constraint firstItem="SHF-Ky-pmY" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="JUv-kQ-Hwa"/>
+                            <constraint firstItem="SHF-Ky-pmY" firstAttribute="top" secondItem="rgr-ci-ehc" secondAttribute="bottom" constant="30" id="KRm-DN-wI7"/>
+                            <constraint firstItem="yBD-SP-5VJ" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="MEc-zS-qhH"/>
+                            <constraint firstItem="rgr-ci-ehc" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="450" id="O83-xX-4py"/>
+                            <constraint firstItem="rgr-ci-ehc" firstAttribute="leading" secondItem="yBD-SP-5VJ" secondAttribute="trailing" constant="94" id="RfB-np-58w"/>
+                            <constraint firstItem="SHF-Ky-pmY" firstAttribute="trailing" secondItem="2Jy-fX-Qrv" secondAttribute="trailing" id="SgG-sJ-Viq"/>
+                            <constraint firstItem="2Jy-fX-Qrv" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="Xwa-VM-vLo"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="rgr-ci-ehc" secondAttribute="trailing" constant="29" id="anz-LF-sN6"/>
+                            <constraint firstItem="SHF-Ky-pmY" firstAttribute="leading" secondItem="2Jy-fX-Qrv" secondAttribute="leading" id="eKP-un-D12"/>
+                            <constraint firstItem="yBD-SP-5VJ" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="462" id="epL-4d-9fk"/>
+                            <constraint firstItem="SHF-Ky-pmY" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="hHh-On-Eaz"/>
+                            <constraint firstItem="2Jy-fX-Qrv" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="rmT-JS-STl"/>
                         </constraints>
                     </view>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
