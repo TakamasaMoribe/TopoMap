@@ -104,6 +104,7 @@ extension SearchController: UITableViewDelegate, UITableViewDataSource {
     // 地図画面へ遷移する
        let storyboard: UIStoryboard = self.storyboard!
        let nextView = storyboard.instantiateViewController(withIdentifier: "Map") as! ViewController
+        nextView.modalPresentationStyle = .fullScreen // 画面が下にずれることを解消できる？
        self.present(nextView,animated: true, completion: { () in
            nextView.myPin.title = selectedPlace      // 地名　pinをnextViewの変数にした
            nextView.myPin.subtitle = selectedAddress // 住所　引き継ぎが可能
