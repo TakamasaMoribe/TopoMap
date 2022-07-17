@@ -54,13 +54,10 @@ class SearchMountController: UIViewController, UISearchBarDelegate,UITableViewDe
         }catch let error as NSError {
                  print("ファイル読み込みに失敗。\n \(error)")
         } // Do節ここまで
-         
         return dataArray // dataArray 山のデータ 二重配列
-
     }
-
     
-    //　以下　SearchBar 関係　＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
+    //　以下　SearchBar 関係　＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
     // searchBarへの入力に対する処理
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         view.endEditing(true) //キーボードを閉じる
@@ -85,7 +82,7 @@ class SearchMountController: UIViewController, UISearchBarDelegate,UITableViewDe
     }
     
             
-    // 以下　tableView 関係　＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
+    // 以下　tableView 関係　＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
     // 行数の取得
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.findItems.count
@@ -119,6 +116,6 @@ class SearchMountController: UIViewController, UISearchBarDelegate,UITableViewDe
         self.present(nextView, animated: true, completion: nil)
                 
     }
-    // 　＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
+    // 　＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
     
-}
+} // end of class SearchMountController

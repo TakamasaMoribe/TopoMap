@@ -40,11 +40,11 @@ class SearchController: UIViewController, UITextFieldDelegate,UISearchBarDelegat
     }
 
     
-    // サーチバーに入力した文字を検索する
+    // サーチバーに入力した文字を検索する 山名検索スイッチのON/OFFで分けて処理する
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         if mountSearch .isOn { // 山名検索スイッチがONの場合
             print("山名検索をします")
-            // 山名検索ルーチンへ
+            // 山名検索ルーチンへ　searchMount.swift の内容
             print("---")
         } else { // 山名検索スイッチがOFFの場合
             if let searchKey = mySearchBar.text {
