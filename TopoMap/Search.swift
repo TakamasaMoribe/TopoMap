@@ -44,8 +44,13 @@ class SearchController: UIViewController, UITextFieldDelegate,UISearchBarDelegat
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         if mountSearch .isOn { // 山名検索スイッチがONの場合
             print("山名検索をします")
-            // 山名検索ルーチンへ　searchMount.swift の内容
-            print("---")
+            // 山名検索画面へ遷移する SearchMountController "searchMount.swift"
+               let storyboard: UIStoryboard = self.storyboard!
+               let nextView = storyboard.instantiateViewController(withIdentifier: "Map") as! ViewController
+                nextView.modalPresentationStyle = .fullScreen // 画面が下にずれることを解消できる？
+               self.present(nextView,animated: true, completion: { () in
+                   print("山名検索画面です")
+               })
         } else { // 山名検索スイッチがOFFの場合
             if let searchKey = mySearchBar.text {
                 searchCompleter.queryFragment = searchKey // searchBarに入力した文字

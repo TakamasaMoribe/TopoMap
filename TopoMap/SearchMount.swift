@@ -13,10 +13,14 @@
 import UIKit
 
 class SearchMountController: UIViewController, UISearchBarDelegate,UITableViewDelegate, UITableViewDataSource {
-// tableViewは、datasouce、delegateをviewControllerとの接続も必要。右クリックして確認できる
-    @IBOutlet weak var searchText: UISearchBar! // Search.swiftでは、 mySearchBar: UISearchBar!
+// tableViewは、datasouce、delegateをviewControllerとの接続も必要。
+// 右クリックして確認できる
+    @IBOutlet weak var mySearchBar: UISearchBar!// Search.swiftでは、
+    
     @IBOutlet weak var tableView: UITableView! // Search.swiftでも、同名
-//    @IBOutlet weak var backButton: UIBarButtonItem! //不要
+    
+    @IBAction func backButtonClicked(_ sender: Any) {
+    }
     
     var originalMountDatas:[[String]] = [] // 山のデータを読み込む配列
     var findItems:[[String]] = [] // 検索結果を入れる配列
@@ -27,8 +31,8 @@ class SearchMountController: UIViewController, UISearchBarDelegate,UITableViewDe
         super.viewDidLoad()
         originalMountDatas = dataLoad() //山の配列データをcsvファイルから読み込む。
             //内容：[ふりがな,山名,緯度,経度,高度,都道府県名,山域名,地理院地図へのリンク先アドレス]
-        searchText.delegate = self
-        searchText.placeholder = "ひらがなで、地名を入力してください"
+        mySearchBar.delegate = self
+        //searchText.placeholder = "ひらがなで、地名を入力してください"
     }
     
     override func didReceiveMemoryWarning() {
