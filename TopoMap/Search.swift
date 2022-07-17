@@ -3,7 +3,7 @@
 //  TopoMap
 //
 //  Created by 森部高昌 on 2022/05/05
-//  2022/06/29
+//  2022/07/17
 
 import UIKit
 import MapKit
@@ -13,24 +13,20 @@ class SearchController: UIViewController, UITextFieldDelegate,UISearchBarDelegat
     
     // 検索地名入力用　サーチバー
     @IBOutlet weak var mySearchBar: UISearchBar!
-    
     // 検索結果表示用　テーブルビュー
     @IBOutlet weak var tableView: UITableView!
-    
-    @IBOutlet weak var mountSearch: UISwitch!
+    // 山名を検索するかどうか　スイッチ
+    @IBOutlet weak var mountSearch: UISwitch! // 初期値はOFF
     
     // Back ボタンを押したとき、地図画面(起動画面)に遷移する
-
     @IBAction func backButtonClicked(_ sender: UIBarButtonItem) {
         let storyboard: UIStoryboard = self.storyboard!
         let nextView = storyboard.instantiateViewController(withIdentifier: "Map") as! ViewController
         self.present(nextView,animated: true, completion: { () in
-        // nextView.inputLabel.text = self.textField.text // テキストも引き継ぐ
-        // self.dismiss(animated: true) //画面表示を消去
         })
     }
 
-    private var searchCompleter = MKLocalSearchCompleter()
+    private var searchCompleter = MKLocalSearchCompleter() // SearchCompleter()のインスタンス生成
     
     
     override func viewDidLoad() {

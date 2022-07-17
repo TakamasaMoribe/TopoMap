@@ -90,7 +90,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" indicatorStyle="black" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="sEI-RO-jR9">
-                                <rect key="frame" x="20" y="100" width="335" height="491"/>
+                                <rect key="frame" x="20" y="110" width="335" height="491"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="491" id="ty5-PH-uuX"/>
@@ -128,20 +128,6 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="5d8-Na-nbY">
-                                <rect key="frame" x="61" y="0.0" width="51" height="31"/>
-                                <color key="onTintColor" red="0.0" green="0.83114748579999997" blue="0.40409519700000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            </switch>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="山名" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DRj-hc-beB">
-                                <rect key="frame" x="20" y="5" width="35" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <searchBar contentMode="redraw" placeholder="地名等を入力してください" translatesAutoresizingMaskIntoConstraints="NO" id="XEx-s9-Xhm">
-                                <rect key="frame" x="20" y="49" width="335" height="51"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </searchBar>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VSq-BC-Hir">
                                 <rect key="frame" x="279" y="5" width="56" height="31"/>
                                 <state key="normal" title="Button"/>
@@ -150,23 +136,37 @@
                                     <action selector="backButtonClicked:" destination="0zO-8b-lK6" eventType="touchUpInside" id="3uq-f1-0xe"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="山名" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DRj-hc-beB">
+                                <rect key="frame" x="20" y="10" width="35" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="5d8-Na-nbY">
+                                <rect key="frame" x="63" y="5" width="51" height="31"/>
+                                <color key="onTintColor" red="0.0" green="0.83114748579999997" blue="0.40409519700000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </switch>
+                            <searchBar contentMode="redraw" placeholder="地名等を入力してください" translatesAutoresizingMaskIntoConstraints="NO" id="XEx-s9-Xhm">
+                                <rect key="frame" x="20" y="59" width="335" height="51"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </searchBar>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="bQA-TN-Tmd"/>
                         <color key="backgroundColor" systemColor="systemGray4Color"/>
                         <constraints>
                             <constraint firstItem="DRj-hc-beB" firstAttribute="centerY" secondItem="5d8-Na-nbY" secondAttribute="centerY" id="2Vv-7h-VF3"/>
-                            <constraint firstItem="5d8-Na-nbY" firstAttribute="leading" secondItem="DRj-hc-beB" secondAttribute="trailing" constant="6" id="4RS-mt-lYy"/>
+                            <constraint firstItem="5d8-Na-nbY" firstAttribute="leading" secondItem="DRj-hc-beB" secondAttribute="trailing" constant="8" id="4RS-mt-lYy"/>
                             <constraint firstItem="DRj-hc-beB" firstAttribute="leading" secondItem="XEx-s9-Xhm" secondAttribute="leading" id="GzX-cl-99Y"/>
-                            <constraint firstItem="VSq-BC-Hir" firstAttribute="top" secondItem="DRj-hc-beB" secondAttribute="top" id="ISD-85-D6G"/>
+                            <constraint firstItem="VSq-BC-Hir" firstAttribute="top" secondItem="DRj-hc-beB" secondAttribute="top" constant="-5" id="ISD-85-D6G"/>
                             <constraint firstItem="sEI-RO-jR9" firstAttribute="top" secondItem="XEx-s9-Xhm" secondAttribute="bottom" id="KlP-cV-cAr"/>
-                            <constraint firstItem="VSq-BC-Hir" firstAttribute="leading" secondItem="5d8-Na-nbY" secondAttribute="trailing" constant="169" id="P5W-55-HP5"/>
+                            <constraint firstItem="VSq-BC-Hir" firstAttribute="leading" secondItem="5d8-Na-nbY" secondAttribute="trailing" constant="167" id="P5W-55-HP5"/>
                             <constraint firstItem="sEI-RO-jR9" firstAttribute="leading" secondItem="XEx-s9-Xhm" secondAttribute="leading" id="UPK-va-Qqu"/>
                             <constraint firstItem="bQA-TN-Tmd" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="VSq-BC-Hir" secondAttribute="trailing" id="UfU-Tn-6Yw"/>
                             <constraint firstItem="bQA-TN-Tmd" firstAttribute="trailing" secondItem="sEI-RO-jR9" secondAttribute="trailing" constant="20" id="mMi-AS-WGj"/>
                             <constraint firstItem="sEI-RO-jR9" firstAttribute="leading" secondItem="bQA-TN-Tmd" secondAttribute="leading" constant="20" id="ndN-uU-sqA"/>
-                            <constraint firstItem="DRj-hc-beB" firstAttribute="top" secondItem="bQA-TN-Tmd" secondAttribute="top" constant="5" id="r0V-ei-OZm"/>
+                            <constraint firstItem="DRj-hc-beB" firstAttribute="top" secondItem="bQA-TN-Tmd" secondAttribute="top" constant="10" id="r0V-ei-OZm"/>
                             <constraint firstItem="XEx-s9-Xhm" firstAttribute="centerX" secondItem="UlG-lX-eTu" secondAttribute="centerX" id="wyJ-Kg-z23"/>
-                            <constraint firstItem="sEI-RO-jR9" firstAttribute="top" secondItem="UlG-lX-eTu" secondAttribute="top" constant="100" id="ymm-gp-Ts7"/>
+                            <constraint firstItem="sEI-RO-jR9" firstAttribute="top" secondItem="UlG-lX-eTu" secondAttribute="top" constant="110" id="ymm-gp-Ts7"/>
                         </constraints>
                     </view>
                     <connections>
