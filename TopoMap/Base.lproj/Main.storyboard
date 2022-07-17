@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
-    <device id="retina4_0" orientation="portrait" appearance="light"/>
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="Image references" minToolsVersion="12.0"/>
@@ -14,14 +14,14 @@
             <objects>
                 <viewController storyboardIdentifier="Map" useStoryboardIdentifierAsRestorationIdentifier="YES" id="BYZ-38-t0r" customClass="ViewController" customModule="TopoMap" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="2Jy-fX-Qrv">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             </mapView>
                             <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.10000000000000001" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="rgr-ci-ehc">
-                                <rect key="frame" x="157" y="450" width="136" height="31"/>
+                                <rect key="frame" x="157" y="450" width="191" height="31"/>
                                 <connections>
                                     <action selector="sliderDidChange:" destination="BYZ-38-t0r" eventType="valueChanged" id="XBV-BJ-fEw"/>
                                 </connections>
@@ -31,7 +31,7 @@
                                 <color key="onTintColor" red="0.0" green="0.83114748579999997" blue="0.40409519700000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </switch>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" verticalHuggingPriority="249" verticalCompressionResistancePriority="751" preservesSuperviewLayoutMargins="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SHF-Ky-pmY">
-                                <rect key="frame" x="0.0" y="510" width="320" height="44"/>
+                                <rect key="frame" x="0.0" y="510" width="375" height="44"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="cOW-Np-mt1"/>
                                 </constraints>
@@ -86,41 +86,27 @@
             <objects>
                 <viewController storyboardIdentifier="Search" useStoryboardIdentifierAsRestorationIdentifier="YES" id="0zO-8b-lK6" customClass="SearchController" customModule="TopoMap" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="UlG-lX-eTu">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="i5w-JN-QRB">
-                                <rect key="frame" x="0.0" y="623" width="320" height="44"/>
-                                <items>
-                                    <barButtonItem title="Back" image="arrowshape.turn.up.backward.fill" catalog="system" id="NGh-JO-tbk">
-                                        <connections>
-                                            <action selector="backButtonClicked:" destination="0zO-8b-lK6" id="HNj-Jz-sq8"/>
-                                        </connections>
-                                    </barButtonItem>
-                                </items>
-                            </toolbar>
-                            <searchBar contentMode="redraw" placeholder="検索地名を入力してください" translatesAutoresizingMaskIntoConstraints="NO" id="XEx-s9-Xhm">
-                                <rect key="frame" x="20" y="11" width="280" height="51"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </searchBar>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" indicatorStyle="black" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="sEI-RO-jR9">
-                                <rect key="frame" x="20" y="54" width="280" height="522"/>
+                                <rect key="frame" x="20" y="100" width="335" height="491"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="522" id="ty5-PH-uuX"/>
+                                    <constraint firstAttribute="height" constant="491" id="ty5-PH-uuX"/>
                                 </constraints>
                                 <scrollView key="tableFooterView" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" showsHorizontalScrollIndicator="NO" indicatorStyle="black" id="4V6-s4-NHZ">
-                                    <rect key="frame" x="0.0" y="110.5" width="280" height="44"/>
+                                    <rect key="frame" x="0.0" y="110.5" width="335" height="44"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <viewLayoutGuide key="contentLayoutGuide" id="Ffd-PM-CbR"/>
                                     <viewLayoutGuide key="frameLayoutGuide" id="at1-Ed-OWk"/>
                                 </scrollView>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" textLabel="4tU-rA-roH" detailTextLabel="iOv-PA-w9N" style="IBUITableViewCellStyleSubtitle" id="Icu-nc-MCW">
-                                        <rect key="frame" x="0.0" y="44.5" width="280" height="43.5"/>
+                                        <rect key="frame" x="0.0" y="44.5" width="335" height="43.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Icu-nc-MCW" id="R58-XK-dYP">
-                                            <rect key="frame" x="0.0" y="0.0" width="280" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="335" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="4tU-rA-roH">
@@ -142,33 +128,59 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="5d8-Na-nbY">
+                                <rect key="frame" x="61" y="0.0" width="51" height="31"/>
+                                <color key="onTintColor" red="0.0" green="0.83114748579999997" blue="0.40409519700000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </switch>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="山名" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DRj-hc-beB">
+                                <rect key="frame" x="20" y="5" width="35" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <searchBar contentMode="redraw" placeholder="地名等を入力してください" translatesAutoresizingMaskIntoConstraints="NO" id="XEx-s9-Xhm">
+                                <rect key="frame" x="20" y="49" width="335" height="51"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </searchBar>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VSq-BC-Hir">
+                                <rect key="frame" x="279" y="5" width="56" height="31"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Back"/>
+                                <connections>
+                                    <action selector="backButtonClicked:" destination="0zO-8b-lK6" eventType="touchUpInside" id="3uq-f1-0xe"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="bQA-TN-Tmd"/>
                         <color key="backgroundColor" systemColor="systemGray4Color"/>
                         <constraints>
-                            <constraint firstItem="i5w-JN-QRB" firstAttribute="leading" secondItem="bQA-TN-Tmd" secondAttribute="leading" id="4u0-Fh-9MU"/>
-                            <constraint firstItem="sEI-RO-jR9" firstAttribute="top" secondItem="XEx-s9-Xhm" secondAttribute="bottom" constant="-8" id="KlP-cV-cAr"/>
+                            <constraint firstItem="DRj-hc-beB" firstAttribute="centerY" secondItem="5d8-Na-nbY" secondAttribute="centerY" id="2Vv-7h-VF3"/>
+                            <constraint firstItem="5d8-Na-nbY" firstAttribute="leading" secondItem="DRj-hc-beB" secondAttribute="trailing" constant="6" id="4RS-mt-lYy"/>
+                            <constraint firstItem="DRj-hc-beB" firstAttribute="leading" secondItem="XEx-s9-Xhm" secondAttribute="leading" id="GzX-cl-99Y"/>
+                            <constraint firstItem="VSq-BC-Hir" firstAttribute="top" secondItem="DRj-hc-beB" secondAttribute="top" id="ISD-85-D6G"/>
+                            <constraint firstItem="sEI-RO-jR9" firstAttribute="top" secondItem="XEx-s9-Xhm" secondAttribute="bottom" id="KlP-cV-cAr"/>
+                            <constraint firstItem="VSq-BC-Hir" firstAttribute="leading" secondItem="5d8-Na-nbY" secondAttribute="trailing" constant="169" id="P5W-55-HP5"/>
                             <constraint firstItem="sEI-RO-jR9" firstAttribute="leading" secondItem="XEx-s9-Xhm" secondAttribute="leading" id="UPK-va-Qqu"/>
-                            <constraint firstItem="XEx-s9-Xhm" firstAttribute="centerX" secondItem="i5w-JN-QRB" secondAttribute="centerX" id="Zi2-cj-3PD"/>
-                            <constraint firstItem="i5w-JN-QRB" firstAttribute="top" secondItem="sEI-RO-jR9" secondAttribute="bottom" constant="47" id="cuI-nz-nOI"/>
+                            <constraint firstItem="bQA-TN-Tmd" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="VSq-BC-Hir" secondAttribute="trailing" id="UfU-Tn-6Yw"/>
                             <constraint firstItem="bQA-TN-Tmd" firstAttribute="trailing" secondItem="sEI-RO-jR9" secondAttribute="trailing" constant="20" id="mMi-AS-WGj"/>
                             <constraint firstItem="sEI-RO-jR9" firstAttribute="leading" secondItem="bQA-TN-Tmd" secondAttribute="leading" constant="20" id="ndN-uU-sqA"/>
+                            <constraint firstItem="DRj-hc-beB" firstAttribute="top" secondItem="bQA-TN-Tmd" secondAttribute="top" constant="5" id="r0V-ei-OZm"/>
                             <constraint firstItem="XEx-s9-Xhm" firstAttribute="centerX" secondItem="UlG-lX-eTu" secondAttribute="centerX" id="wyJ-Kg-z23"/>
-                            <constraint firstItem="sEI-RO-jR9" firstAttribute="top" secondItem="UlG-lX-eTu" secondAttribute="top" constant="54" id="ymm-gp-Ts7"/>
+                            <constraint firstItem="sEI-RO-jR9" firstAttribute="top" secondItem="UlG-lX-eTu" secondAttribute="top" constant="100" id="ymm-gp-Ts7"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="mountSearch" destination="5d8-Na-nbY" id="XFY-Cq-Ocq"/>
                         <outlet property="mySearchBar" destination="XEx-s9-Xhm" id="caS-71-M5k"/>
                         <outlet property="tableView" destination="sEI-RO-jR9" id="uSe-bc-4Jq"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ajX-f8-EFv" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-338.39999999999998" y="-11.244377811094454"/>
+            <point key="canvasLocation" x="-339.375" y="-11.619718309859156"/>
         </scene>
     </scenes>
     <resources>
-        <image name="arrowshape.turn.up.backward.fill" catalog="system" width="128" height="106"/>
         <image name="magnifyingglass" catalog="system" width="128" height="115"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

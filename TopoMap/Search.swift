@@ -17,7 +17,10 @@ class SearchController: UIViewController, UITextFieldDelegate,UISearchBarDelegat
     // 検索結果表示用　テーブルビュー
     @IBOutlet weak var tableView: UITableView!
     
-    // toolBarのBack ボタンを押したとき、地図画面(起動画面)に遷移する
+    @IBOutlet weak var mountSearch: UISwitch!
+    
+    // Back ボタンを押したとき、地図画面(起動画面)に遷移する
+
     @IBAction func backButtonClicked(_ sender: UIBarButtonItem) {
         let storyboard: UIStoryboard = self.storyboard!
         let nextView = storyboard.instantiateViewController(withIdentifier: "Map") as! ViewController

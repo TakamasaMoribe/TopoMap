@@ -3,10 +3,9 @@
 //  TopoMap
 //
 //  Created by 森部高昌 on 2021/10/09.
-//  2022/07/10
-//  初期値として、①前回の検索地点を表示する。②いつも同じ地点を表示する。
-//　○等高線地図とレリーフ地図の同居は、macシミュレータではできた。
-//　◯広い範囲を指定すれば、レリーフ地図も表示できる。
+//  2022/07/17
+//  初期値として、①前回の検索地点を表示する。 //②いつも同じ地点を表示する。
+//　◯広い範囲を指定すれば、レリーフ地図も表示できる。レリーフ地図の縮尺の問題か？
 //　◯現在地から検索地点へ線を引く機能を追加する予定　ツールバーに実行アイコンを置く
 
 import UIKit
@@ -20,7 +19,7 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
     
     @IBOutlet weak var mySlider: UISlider!
 
-    @IBOutlet weak var updateSwitch: UISwitch! //現在地表示更新の可否
+    @IBOutlet weak var updateSwitch: UISwitch! //現在地表示更新の可否を決めるスイッチ
     
     // 地理院地図　表示の濃淡を決めるスライダーの設定 標準地図とレリーフ地図
     @IBAction func sliderDidChange(_ slider: UISlider) {
@@ -45,6 +44,10 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
     "https://cyberjapandata.gsi.go.jp/xyz/std/{z}/{x}/{y}.png")    // Std:標準地図
     private let gsiTileOverlayRel = MKTileOverlay(urlTemplate:
     "https://cyberjapandata.gsi.go.jp/xyz/relief/{z}/{x}/{y}.png") // Rel:レリーフ地図
+                            //色別標高図  relief ズームレベル 5～15
+    
+    
+    //地形分類（自然地形） //https://cyberjapandata.gsi.go.jp/xyz/experimental_landformclassification1/{z}/{x}/{y}.geojson
     
     // 地図上に立てるピンを生成する
     let myPin: MKPointAnnotation = MKPointAnnotation()
