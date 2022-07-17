@@ -72,9 +72,9 @@
                     </view>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
-                        <outlet property="directionSwitch" destination="yBD-SP-5VJ" id="G8q-Gs-j28"/>
                         <outlet property="mapView" destination="2Jy-fX-Qrv" id="bRM-7d-3NE"/>
                         <outlet property="mySlider" destination="rgr-ci-ehc" id="KrQ-18-F4x"/>
+                        <outlet property="updateSwitch" destination="yBD-SP-5VJ" id="Tt0-Wo-UHq"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

@@ -19,9 +19,8 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
     @IBOutlet weak var mapView: MKMapView!
     
     @IBOutlet weak var mySlider: UISlider!
-    
-    @IBOutlet weak var directionSwitch: UISwitch! //地図表示の向き
-    
+
+    @IBOutlet weak var updateSwitch: UISwitch! //現在地表示更新の可否
     
     // 地理院地図　表示の濃淡を決めるスライダーの設定 標準地図とレリーフ地図
     @IBAction func sliderDidChange(_ slider: UISlider) {
@@ -45,7 +44,7 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
     private let gsiTileOverlayStd = MKTileOverlay(urlTemplate:
     "https://cyberjapandata.gsi.go.jp/xyz/std/{z}/{x}/{y}.png")    // Std:標準地図
     private let gsiTileOverlayRel = MKTileOverlay(urlTemplate:
-    "https://cyberjapandata.gsi.go.jp/xyz/relief/{z}/{x}/{y}.png") //Rel:レリーフ
+    "https://cyberjapandata.gsi.go.jp/xyz/relief/{z}/{x}/{y}.png") // Rel:レリーフ地図
     
     // 地図上に立てるピンを生成する
     let myPin: MKPointAnnotation = MKPointAnnotation()
@@ -69,15 +68,10 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
         locManager.delegate = self
         //locManager.requestLocation()
         //locManager.desiredAccuracy = kCLLocationAccuracyHundredMeters//誤差100m程度の精度
-        //kCLLocationAccuracyNearestTenMeters    誤差10m程度の精度
-        //kCLLocationAccuracyBest    最高精度(デフォルト値)
+        //                              kCLLocationAccuracyNearestTenMeters//誤差10m程度の精度
+        //                              kCLLocationAccuracyBest//最高精度(デフォルト値)
         //locManager.distanceFilter = 10//10ｍ移動したら、位置情報を更新する
 
-        // 位置情報の使用の許可を得て、取得する・・・ここに書かなくても良いか？
-        //locManager.requestWhenInUseAuthorization()
-        //locManager.startUpdatingLocation() // 取得を開始する
-        //locManager.stopUpdatingLocation() // 取得を終了する
-    
     }
     
     
@@ -131,14 +125,14 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
         region.span.latitudeDelta = 0.01
         region.span.longitudeDelta = 0.01
         
-        if directionSwitch .isOn {
-            mapView.userTrackingMode = .followWithHeading // HeadingUp
+        if updateSwitch .isOn {
+            mapView.userTrackingMode = .followWithHeading // 現在地を更新して、HeadingUpで表示
         } else {
-            mapView.userTrackingMode = .follow //
+            mapView.userTrackingMode = .none // 現在地の更新をしない
+            //mapView.userTrackingMode = .follow // 現在地の更新をする
         }
-        //mapView.userTrackingMode = .followWithHeading // HeadingUp
-        //
-        //mapView.userTrackingMode = .none
+
+ 
     }
     
     //  位置情報の使用許可を確認して、取得する
