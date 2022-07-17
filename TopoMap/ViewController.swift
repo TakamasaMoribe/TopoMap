@@ -33,8 +33,9 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
         
     // ツールバー内の検索ボタンをクリックしたとき、検索画面に遷移する
     @IBAction func seachButtonClicked(_ sender: UIBarButtonItem) {
-        let storyboard: UIStoryboard = self.storyboard!
+        let storyboard: UIStoryboard = self.storyboard!        
         let nextView = storyboard.instantiateViewController(withIdentifier: "Search") as! SearchController
+        nextView.modalPresentationStyle = .fullScreen // 画面が下にずれることを解消できる？
         self.dismiss(animated: true) //画面表示を消去
         self.present(nextView, animated: true, completion: nil)
     }

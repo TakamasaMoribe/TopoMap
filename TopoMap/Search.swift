@@ -22,7 +22,7 @@ class SearchController: UIViewController, UITextFieldDelegate,UISearchBarDelegat
     @IBAction func backButtonClicked(_ sender: UIBarButtonItem) {
         let storyboard: UIStoryboard = self.storyboard!
         let nextView = storyboard.instantiateViewController(withIdentifier: "Map") as! ViewController
-        nextView.modalPresentationStyle = .fullScreen // 画面が下にずれることを解消できる？
+        nextView.modalPresentationStyle = .fullScreen // 画面が下にずれることを解消できるようだ
         self.present(nextView,animated: true, completion: { () in
         })
     }
@@ -42,6 +42,10 @@ class SearchController: UIViewController, UITextFieldDelegate,UISearchBarDelegat
     
     // サーチバーに入力した文字を検索する
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        if mountSearch .isOn { // 山名検索スイッチがONの場合
+            print("山名検索をします")
+            print("---")
+        }
         if let searchKey = mySearchBar.text {
             searchCompleter.queryFragment = searchKey // searchBarに入力した文字
             searchCompleter.resultTypes = .query //
