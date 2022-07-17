@@ -46,7 +46,7 @@ class SearchController: UIViewController, UITextFieldDelegate,UISearchBarDelegat
             print("山名検索をします")
             // 山名検索画面へ遷移する SearchMountController "searchMount.swift"
                let storyboard: UIStoryboard = self.storyboard!
-               let nextView = storyboard.instantiateViewController(withIdentifier: "Map") as! ViewController
+               let nextView = storyboard.instantiateViewController(withIdentifier: "SearchMount") as! SearchMountController
                 nextView.modalPresentationStyle = .fullScreen // 画面が下にずれることを解消できる？
                self.present(nextView,animated: true, completion: { () in
                    print("山名検索画面です")

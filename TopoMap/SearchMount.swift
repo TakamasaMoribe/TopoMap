@@ -18,10 +18,16 @@ class SearchMountController: UIViewController, UISearchBarDelegate,UITableViewDe
     @IBOutlet weak var mySearchBar: UISearchBar!// Search.swiftでは、
     
     @IBOutlet weak var tableView: UITableView! // Search.swiftでも、同名
-    
+
+    // Back ボタンを押したとき、地図画面(起動画面)に遷移する
     @IBAction func backButtonClicked(_ sender: Any) {
+        let storyboard: UIStoryboard = self.storyboard!
+        let nextView = storyboard.instantiateViewController(withIdentifier: "Map") as! ViewController
+        nextView.modalPresentationStyle = .fullScreen // 画面が下にずれることを解消できるようだ
+        self.present(nextView,animated: true, completion: { () in
+        })
     }
-    
+        
     var originalMountDatas:[[String]] = [] // 山のデータを読み込む配列
     var findItems:[[String]] = [] // 検索結果を入れる配列
     
