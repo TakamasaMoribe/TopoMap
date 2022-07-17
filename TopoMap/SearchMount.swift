@@ -1,6 +1,4 @@
 //  SearchMount.swift
-//  Where
-//
 //  Created by 森部高昌 on 2021/12/19.
 //  山の配列データをcsvファイルから読み込む。
 //  [ふりがな,山名,緯度,経度,高度,都道府県名,山域名,地理院地図へのリンク]
@@ -9,54 +7,36 @@
 //  ②データを検索する
 //  ③返ってきた値をtableViewに表示する。
 //  ④tableViewで選択したcellから、山名・緯度・経度を取得する
-//  2022/01/17
+
+//  2022/01/17から再編集開始 データをサーチしてテーブルに表示する
 
 import UIKit
 
 class SearchMountController: UIViewController, UISearchBarDelegate,UITableViewDelegate, UITableViewDataSource {
+// tableViewは、datasouce、delegateをviewControllerとの接続も必要。右クリックして確認できる
+    @IBOutlet weak var searchText: UISearchBar! // Search.swiftでは、 mySearchBar: UISearchBar!
+    @IBOutlet weak var tableView: UITableView! // Search.swiftでも、同名
+//    @IBOutlet weak var backButton: UIBarButtonItem! //不要
     
-    @IBOutlet weak var searchText: UISearchBar!
-    
-    @IBOutlet weak var tableView: UITableView!
-    
-    @IBOutlet weak var backButton: UIBarButtonItem!
-    
-    
-    // tableViewは、datasouce、delegateをviewControllerとの接続も必要。右クリックして確認できる
-
-    var findItems:[[String]] = []
+    var originalMountDatas:[[String]] = [] // 山のデータを読み込む配列
+    var findItems:[[String]] = [] // 検索結果を入れる配列
     
     // -------------------------------------------------------------------------------
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //山の配列データをcsvファイルから読み込む。
-        //[ふりがな,山名,緯度,経度,高度,都道府県名,山域名,地理院地図へのリンク]
-        originalMountDatas = dataLoad()
-        
+        originalMountDatas = dataLoad() //山の配列データをcsvファイルから読み込む。
+            //内容：[ふりがな,山名,緯度,経度,高度,都道府県名,山域名,地理院地図へのリンク先アドレス]
         searchText.delegate = self
         searchText.placeholder = "ひらがなで、地名を入力してください"
-        
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
 
     // -------------------------------------------------------------------------------
-    //戻る"↩"ボタンで初期画面"StartViewController"に戻る
-    
-    @IBAction func backButtonClicked(_ sender: UIBarButtonItem) {
-        
-        let storyboard: UIStoryboard = self.storyboard!
-        let nextView = storyboard.instantiateViewController(withIdentifier: "StartViewController") as! ViewController
-        self.dismiss(animated: true) //画面表示を消去
-        self.present(nextView, animated: true, completion: nil)
-        
-   }
-    
-    // csvファイルから、山のデータを読み込む　"MountData.csv"
+    // csvファイルから、山のデータを読み込む　"MountData.csv"から読み込む
     func dataLoad() -> [[String]] {
         // データを格納するための配列を準備する
         var dataArray :[[String]] = [] // 二重配列にして、空配列にしておく
@@ -75,10 +55,7 @@ class SearchMountController: UIViewController, UISearchBarDelegate,UITableViewDe
                  print("ファイル読み込みに失敗。\n \(error)")
         } // Do節ここまで
          
-        // dataArray 山のデータ 二重配列
-        //print(dataArray[100])  //OK
-        
-        return dataArray
+        return dataArray // dataArray 山のデータ 二重配列
 
     }
 
@@ -97,22 +74,14 @@ class SearchMountController: UIViewController, UISearchBarDelegate,UITableViewDe
     func searchMount(keyword:String) {
         findItems = [] // 空にしておく
         for data in originalMountDatas { //originalMountDatasから、１件ずつdataに取り出して調べる
-//            if data[0] == keyword { //ふりがなの部分が一致したとき
-//                self.findItems.append(data)// tableViewに表示する配列に追加
-//                let lastItem = self.findItems[self.findItems.count - 1]//現在のデータ
-//                    print("lastItem[1]:\(lastItem[1])") // 山名確認
-//            }
-
             if (data[0].hasPrefix(keyword)){ //ふりがな部分が前方一致で見つかったとき
                 print(data[0])//検索結果が表示される
                 self.findItems.append(data)// tableViewに表示する配列に追加
             }else{
                //print("見つかりません")
             }
-            
         }
         self.tableView.reloadData() //tableViewへ表示する
-        //表示される
     }
     
             
@@ -141,11 +110,11 @@ class SearchMountController: UIViewController, UISearchBarDelegate,UITableViewDe
         userDefaults.set(selectedItem[2], forKey: "selectLatitude") // 緯度
         userDefaults.set(selectedItem[3], forKey: "selectLongitude") // 経度
                 
-        // map画面へ遷移する
+        // 最初のmap画面へ遷移する
         // ①storyboardのインスタンス取得
         let storyboard: UIStoryboard = self.storyboard!
         // ②遷移先ViewControllerのインスタンス取得
-        let nextView = storyboard.instantiateViewController(withIdentifier: "CurrentViewController") as! CurrentViewController
+        let nextView = storyboard.instantiateViewController(withIdentifier: "ViewController") as! ViewController
         // ③画面遷移
         self.present(nextView, animated: true, completion: nil)
                 

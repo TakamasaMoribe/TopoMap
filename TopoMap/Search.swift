@@ -44,13 +44,15 @@ class SearchController: UIViewController, UITextFieldDelegate,UISearchBarDelegat
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         if mountSearch .isOn { // 山名検索スイッチがONの場合
             print("山名検索をします")
+            // 山名検索ルーチンへ
             print("---")
-        }
-        if let searchKey = mySearchBar.text {
-            searchCompleter.queryFragment = searchKey // searchBarに入力した文字
-            searchCompleter.resultTypes = .query //
-            //searchCompleter.resultTypes = .pointOfInterest // 関連する場所
-            //searchCompleter.resultTypes = .address         // 地図上の位置のみ
+        } else { // 山名検索スイッチがOFFの場合
+            if let searchKey = mySearchBar.text {
+                searchCompleter.queryFragment = searchKey // searchBarに入力した文字
+                searchCompleter.resultTypes = .query //
+                //searchCompleter.resultTypes = .pointOfInterest // 関連する場所
+                //searchCompleter.resultTypes = .address         // 地図上の位置のみ
+            }
         }
         self.mySearchBar.endEditing(true) // 入力終了(EnterKey)で、キーボードをしまう
     }
@@ -142,37 +144,5 @@ extension SearchController: MKLocalSearchCompleterDelegate {
         // エラー処理
     }
 }
-
-
-
-
-
-//@objc private func mapDidTap(_ gesture: UITapGestureRecognizer) {
-//    let coordinate = map.convert(gesture.location(in: map), toCoordinateFrom: map)
-//    let location = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
-//    CLGeocoder().reverseGeocodeLocation(location) { placemarks, error in
-//        guard
-//            let placemark = placemarks?.first, error == nil,
-//            let administrativeArea = placemark.administrativeArea, // 都道府県
-//            let locality = placemark.locality, // 市区町村
-//            let thoroughfare = placemark.thoroughfare, // 地名(丁目)
-//            let subThoroughfare = placemark.subThoroughfare, // 番地
-//            let postalCode = placemark.postalCode, // 郵便番号
-//            let location = placemark.location // 緯度経度情報
-//            else {
-//                self.geocodeLabel.text = ""
-//                return
-//        }
-//
-//        self.geocodeLabel.text = """
-//            〒\(postalCode)
-//            \(administrativeArea)\(locality)\(thoroughfare)\(subThoroughfare)
-//            \(location.coordinate.latitude), \(location.coordinate.longitude)
-//        """
-//    }
-//}
-
-
-
 
 
