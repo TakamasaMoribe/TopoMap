@@ -22,6 +22,7 @@ class SearchController: UIViewController, UITextFieldDelegate,UISearchBarDelegat
     @IBAction func backButtonClicked(_ sender: UIBarButtonItem) {
         let storyboard: UIStoryboard = self.storyboard!
         let nextView = storyboard.instantiateViewController(withIdentifier: "Map") as! ViewController
+        nextView.modalPresentationStyle = .fullScreen // 画面が下にずれることを解消できる？
         self.present(nextView,animated: true, completion: { () in
         })
     }
