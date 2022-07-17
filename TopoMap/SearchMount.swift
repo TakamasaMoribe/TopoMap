@@ -25,12 +25,14 @@ class SearchMountController: UIViewController, UISearchBarDelegate,UITableViewDe
         let nextView = storyboard.instantiateViewController(withIdentifier: "Map") as! ViewController
         nextView.modalPresentationStyle = .fullScreen // 画面が下にずれることを解消できるようだ
         self.present(nextView,animated: true, completion: { () in
+            
         })
     }
         
     var originalMountDatas:[[String]] = [] // 山のデータを読み込む配列
     var findItems:[[String]] = [] // 検索結果を入れる配列
-    
+
+
     // -------------------------------------------------------------------------------
     
     override func viewDidLoad() {
@@ -113,15 +115,16 @@ class SearchMountController: UIViewController, UISearchBarDelegate,UITableViewDe
 
         // 選択した地点のデータを保存する
         let userDefaults = UserDefaults.standard
-        userDefaults.set(selectedItem[1], forKey: "selectmountName") // 山名
-        userDefaults.set(selectedItem[2], forKey: "selectLatitude") // 緯度
-        userDefaults.set(selectedItem[3], forKey: "selectLongitude") // 経度
+        userDefaults.set(selectedItem[1], forKey: "targetPlace") // 山名
+        userDefaults.set(selectedItem[2], forKey: "targetLatitude") // 緯度
+        userDefaults.set(selectedItem[3], forKey: "targetLongitude") // 経度
                 
         // 最初のmap画面へ遷移する
         // ①storyboardのインスタンス取得
         let storyboard: UIStoryboard = self.storyboard!
         // ②遷移先ViewControllerのインスタンス取得
-        let nextView = storyboard.instantiateViewController(withIdentifier: "ViewController") as! ViewController
+        let nextView = storyboard.instantiateViewController(withIdentifier: "Map") as! ViewController
+        nextView.modalPresentationStyle = .fullScreen // 画面が下にずれることを解消できるようだ
         // ③画面遷移
         self.present(nextView, animated: true, completion: nil)
                 
