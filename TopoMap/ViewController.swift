@@ -3,7 +3,7 @@
 //  TopoMap
 //
 //  Created by 森部高昌 on 2021/10/09.
-//  2022/07/17
+//  2022/07/18
 //  初期値として、①前回の検索地点を表示する。 //②いつも同じ地点を表示する。
 //　◯広い範囲を指定すれば、レリーフ地図も表示できる。レリーフ地図の縮尺の問題か？
 //　◯現在地から検索地点へ線を引く機能を追加する予定　ツールバーに実行アイコンを置く
@@ -135,8 +135,6 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
             mapView.userTrackingMode = .none // 現在地の更新をしない
             //mapView.userTrackingMode = .follow // 現在地の更新をする
         }
-
- 
     }
     
     //  位置情報の使用許可を確認して、取得する

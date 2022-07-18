@@ -23,6 +23,7 @@ class SearchMountController: UIViewController, UISearchBarDelegate,UITableViewDe
     @IBAction func backButtonClicked(_ sender: Any) {
         let storyboard: UIStoryboard = self.storyboard!
         let nextView = storyboard.instantiateViewController(withIdentifier: "Map") as! ViewController
+        self.dismiss(animated: true) //画面表示を消去
         nextView.modalPresentationStyle = .fullScreen // 画面が下にずれることを解消できるようだ
         self.present(nextView,animated: true, completion: { () in
             

@@ -15,44 +15,24 @@ class SearchController: UIViewController, UITextFieldDelegate,UISearchBarDelegat
     @IBOutlet weak var mySearchBar: UISearchBar!
     // 検索結果表示用　テーブルビュー
     @IBOutlet weak var tableView: UITableView!
-    // 山名を検索するかどうか　スイッチ　初期値はOFF
-    @IBOutlet weak var searchMtSwitch: UISwitch!
     
-//    // スイッチに連動してON/OFFの文字を表示する
-//    @IBOutlet weak var switchLabel: UILabel!
-    
-//    //ON/OFFの表示切り替え
-//    @IBAction func switchChanged(_ sender: UISwitch) {
-//        switchLabel.text = sender.isOn ? "ON":"OFF"
-//    }
-    
-    @IBAction func searchMtSwitch(_ sender: UISwitch) {
-    
-        if searchMtSwitch.isOn {
-        // 山名検索画面へ遷移する SearchMountController "searchMount.swift"
-
-            print("--t")
-            print(self.searchMtSwitch.isOn)
-            self.searchMtSwitch.isOn = false //山名検索のoff
-            print("--f")
-            print(self.searchMtSwitch.isOn)
-            
-            let storyboard: UIStoryboard = self.storyboard!
-            let nextView = storyboard.instantiateViewController(withIdentifier: "SearchMount") as! SearchMountController
-            nextView.modalPresentationStyle = .fullScreen // 画面が下にずれることを解消できる？
-            self.present(nextView,animated: true, completion: { () in
-            })
-        }
+    // 山名検索画面へ遷移する SearchMountController "searchMount.swift"
+    @IBAction func searchMtButtonClicked(_ sender: Any) {
+        let storyboard: UIStoryboard = self.storyboard!
+        let nextView = storyboard.instantiateViewController(withIdentifier: "SearchMount") as! SearchMountController
+        //self.dismiss(animated: true) //画面表示を消去
+        nextView.modalPresentationStyle = .fullScreen // 画面が下にずれることを解消できるようだ
+        self.present(nextView,animated: true, completion: { () in
+        })
     }
 
-    
     // Back ボタンを押したとき、地図画面(起動画面)に遷移する
     @IBAction func backButtonClicked(_ sender: UIBarButtonItem) {
         let storyboard: UIStoryboard = self.storyboard!
         let nextView = storyboard.instantiateViewController(withIdentifier: "Map") as! ViewController
+        self.dismiss(animated: true) //画面表示を消去
         nextView.modalPresentationStyle = .fullScreen // 画面が下にずれることを解消できるようだ
         self.present(nextView,animated: true, completion: { () in
-            //self.dismiss(animated: true)
         })
     }
 
@@ -61,30 +41,11 @@ class SearchController: UIViewController, UITextFieldDelegate,UISearchBarDelegat
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.searchMtSwitch.isOn = false //山名検索のoff
         mySearchBar.delegate = self
         tableView.delegate = self
         tableView.dataSource = self
         searchCompleter.delegate = self
         mySearchBar.becomeFirstResponder() // サーチバーにフォーカスをあてる
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        print("viewWillAppear()")
-        self.searchMtSwitch.isOn = false //山名検索のoff
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        print("viewWillDisappear()")
-        self.searchMtSwitch.isOn = false //山名検索のoff
-    }
-    
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        print("viewDidDisappear()")
-        self.searchMtSwitch.isOn = false //山名検索のoff
     }
     
     // サーチバーに入力した文字を検索する　山名の場合は、SearchMountController searchMount.swift
