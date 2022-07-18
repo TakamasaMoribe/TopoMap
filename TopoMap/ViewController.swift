@@ -14,14 +14,6 @@ import CoreLocation
 
 
 class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelegate {
-//住所検索画面へ
-    @IBAction func searchPlaceButtonClicked(_ sender: Any) {
-        let storyboard: UIStoryboard = self.storyboard!
-        let nextView = storyboard.instantiateViewController(withIdentifier: "SearchPlace") as! SearchPlaceController
-        nextView.modalPresentationStyle = .fullScreen // 画面が下にずれることを解消できる？
-        self.dismiss(animated: true) //画面表示を消去
-        self.present(nextView, animated: true, completion: nil)
-    }
     
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var mySlider: UISlider!

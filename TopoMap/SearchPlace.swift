@@ -21,6 +21,16 @@
         // tableViewは、datasouce、delegateをviewControllerとの接続も必要。右クリックして確認できる
         // feedUrl：searchBarに入力した地名を問い合わせるのに使う
         // var feedUrl:URL = URL(string:"https://geocode.csis.u-tokyo.ac.jp/cgi-bin/simple_geocode.cgi")! //東大
+        
+        @IBAction func backButtonclicked(_ sender: Any) {
+            // 画面遷移　最初の地図画面へ
+            let storyboard: UIStoryboard = self.storyboard!
+            let nextView = storyboard.instantiateViewController(withIdentifier: "Map") as! ViewController
+            nextView.modalPresentationStyle = .fullScreen // 画面が下にずれることを解消できる？
+            self.dismiss(animated: true) //画面表示を消去
+            self.present(nextView, animated: true, completion: nil)
+        }
+        
 
         var feedUrl:URL = URL(string:"Dummy")! //初期化 何か入れていないとエラーになるので、とりあえずDummyとした
         var feedItems = [FeedItem]() // FeedItem　別クラスの配列。返ってきた値をtableViewに表示するために使う

@@ -52,15 +52,6 @@
                                 </items>
                                 <toolbarAppearance key="standardAppearance"/>
                             </toolbar>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="q3c-E0-nt9">
-                                <rect key="frame" x="272" y="37" width="82" height="31"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="住所検索"/>
-                                <connections>
-                                    <action selector="searchPlaceButtonClicked:" destination="BYZ-38-t0r" eventType="touchUpInside" id="4cJ-GE-6xl"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -155,6 +146,15 @@
                                 <buttonConfiguration key="configuration" style="plain" title="山名検索へ"/>
                                 <connections>
                                     <action selector="searchMtButtonClicked:" destination="0zO-8b-lK6" eventType="touchUpInside" id="xbr-RY-SpK"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mVJ-Bp-6wm">
+                                <rect key="frame" x="131" y="20" width="107" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="住所検索へ"/>
+                                <connections>
+                                    <action selector="searchPlaceButtonClicked:" destination="0zO-8b-lK6" eventType="touchUpInside" id="6rT-6P-oyE"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -335,10 +335,13 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xQr-Ss-ZkG">
-                                <rect key="frame" x="303" y="20" width="56" height="31"/>
+                                <rect key="frame" x="280" y="20" width="56" height="31"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="Back"/>
+                                <connections>
+                                    <action selector="backButtonclicked:" destination="QgD-pZ-fdT" eventType="touchUpInside" id="fXR-M5-Oyd"/>
+                                </connections>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="tdW-95-akL"/>

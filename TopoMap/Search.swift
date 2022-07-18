@@ -26,6 +26,16 @@ class SearchController: UIViewController, UITextFieldDelegate,UISearchBarDelegat
         })
     }
 
+    //住所検索画面へ
+    @IBAction private func searchPlaceButtonClicked(_ sender: Any) {
+            let storyboard: UIStoryboard = self.storyboard!
+            let nextView = storyboard.instantiateViewController(withIdentifier: "SearchPlace") as! SearchPlaceController
+            nextView.modalPresentationStyle = .fullScreen // 画面が下にずれることを解消できる？
+            //self.dismiss(animated: true) //画面表示を消去
+            self.present(nextView, animated: true, completion: nil)
+        }
+    
+    
     // Back ボタンを押したとき、地図画面(起動画面)に遷移する
     @IBAction func backButtonClicked(_ sender: UIBarButtonItem) {
         let storyboard: UIStoryboard = self.storyboard!
