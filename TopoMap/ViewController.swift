@@ -16,12 +16,10 @@ import CoreLocation
 class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelegate {
 
     @IBOutlet weak var mapView: MKMapView!
-    
     @IBOutlet weak var mySlider: UISlider!
-
     @IBOutlet weak var updateSwitch: UISwitch! //現在地表示更新の可否を決めるスイッチ
     
-    // 地理院地図　表示の濃淡を決めるスライダーの設定 標準地図とレリーフ地図
+    // 地理院地図　表示の濃淡を決めるスライダーの設定 標準地図とレリーフ地図の両方とも
     @IBAction func sliderDidChange(_ slider: UISlider) {
         if let renderer = mapView.renderer(for: gsiTileOverlayStd) { // 標準地図
             renderer.alpha = CGFloat(slider.value) // 濃淡のプロパティ値＝スライダ値
@@ -46,10 +44,6 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
     private let gsiTileOverlayRel = MKTileOverlay(urlTemplate:
     "https://cyberjapandata.gsi.go.jp/xyz/relief/{z}/{x}/{y}.png") // Rel:レリーフ地図
                             //色別標高図  relief ズームレベル 5～15
-    
-    
-    //地形分類（自然地形） //https://cyberjapandata.gsi.go.jp/xyz/experimental_landformclassification1/{z}/{x}/{y}.geojson
-    
     // 地図上に立てるピンを生成する
     let myPin: MKPointAnnotation = MKPointAnnotation()
 
@@ -65,9 +59,7 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
     
     // ツールバー内の「現在地更新」ボタンをクリックした時
     @IBAction func currentButtonClicked(_ sender: UIBarButtonItem) {
-        
-        // 現在地の取得
-        // ロケーションマネージャーのインスタンスを作成する
+        // 現在地の取得 ロケーションマネージャーのインスタンスを作成する
         locManager = CLLocationManager()
         locManager.delegate = self
         //locManager.requestLocation()
@@ -75,7 +67,6 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
         //                              kCLLocationAccuracyNearestTenMeters//誤差10m程度の精度
         //                              kCLLocationAccuracyBest//最高精度(デフォルト値)
         //locManager.distanceFilter = 10//10ｍ移動したら、位置情報を更新する
-
     }
     
     
@@ -162,5 +153,3 @@ extension ViewController {
         return MKTileOverlayRenderer(overlay: overlay)
     }
 }
-
-

@@ -14,8 +14,8 @@ import UIKit
 
 class SearchMountController: UIViewController, UISearchBarDelegate,UITableViewDelegate, UITableViewDataSource {
 // tableViewは、datasouce、delegateをviewControllerとの接続も必要。
-// 右クリックして確認できる
-    @IBOutlet weak var mySearchBar: UISearchBar!// Search.swiftでは、
+// storyboard上でtableViewを右クリックして確認できる
+    @IBOutlet weak var mySearchBar: UISearchBar! // Search.swiftでも、同名
     
     @IBOutlet weak var tableView: UITableView! // Search.swiftでも、同名
 
@@ -26,7 +26,6 @@ class SearchMountController: UIViewController, UISearchBarDelegate,UITableViewDe
         self.dismiss(animated: true) //画面表示を消去
         nextView.modalPresentationStyle = .fullScreen // 画面が下にずれることを解消できるようだ
         self.present(nextView,animated: true, completion: { () in
-            
         })
     }
         
@@ -35,13 +34,12 @@ class SearchMountController: UIViewController, UISearchBarDelegate,UITableViewDe
 
 
     // -------------------------------------------------------------------------------
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         originalMountDatas = dataLoad() //山の配列データをcsvファイルから読み込む。
             //内容：[ふりがな,山名,緯度,経度,高度,都道府県名,山域名,地理院地図へのリンク先アドレス]
         mySearchBar.delegate = self
-        //searchText.placeholder = "ひらがなで、地名を入力してください"
+        mySearchBar.placeholder = "ひらがなで、山名を入力してください"
     }
     
     override func didReceiveMemoryWarning() {
@@ -79,7 +77,7 @@ class SearchMountController: UIViewController, UISearchBarDelegate,UITableViewDe
         }
     }
   
-    //---------------------------------------------------------------
+    //------------------------------------------------------
     // 山名の検索  ：keyword 検索したい語句
     func searchMount(keyword:String) {
         findItems = [] // 空にしておく
@@ -125,6 +123,7 @@ class SearchMountController: UIViewController, UISearchBarDelegate,UITableViewDe
         let storyboard: UIStoryboard = self.storyboard!
         // ②遷移先ViewControllerのインスタンス取得
         let nextView = storyboard.instantiateViewController(withIdentifier: "Map") as! ViewController
+        //self.dismiss(animated: true) //画面表示を消去
         nextView.modalPresentationStyle = .fullScreen // 画面が下にずれることを解消できるようだ
         // ③画面遷移
         self.present(nextView, animated: true, completion: nil)
