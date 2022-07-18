@@ -30,8 +30,11 @@ class SearchController: UIViewController, UITextFieldDelegate,UISearchBarDelegat
     
         if searchMtSwitch.isOn {
         // 山名検索画面へ遷移する SearchMountController "searchMount.swift"
+
+            print("--t")
+            print(self.searchMtSwitch.isOn)
             self.searchMtSwitch.isOn = false //山名検索のoff
-            print("---")
+            print("--f")
             print(self.searchMtSwitch.isOn)
             
             let storyboard: UIStoryboard = self.storyboard!
@@ -64,9 +67,25 @@ class SearchController: UIViewController, UITextFieldDelegate,UISearchBarDelegat
         tableView.dataSource = self
         searchCompleter.delegate = self
         mySearchBar.becomeFirstResponder() // サーチバーにフォーカスをあてる
-
     }
-
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        print("viewWillAppear()")
+        self.searchMtSwitch.isOn = false //山名検索のoff
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        print("viewWillDisappear()")
+        self.searchMtSwitch.isOn = false //山名検索のoff
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        print("viewDidDisappear()")
+        self.searchMtSwitch.isOn = false //山名検索のoff
+    }
     
     // サーチバーに入力した文字を検索する　山名の場合は、SearchMountController searchMount.swift
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
