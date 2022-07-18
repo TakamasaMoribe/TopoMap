@@ -52,6 +52,15 @@
                                 </items>
                                 <toolbarAppearance key="standardAppearance"/>
                             </toolbar>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="q3c-E0-nt9">
+                                <rect key="frame" x="272" y="37" width="82" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="住所検索"/>
+                                <connections>
+                                    <action selector="searchPlaceButtonClicked:" destination="BYZ-38-t0r" eventType="touchUpInside" id="4cJ-GE-6xl"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>

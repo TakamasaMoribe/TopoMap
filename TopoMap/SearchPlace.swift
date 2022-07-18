@@ -146,15 +146,15 @@
             print("選択した地点:\(feedItem.latitude!)") //確認用
             // 選択した地点のデータを保存する
             let userDefaults = UserDefaults.standard
-            userDefaults.set(feedItem.address!, forKey: "selectAddress")
-            userDefaults.set(feedItem.longitude!, forKey: "selectLongitude")
-            userDefaults.set(feedItem.latitude!, forKey: "selectLatitude")
+            userDefaults.set(feedItem.address!, forKey: "targetPlace")
+            userDefaults.set(feedItem.longitude!, forKey: "targetLongitude")
+            userDefaults.set(feedItem.latitude!, forKey: "targetLatitude")
             
-            // ①storyboardのインスタンス取得
+            // 画面遷移　最初の地図画面へ
             let storyboard: UIStoryboard = self.storyboard!
-            // ②遷移先ViewControllerのインスタンス取得
             let nextView = storyboard.instantiateViewController(withIdentifier: "Map") as! ViewController
-            // ③画面遷移
+            nextView.modalPresentationStyle = .fullScreen // 画面が下にずれることを解消できる？
+            //self.dismiss(animated: true) //画面表示を消去
             self.present(nextView, animated: true, completion: nil)
                         
         }
