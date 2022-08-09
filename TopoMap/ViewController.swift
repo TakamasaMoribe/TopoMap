@@ -19,7 +19,7 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
     @IBOutlet weak var mySlider: UISlider!
     @IBOutlet weak var updateSwitch: UISwitch! //現在地表示更新の可否を決めるスイッチ
     
-    // 地理院地図　表示の濃淡を決めるスライダーの設定 標準地図とレリーフ地図の両方とも
+    // 地理院地図　表示の濃淡を決めるスライダーの設定 標準地図と陰影起伏図の両方とも
     @IBAction func sliderDidChange(_ slider: UISlider) {
         if let renderer = mapView.renderer(for: gsiTileOverlayStd) { // Std標準地図
             renderer.alpha = CGFloat(slider.value) // 濃淡のプロパティ値＝スライダ値
