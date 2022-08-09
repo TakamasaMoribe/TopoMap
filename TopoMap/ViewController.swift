@@ -21,11 +21,14 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
     
     // 地理院地図　表示の濃淡を決めるスライダーの設定 標準地図とレリーフ地図の両方とも
     @IBAction func sliderDidChange(_ slider: UISlider) {
-        if let renderer = mapView.renderer(for: gsiTileOverlayStd) { // 標準地図
+        if let renderer = mapView.renderer(for: gsiTileOverlayStd) { // Std標準地図
             renderer.alpha = CGFloat(slider.value) // 濃淡のプロパティ値＝スライダ値
         }
-        if let renderer = mapView.renderer(for: gsiTileOverlayRel) { // レリーフ地図
-            renderer.alpha = CGFloat(slider.value) * 0.3// スライダ値*0.3
+//        if let renderer = mapView.renderer(for: gsiTileOverlayRel) { // Relレリーフ地図
+//            renderer.alpha = CGFloat(slider.value) * 0.3// スライダ値*0.3
+//        }
+        if let renderer = mapView.renderer(for: gsiTileOverlayHil) { // Hil陰影起伏図
+            renderer.alpha = CGFloat(slider.value) * 0.5// スライダ値*0.5
         }
     }
         
@@ -41,9 +44,14 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
     // 国土地理院が提供する色別標高図のURL。ここを変えると、様々な地図データを表示できる
     private let gsiTileOverlayStd = MKTileOverlay(urlTemplate:
     "https://cyberjapandata.gsi.go.jp/xyz/std/{z}/{x}/{y}.png")    // Std:標準地図
-    private let gsiTileOverlayRel = MKTileOverlay(urlTemplate:
-    "https://cyberjapandata.gsi.go.jp/xyz/relief/{z}/{x}/{y}.png") // Rel:レリーフ地図
-                            //色別標高図  relief ズームレベル 5～15
+                            //標準地図  std ズームレベル 5～18
+//    private let gsiTileOverlayRel = MKTileOverlay(urlTemplate:
+//    "https://cyberjapandata.gsi.go.jp/xyz/relief/{z}/{x}/{y}.png") // Rel:レリーフ地図
+//                            //色別標高図  relief ズームレベル 5～15
+    private let gsiTileOverlayHil = MKTileOverlay(urlTemplate:
+    "https://cyberjapandata.gsi.go.jp/xyz/hillshademap/{z}/{x}/{y}.png") //Hil:陰影起伏図
+                            //陰影起伏図 hillshademap ズームレベル 2～16
+    
     // 地図上に立てるピンを生成する
     let myPin: MKPointAnnotation = MKPointAnnotation()
 
@@ -97,13 +105,17 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
         mapView.addAnnotation(myPin)     // MapViewにピンを追加する
         
         // 地理院地図のオーバーレイ表示
-        mapView.addOverlay(gsiTileOverlayStd, level: .aboveLabels) // 標準地図
+        mapView.addOverlay(gsiTileOverlayStd, level: .aboveLabels) // Std:標準地図
             if let renderer = mapView.renderer(for: gsiTileOverlayStd) {
-                renderer.alpha = 0.1 // 地理院地図の透明度の初期値　　スライダーで可変
+                renderer.alpha = 0.1 // 標準地図　透明度の初期値　　スライダーで可変
             }
-        mapView.addOverlay(gsiTileOverlayRel, level: .aboveLabels) // レリーフ地図
-            if let renderer = mapView.renderer(for: gsiTileOverlayRel) {
-                renderer.alpha = 0.1 // 地理院地図の透明度の初期値　　スライダーで可変
+//        mapView.addOverlay(gsiTileOverlayRel, level: .aboveLabels) // Relレリーフ地図
+//            if let renderer = mapView.renderer(for: gsiTileOverlayRel) {
+//                renderer.alpha = 0.1 // レリーフ地図　透明度の初期値　　スライダーで可変
+//            }
+        mapView.addOverlay(gsiTileOverlayHil, level: .aboveLabels) // Hil陰影起伏図
+            if let renderer = mapView.renderer(for: gsiTileOverlayHil) {
+                renderer.alpha = 0.1 // 陰影起伏図　透明度の初期値　　スライダーで可変
             }
 
 
