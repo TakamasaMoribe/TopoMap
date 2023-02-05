@@ -320,6 +320,7 @@
 				DEVELOPMENT_TEAM = SWH2R7NJX7;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TopoMap/Info.plist;
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "許可してください";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -350,6 +351,7 @@
 				DEVELOPMENT_TEAM = SWH2R7NJX7;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TopoMap/Info.plist;
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "許可してください";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
