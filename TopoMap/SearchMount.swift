@@ -9,22 +9,23 @@
 //  ④tableViewで選択したcellから、山名・緯度・経度を取得する
 
 //  2022/01/17から再編集開始 データをサーチしてテーブルに表示する
+//  2023/02/18
 
 import UIKit
 
 class SearchMountController: UIViewController, UISearchBarDelegate,UITableViewDelegate, UITableViewDataSource {
 // tableViewは、datasouce、delegateをviewControllerとの接続も必要。
 // storyboard上でtableViewを右クリックして確認できる
-    @IBOutlet weak var mySearchBar: UISearchBar! // Search.swiftでも、同名
+    @IBOutlet weak var mySearchBar: UISearchBar! // Search.swiftでも、同名変数を使用
     
-    @IBOutlet weak var tableView: UITableView! // Search.swiftでも、同名
+    @IBOutlet weak var tableView: UITableView! // Search.swiftでも、同名変数を使用
 
     // Back ボタンを押したとき、地図画面(起動画面)に遷移する
     @IBAction func backButtonClicked(_ sender: Any) {
         let storyboard: UIStoryboard = self.storyboard!
         let nextView = storyboard.instantiateViewController(withIdentifier: "Map") as! ViewController
         self.dismiss(animated: true) //画面表示を消去
-        nextView.modalPresentationStyle = .fullScreen // 画面が下にずれることを解消できるようだ
+        nextView.modalPresentationStyle = .fullScreen // 画面が下にずれを解消できる？
         self.present(nextView,animated: true, completion: { () in
         })
     }
@@ -37,7 +38,7 @@ class SearchMountController: UIViewController, UISearchBarDelegate,UITableViewDe
     override func viewDidLoad() {
         super.viewDidLoad()
         originalMountDatas = dataLoad() //山の配列データをcsvファイルから読み込む。
-            //内容：[ふりがな,山名,緯度,経度,高度,都道府県名,山域名,地理院地図へのリンク先アドレス]
+            //内容：[ふりがな,山名,緯度,経度,高度,都道府県名,山域名,地理院地図へのリンク先]
         mySearchBar.delegate = self
         mySearchBar.placeholder = "ひらがなで、山名を入力してください"
     }
@@ -124,7 +125,7 @@ class SearchMountController: UIViewController, UISearchBarDelegate,UITableViewDe
         // ②遷移先ViewControllerのインスタンス取得
         let nextView = storyboard.instantiateViewController(withIdentifier: "Map") as! ViewController
         //self.dismiss(animated: true) //画面表示を消去
-        nextView.modalPresentationStyle = .fullScreen // 画面が下にずれることを解消できるようだ
+        nextView.modalPresentationStyle = .fullScreen // 画面が下にずれを解消できる？
         // ③画面遷移
         self.present(nextView, animated: true, completion: nil)
                 

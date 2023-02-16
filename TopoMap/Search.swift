@@ -4,6 +4,7 @@
 //
 //  Created by 森部高昌 on 2022/05/05
 //  2022/07/18
+//  2023/02/18
 
 import UIKit
 import MapKit
@@ -21,7 +22,7 @@ class SearchController: UIViewController, UITextFieldDelegate,UISearchBarDelegat
         let storyboard: UIStoryboard = self.storyboard!
         let nextView = storyboard.instantiateViewController(withIdentifier: "SearchMount") as! SearchMountController
         //self.dismiss(animated: true) //画面表示を消去
-        nextView.modalPresentationStyle = .fullScreen // 画面が下にずれることを解消できるようだ
+        nextView.modalPresentationStyle = .fullScreen // 画面が下にずれを解消できる
         self.present(nextView,animated: true, completion: { () in
         })
     }
@@ -30,7 +31,7 @@ class SearchController: UIViewController, UITextFieldDelegate,UISearchBarDelegat
     @IBAction private func searchPlaceButtonClicked(_ sender: Any) {
             let storyboard: UIStoryboard = self.storyboard!
             let nextView = storyboard.instantiateViewController(withIdentifier: "SearchPlace") as! SearchPlaceController
-            nextView.modalPresentationStyle = .fullScreen // 画面が下にずれることを解消できる？
+            nextView.modalPresentationStyle = .fullScreen // 画面が下にずれを解消できる？
             //self.dismiss(animated: true) //画面表示を消去
             self.present(nextView, animated: true, completion: nil)
         }
@@ -41,12 +42,12 @@ class SearchController: UIViewController, UITextFieldDelegate,UISearchBarDelegat
         let storyboard: UIStoryboard = self.storyboard!
         let nextView = storyboard.instantiateViewController(withIdentifier: "Map") as! ViewController
         self.dismiss(animated: true) //画面表示を消去
-        nextView.modalPresentationStyle = .fullScreen // 画面が下にずれることを解消できるようだ
+        nextView.modalPresentationStyle = .fullScreen // 画面が下にずれを解消できる？
         self.present(nextView,animated: true, completion: { () in
         })
     }
 
-    private var searchCompleter = MKLocalSearchCompleter() // SearchCompleter()のインスタンス生成
+    private var searchCompleter = MKLocalSearchCompleter() // SearchCompleter()のinstance
     
     
     override func viewDidLoad() {

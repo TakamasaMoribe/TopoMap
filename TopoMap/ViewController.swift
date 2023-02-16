@@ -4,6 +4,7 @@
 //
 //  Created by 森部高昌 on 2021/10/09.
 //  2022/07/18
+//  2023/02/16
 //  初期値として、①前回の検索地点を表示する。 //②いつも同じ地点を表示する。
 //　◯広い範囲を指定すれば、レリーフ地図も表示できる。レリーフ地図の縮尺の問題か？
 //　◯現在地から検索地点へ線を引く機能を追加する予定　ツールバーに実行アイコンを置く
@@ -41,7 +42,7 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
         self.present(nextView, animated: true, completion: nil)
     }
     
-    // 国土地理院が提供する色別標高図のURL。ここを変えると、様々な地図データを表示できる
+    // 国土地理院が提供するタイルのURL。ここを変えると、様々な地図データを表示できる
     private let gsiTileOverlayStd = MKTileOverlay(urlTemplate:
     "https://cyberjapandata.gsi.go.jp/xyz/std/{z}/{x}/{y}.png")    // Std:標準地図
                             //標準地図  std ズームレベル 5～18
@@ -58,7 +59,7 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
     // ロケーションマネージャーのインスタンスを生成する
     var locManager: CLLocationManager!
     
-    // 検索地点の初期値を設定する
+    // 検索地点の初期値を設定する・・・今の所未使用
     var myPlace:String = "木場公園"
     var myAddress:String = "〒135-0042,東京都江東区,木場４丁目"
     var myLatitude:Double = 35.6743169 // 木場公園の緯度
@@ -72,8 +73,8 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
         locManager.delegate = self
         //locManager.requestLocation()
         //locManager.desiredAccuracy = kCLLocationAccuracyHundredMeters//誤差100m程度の精度
-        //                              kCLLocationAccuracyNearestTenMeters//誤差10m程度の精度
-        //                              kCLLocationAccuracyBest//最高精度(デフォルト値)
+        //                          kCLLocationAccuracyNearestTenMeters//誤差10m程度の精度
+        //                          kCLLocationAccuracyBest//最高精度(デフォルト値)
         //locManager.distanceFilter = 10//10ｍ移動したら、位置情報を更新する
     }
     
@@ -84,7 +85,7 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
         
         mapView.delegate = self
 
-        // 保存した値を読み込む
+        // 保存しておいた値を読み込む
         myPlace = UserDefaults.standard.string(forKey: "targetPlace")!
         myAddress = UserDefaults.standard.string(forKey: "targetAddress")!
         myLatitude = UserDefaults.standard.double(forKey: "targetLatitude")
@@ -104,7 +105,7 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
         myPin.subtitle = myAddress       // 選択した住所
         mapView.addAnnotation(myPin)     // MapViewにピンを追加する
         
-        // 地理院地図のオーバーレイ表示
+        // 地理院地図のオーバーレイ表示。下の２種類のタイルを同時にコントロールしている
         mapView.addOverlay(gsiTileOverlayStd, level: .aboveLabels) // Std:標準地図
             if let renderer = mapView.renderer(for: gsiTileOverlayStd) {
                 renderer.alpha = 0.1 // 標準地図　透明度の初期値　　スライダーで可変
@@ -133,7 +134,7 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
         region.span.longitudeDelta = 0.01
         
         if updateSwitch .isOn {
-            mapView.userTrackingMode = .followWithHeading // 現在地を更新して、HeadingUpで表示
+            mapView.userTrackingMode = .followWithHeading // 現在地を更新して、HeadingUp表示
         } else {
             mapView.userTrackingMode = .none // 現在地の更新をしない
             //mapView.userTrackingMode = .follow // 現在地の更新をする
