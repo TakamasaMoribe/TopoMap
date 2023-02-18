@@ -36,12 +36,13 @@
                                     <constraint firstAttribute="height" constant="44" id="cOW-Np-mt1"/>
                                 </constraints>
                                 <items>
-                                    <barButtonItem title="現在地更新" width="20" id="LHm-Va-eU1">
+                                    <barButtonItem title="現在地" width="20" id="LHm-Va-eU1">
                                         <connections>
                                             <action selector="currentButtonClicked:" destination="BYZ-38-t0r" id="umN-mk-drb"/>
                                         </connections>
                                     </barButtonItem>
-                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="bBQ-Cd-ifV"/>
+                                    <barButtonItem title="Draw" image="cursorarrow.square" catalog="system" id="dDQ-QP-dPy"/>
+                                    <barButtonItem width="42" style="plain" systemItem="fixedSpace" id="bVd-5f-FM8"/>
                                     <barButtonItem title="検索" width="20" id="kpY-n2-CpG">
                                         <inset key="imageInsets" minX="50" minY="0.0" maxX="0.0" maxY="0.0"/>
                                         <connections>
@@ -376,6 +377,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="cursorarrow.square" catalog="system" width="128" height="114"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
