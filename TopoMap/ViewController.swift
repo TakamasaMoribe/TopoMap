@@ -39,7 +39,7 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
         let storyboard: UIStoryboard = self.storyboard!        
         let nextView = storyboard.instantiateViewController(withIdentifier: "Search") as! SearchController
         nextView.modalPresentationStyle = .fullScreen // 画面が下にずれることを解消できる？
-        self.dismiss(animated: true) //画面表示を消去
+        //self.dismiss(animated: true) //画面表示を消去
         self.present(nextView, animated: true, completion: nil)
     }
     
@@ -48,7 +48,7 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
         let storyboard: UIStoryboard = self.storyboard!
         let nextView = storyboard.instantiateViewController(withIdentifier: "SearchPlace") as! SearchPlaceController
         nextView.modalPresentationStyle = .fullScreen // 画面が下にずれることを解消できる？
-        self.dismiss(animated: true) //画面表示を消去
+        //self.dismiss(animated: true) //画面表示を消去
         self.present(nextView, animated: true, completion: nil)
     }
 
@@ -57,7 +57,7 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
         let storyboard: UIStoryboard = self.storyboard!
         let nextView = storyboard.instantiateViewController(withIdentifier: "SearchMount") as! SearchMountController
         nextView.modalPresentationStyle = .fullScreen // 画面が下にずれることを解消できる？
-        self.dismiss(animated: true) //画面表示を消去
+        //self.dismiss(animated: true) //画面表示を消去
         self.present(nextView, animated: true, completion: nil)
     }
     
@@ -106,7 +106,7 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
         
         mapView.delegate = self
 
-        // 保存しておいた値を読み込む
+        // 前回の検索で保存しておいた値を読み込む
         myPlace = UserDefaults.standard.string(forKey: "targetPlace")!
         myAddress = UserDefaults.standard.string(forKey: "targetAddress")!
         myLatitude = UserDefaults.standard.double(forKey: "targetLatitude")
