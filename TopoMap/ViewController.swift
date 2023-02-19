@@ -51,6 +51,16 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
         self.dismiss(animated: true) //画面表示を消去
         self.present(nextView, animated: true, completion: nil)
     }
+
+    // 山名ボタンをクリックしたとき、山名検索画面に遷移する
+    @IBAction func mountButtonclicked(_ sender: UIBarButtonItem) {
+        let storyboard: UIStoryboard = self.storyboard!
+        let nextView = storyboard.instantiateViewController(withIdentifier: "SearchMount") as! SearchMountController
+        nextView.modalPresentationStyle = .fullScreen // 画面が下にずれることを解消できる？
+        self.dismiss(animated: true) //画面表示を消去
+        self.present(nextView, animated: true, completion: nil)
+    }
+    
     
 //--------------------------------------------------------------------------------
     // 国土地理院が提供するタイルのURL。ここを変えると、様々な地図データを表示できる

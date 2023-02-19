@@ -54,7 +54,11 @@
                                             <action selector="addressButtonClecked:" destination="BYZ-38-t0r" id="PGU-nj-i8H"/>
                                         </connections>
                                     </barButtonItem>
-                                    <barButtonItem title="山名" id="7rD-Oh-8bW"/>
+                                    <barButtonItem title="山名" id="7rD-Oh-8bW">
+                                        <connections>
+                                            <action selector="mountButtonclicked:" destination="BYZ-38-t0r" id="ejg-BW-56z"/>
+                                        </connections>
+                                    </barButtonItem>
                                 </items>
                                 <toolbarAppearance key="standardAppearance"/>
                             </toolbar>
