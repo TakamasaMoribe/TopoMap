@@ -104,13 +104,16 @@ extension SearchController: UITableViewDelegate, UITableViewDataSource {
     // 地図画面へ遷移する
        let storyboard: UIStoryboard = self.storyboard!
        let nextView = storyboard.instantiateViewController(withIdentifier: "Map") as! ViewController
+        // 検索している画面を消去する
         nextView.modalPresentationStyle = .fullScreen // 画面が下にずれることを解消できる？
-       self.present(nextView,animated: true, completion: { () in
+        //self.dismiss(animated: true) //画面表示を消去
+        self.present(nextView,animated: true, completion: { () in
            nextView.myPin.title = selectedPlace      // 地名　pinをnextViewの変数にした
            nextView.myPin.subtitle = selectedAddress // 住所　引き継ぎが可能
            nextView.myLatitude = targetLatitude      // 緯度も同時に引き継ぐ?
            nextView.myLongitude = targetLongitude    // 経度も同時に引き継ぐ?
        })
+                                //self.dismiss(animated: true) //画面表示を消去
 
                        } // if let location =
                      } // if let firstPlacemark =
@@ -123,6 +126,7 @@ extension SearchController: UITableViewDelegate, UITableViewDataSource {
                 //↑ 緯度経度の取得　終わり
             } // if let selectedAddress・・・
         } // if let selectedPlace・・・
+        
     } // func tableView・・・
 } // end of extension SearchController: UITableViewDelegate, ・・・
 
