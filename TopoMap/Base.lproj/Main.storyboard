@@ -99,8 +99,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" indicatorStyle="black" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="sEI-RO-jR9">
-                                <rect key="frame" x="20" y="123" width="280" height="478"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" indicatorStyle="black" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="sEI-RO-jR9">
+                                <rect key="frame" x="20" y="95" width="280" height="478"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="478" id="ty5-PH-uuX"/>
@@ -138,33 +138,16 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VSq-BC-Hir">
-                                <rect key="frame" x="218" y="5" width="62" height="34.5"/>
+                            <searchBar contentMode="redraw" misplaced="YES" placeholder="目的の場所を入力してください" translatesAutoresizingMaskIntoConstraints="NO" id="XEx-s9-Xhm">
+                                <rect key="frame" x="20" y="39" width="280" height="56"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </searchBar>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VSq-BC-Hir">
+                                <rect key="frame" x="238" y="4" width="62" height="34.5"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="Back"/>
                                 <connections>
                                     <action selector="backButtonClicked:" destination="0zO-8b-lK6" eventType="touchUpInside" id="3uq-f1-0xe"/>
-                                </connections>
-                            </button>
-                            <searchBar contentMode="redraw" placeholder="地名等を入力してください" translatesAutoresizingMaskIntoConstraints="NO" id="XEx-s9-Xhm">
-                                <rect key="frame" x="20" y="67" width="280" height="56"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </searchBar>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5P0-ap-KTN">
-                                <rect key="frame" x="2" y="20" width="111" height="34.5"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="山名検索へ"/>
-                                <connections>
-                                    <action selector="searchMtButtonClicked:" destination="0zO-8b-lK6" eventType="touchUpInside" id="xbr-RY-SpK"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mVJ-Bp-6wm">
-                                <rect key="frame" x="131" y="20" width="107" height="31"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="住所検索へ"/>
-                                <connections>
-                                    <action selector="searchPlaceButtonClicked:" destination="0zO-8b-lK6" eventType="touchUpInside" id="6rT-6P-oyE"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -172,11 +155,8 @@
                         <color key="backgroundColor" systemColor="systemGray4Color"/>
                         <constraints>
                             <constraint firstItem="sEI-RO-jR9" firstAttribute="top" secondItem="XEx-s9-Xhm" secondAttribute="bottom" id="KlP-cV-cAr"/>
-                            <constraint firstItem="VSq-BC-Hir" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="5P0-ap-KTN" secondAttribute="trailing" constant="8" symbolic="YES" id="Pgg-G1-PbL"/>
                             <constraint firstItem="sEI-RO-jR9" firstAttribute="leading" secondItem="XEx-s9-Xhm" secondAttribute="leading" id="UPK-va-Qqu"/>
                             <constraint firstItem="bQA-TN-Tmd" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="VSq-BC-Hir" secondAttribute="trailing" id="UfU-Tn-6Yw"/>
-                            <constraint firstItem="5P0-ap-KTN" firstAttribute="leading" secondItem="bQA-TN-Tmd" secondAttribute="leading" constant="2" id="ZBT-VD-V0D"/>
-                            <constraint firstItem="5P0-ap-KTN" firstAttribute="top" secondItem="UlG-lX-eTu" secondAttribute="top" constant="20" symbolic="YES" id="e6Y-Ca-ZUt"/>
                             <constraint firstItem="VSq-BC-Hir" firstAttribute="top" secondItem="bQA-TN-Tmd" secondAttribute="top" constant="5" id="hyc-7U-pIg"/>
                             <constraint firstItem="bQA-TN-Tmd" firstAttribute="trailing" secondItem="VSq-BC-Hir" secondAttribute="trailing" constant="40" id="jHz-Xb-zHv"/>
                             <constraint firstItem="bQA-TN-Tmd" firstAttribute="trailing" secondItem="sEI-RO-jR9" secondAttribute="trailing" constant="20" id="mMi-AS-WGj"/>
@@ -281,7 +261,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oSk-wc-pwR" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="389.60000000000002" y="-12.143928035982009"/>
+            <point key="canvasLocation" x="1121" y="-13"/>
         </scene>
         <!--Search Place Controller-->
         <scene sceneID="aJ0-SO-jLq">
@@ -291,7 +271,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="Z3y-Xd-lYu">
+                            <searchBar contentMode="redraw" placeholder="住所を入力してください" translatesAutoresizingMaskIntoConstraints="NO" id="Z3y-Xd-lYu">
                                 <rect key="frame" x="0.0" y="64" width="320" height="44"/>
                                 <textInputTraits key="textInputTraits"/>
                             </searchBar>
@@ -381,7 +361,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zdw-Qg-QkL" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1078.125" y="-12.67605633802817"/>
+            <point key="canvasLocation" x="377" y="-12"/>
         </scene>
     </scenes>
     <resources>

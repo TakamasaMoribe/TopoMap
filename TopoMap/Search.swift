@@ -17,25 +17,6 @@ class SearchController: UIViewController, UITextFieldDelegate,UISearchBarDelegat
     // 検索結果表示用　テーブルビュー
     @IBOutlet weak var tableView: UITableView!
     
-    // 山名検索画面へ遷移する SearchMountController "searchMount.swift"
-    @IBAction func searchMtButtonClicked(_ sender: Any) {
-        let storyboard: UIStoryboard = self.storyboard!
-        let nextView = storyboard.instantiateViewController(withIdentifier: "SearchMount") as! SearchMountController
-        //self.dismiss(animated: true) //画面表示を消去
-        nextView.modalPresentationStyle = .fullScreen // 画面が下にずれを解消できる
-        self.present(nextView,animated: true, completion: { () in
-        })
-    }
-
-    //住所検索画面へ
-    @IBAction private func searchPlaceButtonClicked(_ sender: Any) {
-            let storyboard: UIStoryboard = self.storyboard!
-            let nextView = storyboard.instantiateViewController(withIdentifier: "SearchPlace") as! SearchPlaceController
-            nextView.modalPresentationStyle = .fullScreen // 画面が下にずれを解消できる？
-            //self.dismiss(animated: true) //画面表示を消去
-            self.present(nextView, animated: true, completion: nil)
-        }
-    
     
     // Back ボタンを押したとき、地図画面(起動画面)に遷移する
     @IBAction func backButtonClicked(_ sender: UIBarButtonItem) {
