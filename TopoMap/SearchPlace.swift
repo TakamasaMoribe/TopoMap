@@ -41,7 +41,7 @@
         override func viewDidLoad() {
             super.viewDidLoad()
             searchText.delegate = self
-            searchText.placeholder = "検索する地名を入力してください"
+            searchText.placeholder = "住所を入力してください"
         }
         
         override func didReceiveMemoryWarning() {
