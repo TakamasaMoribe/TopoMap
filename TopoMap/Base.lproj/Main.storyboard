@@ -49,7 +49,11 @@
                                             <action selector="seachButtonClicked:" destination="BYZ-38-t0r" id="OjS-LR-0Xl"/>
                                         </connections>
                                     </barButtonItem>
-                                    <barButtonItem title="住所" id="Lzk-nu-NsD"/>
+                                    <barButtonItem title="住所" id="Lzk-nu-NsD">
+                                        <connections>
+                                            <action selector="addressButtonClecked:" destination="BYZ-38-t0r" id="PGU-nj-i8H"/>
+                                        </connections>
+                                    </barButtonItem>
                                     <barButtonItem title="山名" id="7rD-Oh-8bW"/>
                                 </items>
                                 <toolbarAppearance key="standardAppearance"/>

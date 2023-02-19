@@ -4,7 +4,7 @@
 //
 //  Created by 森部高昌 on 2021/10/09.
 //  2022/07/18
-//  2023/02/16
+//  2023/02/19
 //  初期値として、①前回の検索地点を表示する。 //②いつも同じ地点を表示する。
 //　◯広い範囲を指定すれば、レリーフ地図も表示できる。レリーフ地図の縮尺の問題か？
 //　◯現在地から検索地点へ線を引く機能を追加する予定　ツールバーに実行アイコンを置く cursor arrow にしてみた
@@ -25,12 +25,13 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
         if let renderer = mapView.renderer(for: gsiTileOverlayStd) { // Std標準地図
             renderer.alpha = CGFloat(slider.value) // 濃淡のプロパティ値＝スライダ値
         }
-//        if let renderer = mapView.renderer(for: gsiTileOverlayRel) { // Relレリーフ地図
-//            renderer.alpha = CGFloat(slider.value) * 0.3// スライダ値*0.3
-//        }
+
         if let renderer = mapView.renderer(for: gsiTileOverlayHil) { // Hil陰影起伏図
             renderer.alpha = CGFloat(slider.value) * 0.5// スライダ値*0.5
         }
+    //    if let renderer = mapView.renderer(for: gsiTileOverlayRel) { // Relレリーフ地図
+    //        renderer.alpha = CGFloat(slider.value) * 0.3// スライダ値*0.3
+    //    }
     }
         
     // ツールバー内の検索ボタンをクリックしたとき、検索画面に遷移する
@@ -42,6 +43,16 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
         self.present(nextView, animated: true, completion: nil)
     }
     
+    // 住所ボタンをクリックしたとき、住所検索画面に遷移する
+    @IBAction func addressButtonClecked(_ sender: UIBarButtonItem) {
+        let storyboard: UIStoryboard = self.storyboard!
+        let nextView = storyboard.instantiateViewController(withIdentifier: "SearchPlace") as! SearchPlaceController
+        nextView.modalPresentationStyle = .fullScreen // 画面が下にずれることを解消できる？
+        self.dismiss(animated: true) //画面表示を消去
+        self.present(nextView, animated: true, completion: nil)
+    }
+    
+//--------------------------------------------------------------------------------
     // 国土地理院が提供するタイルのURL。ここを変えると、様々な地図データを表示できる
     private let gsiTileOverlayStd = MKTileOverlay(urlTemplate:
     "https://cyberjapandata.gsi.go.jp/xyz/std/{z}/{x}/{y}.png")    // Std:標準地図
