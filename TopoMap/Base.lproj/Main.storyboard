@@ -41,7 +41,11 @@
                                             <action selector="currentButtonClicked:" destination="BYZ-38-t0r" id="umN-mk-drb"/>
                                         </connections>
                                     </barButtonItem>
-                                    <barButtonItem title="Draw" image="cursorarrow.square" catalog="system" id="dDQ-QP-dPy"/>
+                                    <barButtonItem title="Draw" image="cursorarrow.square" catalog="system" id="dDQ-QP-dPy">
+                                        <connections>
+                                            <action selector="drawButtonClicked:" destination="BYZ-38-t0r" id="lJ2-nA-xcH"/>
+                                        </connections>
+                                    </barButtonItem>
                                     <barButtonItem width="42" style="plain" systemItem="fixedSpace" id="bVd-5f-FM8"/>
                                     <barButtonItem title="検索" width="20" id="kpY-n2-CpG">
                                         <inset key="imageInsets" minX="50" minY="0.0" maxX="0.0" maxY="0.0"/>
@@ -302,7 +306,7 @@
                                     <textInputTraits key="textInputTraits"/>
                                 </searchBar>
                                 <scrollView key="tableFooterView" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" id="a4t-bY-fBh">
-                                    <rect key="frame" x="0.0" y="474" width="288" height="44"/>
+                                    <rect key="frame" x="0.0" y="473.83333206176758" width="288" height="44"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <viewLayoutGuide key="contentLayoutGuide" id="kUa-MK-dcE"/>
                                     <viewLayoutGuide key="frameLayoutGuide" id="sXX-wb-Him"/>

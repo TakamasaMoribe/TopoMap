@@ -13,6 +13,9 @@ import UIKit
 import MapKit
 import CoreLocation
 
+// MKPolylineクラスの拡張　赤色の線を引くため
+// 最初に、MKPolylineクラスを拡張するクラスを作成する ？１本なら必要ない？
+// fileprivate class RedOverlay:MKPolyline{}
 
 class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelegate {
     
@@ -80,14 +83,14 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
     // ロケーションマネージャーのインスタンスを生成する
     var locManager: CLLocationManager!
     
-    // 検索地点の初期値を設定する・・・今の所未使用
+    // 検索地点の初期値を設定する・・・今のところは未使用
     var myPlace:String = "木場公園"
     var myAddress:String = "〒135-0042,東京都江東区,木場４丁目"
     var myLatitude:Double = 35.6743169 // 木場公園の緯度
     var myLongitude:Double = 139.8086198 // 木場公園の経度
     
     
-    // ツールバー内の「現在地更新」ボタンをクリックした時
+    // ツールバー内の「現在地」ボタンをクリックした時
     @IBAction func currentButtonClicked(_ sender: UIBarButtonItem) {
         // 現在地の取得 ロケーションマネージャーのインスタンスを作成する
         locManager = CLLocationManager()
@@ -97,6 +100,14 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
         //                          kCLLocationAccuracyNearestTenMeters//誤差10m程度の精度
         //                          kCLLocationAccuracyBest//最高精度(デフォルト値)
         //locManager.distanceFilter = 10//10ｍ移動したら、位置情報を更新する
+    }
+    
+    // ツールバー内の 矢印アイコン　をクリックした時　現在地から目的地へ線を引く　実装途中
+    @IBAction func drawButtonClicked(_ sender: UIBarButtonItem) {
+        // 目的地は、検索前のときは、前回検索した地点を使う
+        // 現在地は、「現在地」ボタンが押されたときに取得する。更新ボタンがONのとき。
+        print("矢印アイコン　クリック") //確認用
+        
     }
     
     
@@ -162,7 +173,7 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
         }
     }
     
-    //  位置情報の使用許可を確認して、取得する
+    //  位置情報の使用許可を確認して、現在位置を取得する
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
      let status = manager.authorizationStatus
         switch status {
@@ -177,13 +188,21 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
         }
     }
     // -----------------------------------------------------------------------
-
+    
 } // end of class ViewController ・・・
 
 
-// 地理院地図の表示 オーバーレイとして表示する
+// 地理院地図の表示と線の表示　オーバーレイとして表示する。
+// よくわからないが、polyline の場合と　Tile の場合に分けて、処理をしている
 extension ViewController {
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
-        return MKTileOverlayRenderer(overlay: overlay)
+        if let arrowline = overlay as? MKPolyline { // 線のとき
+            let renderer = MKPolylineRenderer(polyline: arrowline)
+                    renderer.strokeColor = UIColor.red// 赤い線
+                    renderer.lineWidth = 2.0
+                    return renderer
+                }
+        
+        return MKTileOverlayRenderer(overlay: overlay) //Tile のとき
     }
 }
