@@ -147,7 +147,7 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
 
     
     // 現在位置取得関係 ----------------------------------------------------
-    // CLLocationManagerのdelegate
+    // CLLocationManagerのdelegate:現在位置取得
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations:[CLLocation]) {
         //"mapView"に地図を表示する　よくある範囲設定をしてみた
         var region:MKCoordinateRegion = mapView.region

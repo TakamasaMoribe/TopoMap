@@ -40,7 +40,7 @@ class SearchMountController: UIViewController, UISearchBarDelegate,UITableViewDe
         originalMountDatas = dataLoad() //山の配列データをcsvファイルから読み込む。
             //内容：[ふりがな,山名,緯度,経度,高度,都道府県名,山域名,地理院地図へのリンク先]
         mySearchBar.delegate = self
-        mySearchBar.placeholder = "ひらがなで、山名を入力してください"
+        mySearchBar.placeholder = "ひらがなで、入力してください"
     }
     
     override func didReceiveMemoryWarning() {

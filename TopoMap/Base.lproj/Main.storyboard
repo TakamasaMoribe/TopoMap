@@ -99,11 +99,15 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" indicatorStyle="black" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="sEI-RO-jR9">
-                                <rect key="frame" x="20" y="95" width="280" height="478"/>
+                            <searchBar contentMode="redraw" ambiguous="YES" text="" placeholder="目的地を入力してください" translatesAutoresizingMaskIntoConstraints="NO" id="XEx-s9-Xhm">
+                                <rect key="frame" x="20" y="55.5" width="280" height="56"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </searchBar>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" indicatorStyle="black" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="sEI-RO-jR9">
+                                <rect key="frame" x="20" y="111.5" width="280" height="452"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="478" id="ty5-PH-uuX"/>
+                                    <constraint firstAttribute="height" constant="452" id="ty5-PH-uuX"/>
                                 </constraints>
                                 <scrollView key="tableFooterView" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" showsHorizontalScrollIndicator="NO" indicatorStyle="black" id="4V6-s4-NHZ">
                                     <rect key="frame" x="0.0" y="121.5" width="280" height="44"/>
@@ -138,12 +142,8 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <searchBar contentMode="redraw" misplaced="YES" text="" placeholder="目的地を入力してください" translatesAutoresizingMaskIntoConstraints="NO" id="XEx-s9-Xhm">
-                                <rect key="frame" x="20" y="39" width="280" height="56"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </searchBar>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VSq-BC-Hir">
-                                <rect key="frame" x="238" y="4" width="62" height="34.5"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VSq-BC-Hir">
+                                <rect key="frame" x="232" y="5" width="72" height="35"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="Back"/>
                                 <connections>
@@ -154,15 +154,16 @@
                         <viewLayoutGuide key="safeArea" id="bQA-TN-Tmd"/>
                         <color key="backgroundColor" systemColor="systemGray4Color"/>
                         <constraints>
+                            <constraint firstItem="XEx-s9-Xhm" firstAttribute="top" secondItem="VSq-BC-Hir" secondAttribute="bottom" constant="15.5" id="0aC-xZ-OBh"/>
                             <constraint firstItem="sEI-RO-jR9" firstAttribute="top" secondItem="XEx-s9-Xhm" secondAttribute="bottom" id="KlP-cV-cAr"/>
                             <constraint firstItem="sEI-RO-jR9" firstAttribute="leading" secondItem="XEx-s9-Xhm" secondAttribute="leading" id="UPK-va-Qqu"/>
                             <constraint firstItem="bQA-TN-Tmd" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="VSq-BC-Hir" secondAttribute="trailing" id="UfU-Tn-6Yw"/>
+                            <constraint firstItem="XEx-s9-Xhm" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="VSq-BC-Hir" secondAttribute="trailing" constant="-4" id="Ylv-Kw-wnN"/>
                             <constraint firstItem="VSq-BC-Hir" firstAttribute="top" secondItem="bQA-TN-Tmd" secondAttribute="top" constant="5" id="hyc-7U-pIg"/>
-                            <constraint firstItem="bQA-TN-Tmd" firstAttribute="trailing" secondItem="VSq-BC-Hir" secondAttribute="trailing" constant="40" id="jHz-Xb-zHv"/>
+                            <constraint firstItem="bQA-TN-Tmd" firstAttribute="trailing" secondItem="VSq-BC-Hir" secondAttribute="trailing" constant="16" id="jHz-Xb-zHv"/>
                             <constraint firstItem="bQA-TN-Tmd" firstAttribute="trailing" secondItem="sEI-RO-jR9" secondAttribute="trailing" constant="20" id="mMi-AS-WGj"/>
                             <constraint firstItem="sEI-RO-jR9" firstAttribute="leading" secondItem="bQA-TN-Tmd" secondAttribute="leading" constant="20" id="ndN-uU-sqA"/>
-                            <constraint firstItem="XEx-s9-Xhm" firstAttribute="centerX" secondItem="UlG-lX-eTu" secondAttribute="centerX" id="wyJ-Kg-z23"/>
-                            <constraint firstItem="sEI-RO-jR9" firstAttribute="top" secondItem="UlG-lX-eTu" secondAttribute="top" constant="123" id="ymm-gp-Ts7"/>
+                            <constraint firstItem="VSq-BC-Hir" firstAttribute="leading" secondItem="bQA-TN-Tmd" secondAttribute="leading" constant="232" id="tjB-We-0PW"/>
                         </constraints>
                     </view>
                     <connections>
@@ -172,7 +173,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ajX-f8-EFv" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-340" y="-12.143928035982009"/>
+            <point key="canvasLocation" x="-341.25" y="-12.67605633802817"/>
         </scene>
         <!--Search Mount Controller-->
         <scene sceneID="gsY-FR-jTU">
@@ -182,35 +183,41 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <searchBar contentMode="redraw" fixedFrame="YES" placeholder="ひらがなで入力してください" translatesAutoresizingMaskIntoConstraints="NO" id="DPA-XZ-eh2">
-                                <rect key="frame" x="15" y="69" width="287" height="44"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </searchBar>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IFi-8B-ZBv">
-                                <rect key="frame" x="288.5" y="20" width="11.5" height="34.5"/>
+                                <rect key="frame" x="224" y="12" width="80" height="35"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="Back"/>
                                 <connections>
                                     <action selector="backButtonClicked:" destination="zxS-FC-Uqx" eventType="touchUpInside" id="0ww-Tr-ASp"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="山名検索" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Std-Yx-JJ0">
+                                <rect key="frame" x="16" y="20" width="69.5" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <searchBar contentMode="redraw" fixedFrame="YES" placeholder="ひらがなで入力してください" translatesAutoresizingMaskIntoConstraints="NO" id="DPA-XZ-eh2">
+                                <rect key="frame" x="17" y="76" width="287" height="44"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </searchBar>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="9Jt-FN-6nB">
-                                <rect key="frame" x="16" y="122" width="337" height="483"/>
+                                <rect key="frame" x="17" y="153" width="304" height="446"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <scrollView key="tableFooterView" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" id="blL-Ba-ncq">
-                                    <rect key="frame" x="0.0" y="121.5" width="337" height="44"/>
+                                    <rect key="frame" x="0.0" y="121.5" width="304" height="44"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <viewLayoutGuide key="contentLayoutGuide" id="cvh-WX-vtS"/>
                                     <viewLayoutGuide key="frameLayoutGuide" id="vWC-1t-Xfl"/>
                                 </scrollView>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" textLabel="yC7-cf-q29" detailTextLabel="n5T-P4-vPE" style="IBUITableViewCellStyleSubtitle" id="qff-kE-XYD">
-                                        <rect key="frame" x="0.0" y="50" width="337" height="43.5"/>
+                                        <rect key="frame" x="0.0" y="50" width="304" height="43.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="qff-kE-XYD" id="qVZ-nc-xsk">
-                                            <rect key="frame" x="0.0" y="0.0" width="337" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="304" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="yC7-cf-q29">
@@ -236,21 +243,15 @@
                                     <outlet property="delegate" destination="zxS-FC-Uqx" id="wn2-a1-rcO"/>
                                 </connections>
                             </tableView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="山名検索" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Std-Yx-JJ0">
-                                <rect key="frame" x="16" y="20" width="69.5" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="g5a-9S-DV3"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="Std-Yx-JJ0" firstAttribute="leading" secondItem="g5a-9S-DV3" secondAttribute="leading" constant="16" id="5Lf-Vf-LbH"/>
-                            <constraint firstItem="IFi-8B-ZBv" firstAttribute="leading" secondItem="g5a-9S-DV3" secondAttribute="leading" constant="288.5" id="7PB-yz-zFz"/>
+                            <constraint firstItem="IFi-8B-ZBv" firstAttribute="leading" secondItem="g5a-9S-DV3" secondAttribute="leading" constant="224" id="7PB-yz-zFz"/>
                             <constraint firstItem="Std-Yx-JJ0" firstAttribute="top" secondItem="g5a-9S-DV3" secondAttribute="top" constant="20" id="Hhz-28-yyz"/>
-                            <constraint firstItem="IFi-8B-ZBv" firstAttribute="top" secondItem="g5a-9S-DV3" secondAttribute="top" constant="20" id="cft-Jq-Bwm"/>
-                            <constraint firstItem="g5a-9S-DV3" firstAttribute="trailing" secondItem="IFi-8B-ZBv" secondAttribute="trailing" constant="20" id="fm3-tI-EF4"/>
+                            <constraint firstItem="IFi-8B-ZBv" firstAttribute="top" secondItem="g5a-9S-DV3" secondAttribute="top" constant="12" id="cft-Jq-Bwm"/>
+                            <constraint firstItem="g5a-9S-DV3" firstAttribute="trailing" secondItem="IFi-8B-ZBv" secondAttribute="trailing" constant="16" id="fm3-tI-EF4"/>
                             <constraint firstItem="IFi-8B-ZBv" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Std-Yx-JJ0" secondAttribute="trailing" constant="8" symbolic="YES" id="nOv-rD-FdJ"/>
                         </constraints>
                     </view>
@@ -261,7 +262,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oSk-wc-pwR" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1121" y="-13"/>
+            <point key="canvasLocation" x="1119.375" y="-13.732394366197184"/>
         </scene>
         <!--Search Place Controller-->
         <scene sceneID="aJ0-SO-jLq">
@@ -271,28 +272,47 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <searchBar contentMode="redraw" text="" placeholder="住所を入力してください" translatesAutoresizingMaskIntoConstraints="NO" id="Z3y-Xd-lYu">
-                                <rect key="frame" x="15" y="68" width="287" height="46"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </searchBar>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="住所検索" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fDJ-tL-4yn">
+                                <rect key="frame" x="16" y="14" width="70" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xQr-Ss-ZkG">
+                                <rect key="frame" x="245" y="9" width="67" height="31"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="67" id="2Sv-fA-9Ve"/>
+                                    <constraint firstAttribute="height" constant="31" id="KSE-ZP-d6M"/>
+                                </constraints>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Back"/>
+                                <connections>
+                                    <action selector="backButtonclicked:" destination="QgD-pZ-fdT" eventType="touchUpInside" id="fXR-M5-Oyd"/>
+                                </connections>
+                            </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="HeM-UW-XF3">
-                                <rect key="frame" x="16" y="120" width="343" height="516"/>
+                                <rect key="frame" x="16" y="66" width="288" height="462"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="516" id="7pj-sL-dAz"/>
+                                    <constraint firstAttribute="height" constant="462" id="7pj-sL-dAz"/>
                                 </constraints>
+                                <searchBar key="tableHeaderView" contentMode="redraw" text="" placeholder="住所を入力してください" id="Z3y-Xd-lYu">
+                                    <rect key="frame" x="0.0" y="0.0" width="288" height="56"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <textInputTraits key="textInputTraits"/>
+                                </searchBar>
                                 <scrollView key="tableFooterView" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" id="a4t-bY-fBh">
-                                    <rect key="frame" x="0.0" y="121.5" width="343" height="44"/>
+                                    <rect key="frame" x="0.0" y="474" width="288" height="44"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <viewLayoutGuide key="contentLayoutGuide" id="kUa-MK-dcE"/>
                                     <viewLayoutGuide key="frameLayoutGuide" id="sXX-wb-Him"/>
                                 </scrollView>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" textLabel="Pzv-9u-qxm" detailTextLabel="HbG-eA-Vuk" style="IBUITableViewCellStyleSubtitle" id="ko0-RI-SG9">
-                                        <rect key="frame" x="0.0" y="50" width="343" height="43.5"/>
+                                        <rect key="frame" x="0.0" y="106" width="288" height="43.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ko0-RI-SG9" id="f7O-7p-eea">
-                                            <rect key="frame" x="0.0" y="0.0" width="343" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="288" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Pzv-9u-qxm">
@@ -318,40 +338,18 @@
                                     <outlet property="delegate" destination="QgD-pZ-fdT" id="c1A-d9-xn0"/>
                                 </connections>
                             </tableView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="住所検索" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fDJ-tL-4yn">
-                                <rect key="frame" x="16" y="20" width="70" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xQr-Ss-ZkG">
-                                <rect key="frame" x="253" y="20" width="67" height="31"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="67" id="2Sv-fA-9Ve"/>
-                                    <constraint firstAttribute="height" constant="31" id="KSE-ZP-d6M"/>
-                                </constraints>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="Back"/>
-                                <connections>
-                                    <action selector="backButtonclicked:" destination="QgD-pZ-fdT" eventType="touchUpInside" id="fXR-M5-Oyd"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="tdW-95-akL"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="xQr-Ss-ZkG" firstAttribute="leading" secondItem="fDJ-tL-4yn" secondAttribute="trailing" constant="167" id="6wv-jv-lXq"/>
-                            <constraint firstAttribute="bottomMargin" secondItem="HeM-UW-XF3" secondAttribute="bottom" constant="-68" id="B33-E5-zGD"/>
+                            <constraint firstItem="xQr-Ss-ZkG" firstAttribute="leading" secondItem="fDJ-tL-4yn" secondAttribute="trailing" constant="159" id="6wv-jv-lXq"/>
+                            <constraint firstAttribute="bottomMargin" secondItem="HeM-UW-XF3" secondAttribute="bottom" constant="40" id="B33-E5-zGD"/>
                             <constraint firstItem="fDJ-tL-4yn" firstAttribute="leading" secondItem="SjE-mp-Erd" secondAttribute="leadingMargin" id="F5o-XH-MoV"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="HeM-UW-XF3" secondAttribute="trailing" constant="-55" id="JtQ-jk-u0D"/>
-                            <constraint firstItem="Z3y-Xd-lYu" firstAttribute="centerX" secondItem="SjE-mp-Erd" secondAttribute="centerX" constant="-1.5" id="LO9-fH-Tyw"/>
-                            <constraint firstItem="HeM-UW-XF3" firstAttribute="top" secondItem="Z3y-Xd-lYu" secondAttribute="bottom" constant="6" id="MxH-uc-VNv"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="HeM-UW-XF3" secondAttribute="trailing" id="JtQ-jk-u0D"/>
                             <constraint firstItem="xQr-Ss-ZkG" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="SjE-mp-Erd" secondAttribute="trailingMargin" id="Pdb-fr-9jT"/>
-                            <constraint firstItem="Z3y-Xd-lYu" firstAttribute="leading" secondItem="tdW-95-akL" secondAttribute="leading" constant="15" id="RRR-hS-Xx7"/>
-                            <constraint firstItem="xQr-Ss-ZkG" firstAttribute="top" secondItem="tdW-95-akL" secondAttribute="top" constant="20" id="U6e-0O-STL"/>
-                            <constraint firstItem="xQr-Ss-ZkG" firstAttribute="top" secondItem="fDJ-tL-4yn" secondAttribute="top" id="goY-Gx-m4Y"/>
+                            <constraint firstItem="xQr-Ss-ZkG" firstAttribute="top" secondItem="tdW-95-akL" secondAttribute="top" constant="9" id="U6e-0O-STL"/>
+                            <constraint firstItem="xQr-Ss-ZkG" firstAttribute="top" secondItem="fDJ-tL-4yn" secondAttribute="top" constant="-5" id="goY-Gx-m4Y"/>
                             <constraint firstItem="fDJ-tL-4yn" firstAttribute="leading" secondItem="HeM-UW-XF3" secondAttribute="leading" id="u5c-ZS-NtC"/>
-                            <constraint firstItem="Z3y-Xd-lYu" firstAttribute="top" secondItem="xQr-Ss-ZkG" secondAttribute="bottom" constant="17" id="uQG-5p-wCD"/>
                         </constraints>
                     </view>
                     <connections>
@@ -361,7 +359,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zdw-Qg-QkL" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="377" y="-12"/>
+            <point key="canvasLocation" x="376.875" y="-12.67605633802817"/>
         </scene>
     </scenes>
     <resources>
