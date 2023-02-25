@@ -107,7 +107,8 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
         myLatitude = UserDefaults.standard.double(forKey: "targetLatitude")
         myLongitude = UserDefaults.standard.double(forKey: "targetLongitude")
         
-        // 現在地は、「現在地」ボタンが押されたときに取得する。更新ボタンがONのとき。ピンは立たない。
+        // 更新ボタンがONのとき、「現在地」ボタンが押されたときに取得する。ピンは立てない。
+        // 更新ボタンがONのときは、検索した地点の情報をどう扱うことにしているか？
         // CLLocationManagerのdelegate：現在位置取得
         func locationManager(_ manager: CLLocationManager, didUpdateLocations locations:[CLLocation]) {
             
