@@ -306,7 +306,7 @@
                                     <textInputTraits key="textInputTraits"/>
                                 </searchBar>
                                 <scrollView key="tableFooterView" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" id="a4t-bY-fBh">
-                                    <rect key="frame" x="0.0" y="473.83333206176758" width="288" height="44"/>
+                                    <rect key="frame" x="0.0" y="473.5" width="288" height="44"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <viewLayoutGuide key="contentLayoutGuide" id="kUa-MK-dcE"/>
                                     <viewLayoutGuide key="frameLayoutGuide" id="sXX-wb-Him"/>
