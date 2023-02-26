@@ -13,9 +13,28 @@ import UIKit
 import MapKit
 import CoreLocation
 
-// MKPolylineクラスの拡張　赤色の線を引くため
-// 最初に、MKPolylineクラスを拡張するクラスを作成する ？１本なら必要ない？
-// fileprivate class RedOverlay:MKPolyline{}
+    // 国土地理院が提供するタイルのURL。ここを変えると、様々な地図データを表示できる
+    private let gsiTileOverlayStd = MKTileOverlay(urlTemplate:
+    "https://cyberjapandata.gsi.go.jp/xyz/std/{z}/{x}/{y}.png")    // Std:標準地図
+                            //標準地図  std ズームレベル 5～18
+    private let gsiTileOverlayHil = MKTileOverlay(urlTemplate:
+    "https://cyberjapandata.gsi.go.jp/xyz/hillshademap/{z}/{x}/{y}.png") //Hil:陰影起伏図
+                            //陰影起伏図 hillshademap ズームレベル 2～16
+    //    private let gsiTileOverlayRel = MKTileOverlay(urlTemplate:
+    //    "https://cyberjapandata.gsi.go.jp/xyz/relief/{z}/{x}/{y}.png") // Rel:レリーフ地図
+    //                            //色別標高図  relief ズームレベル 5～15
+    
+    // 地図上に立てるピンを生成する
+    let myPin: MKPointAnnotation = MKPointAnnotation()
+    // ロケーションマネージャーのインスタンスを生成する
+    var locManager: CLLocationManager!
+    // 検索地点の初期値を設定する・・・今のところは未使用
+    var myPlace:String = "木場公園"
+    var myAddress:String = "〒135-0042,東京都江東区,木場４丁目"
+    var myLatitude:Double = 35.6743169 // 木場公園の緯度
+    var myLongitude:Double = 139.8086198 // 木場公園の経度
+
+//----------------------------------------------------------------------------------------
 
 class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelegate {
     
@@ -60,32 +79,6 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
         nextView.modalPresentationStyle = .fullScreen // 画面が下にずれることを解消できる？
         self.present(nextView, animated: true, completion: nil)
     }
-    
-    
-//--------------------------------------------------------------------------------
-    // 国土地理院が提供するタイルのURL。ここを変えると、様々な地図データを表示できる
-    private let gsiTileOverlayStd = MKTileOverlay(urlTemplate:
-    "https://cyberjapandata.gsi.go.jp/xyz/std/{z}/{x}/{y}.png")    // Std:標準地図
-                            //標準地図  std ズームレベル 5～18
-    private let gsiTileOverlayHil = MKTileOverlay(urlTemplate:
-    "https://cyberjapandata.gsi.go.jp/xyz/hillshademap/{z}/{x}/{y}.png") //Hil:陰影起伏図
-                            //陰影起伏図 hillshademap ズームレベル 2～16
-    //    private let gsiTileOverlayRel = MKTileOverlay(urlTemplate:
-    //    "https://cyberjapandata.gsi.go.jp/xyz/relief/{z}/{x}/{y}.png") // Rel:レリーフ地図
-    //                            //色別標高図  relief ズームレベル 5～15
-    
-    // 地図上に立てるピンを生成する
-    let myPin: MKPointAnnotation = MKPointAnnotation()
-
-    // ロケーションマネージャーのインスタンスを生成する
-    var locManager: CLLocationManager!
-    
-    // 検索地点の初期値を設定する・・・今のところは未使用
-    var myPlace:String = "木場公園"
-    var myAddress:String = "〒135-0042,東京都江東区,木場４丁目"
-    var myLatitude:Double = 35.6743169 // 木場公園の緯度
-    var myLongitude:Double = 139.8086198 // 木場公園の経度
-    
 
     // ツールバー内の「現在地」ボタンをクリックした時
     @IBAction func currentButtonClicked(_ sender: UIBarButtonItem) {
@@ -99,7 +92,7 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
         //locManager.distanceFilter = 10//10ｍ移動したら、位置情報を更新する
     }
     
-    // ツールバー内の 矢印アイコン　をクリックした時　現在地から目的地へ線を引く　実装途中
+    // ツールバー内の 矢印アイコン　をクリックした時　現在地から目的地へ線を引く
     @IBAction func drawButtonClicked(_ sender: UIBarButtonItem) {
         
         locManager = CLLocationManager()
@@ -111,12 +104,6 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
         myLatitude = UserDefaults.standard.double(forKey: "targetLatitude")
         myLongitude = UserDefaults.standard.double(forKey: "targetLongitude")
 
-        print("前回検索地:\(myPlace)") //OK
-        print("緯度:\(myLatitude)") //OK
-        print("経度:\(myLongitude)") //OK
-        print("次に、線を引くメソッドに入る") //メソッドを書いているだけで、入っていない。
-        // 更新ボタンがONのとき、「現在地」ボタンが押されたときに取得する。ピンは立てない。
-        // 更新ボタンがONのときは、検索した地点の情報をどう扱うことにしているか？
     }
     
     
@@ -166,7 +153,6 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
     
     //==============================================================================
 
-    
     // 現在位置取得関係 ----------------------------------------------------
     // CLLocationManagerのdelegate:現在位置取得
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations:[CLLocation]) {
@@ -191,13 +177,13 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
         let locTarget = CLLocationCoordinate2D(latitude: myLatitude, longitude: myLongitude)
         print("検索地点の緯度\(myLatitude)")
         print("検索地点の経度\(myLongitude)")
-        //"mapView"に地図を表示する　よくある範囲設定をしてみた・・・不要？
+        //"mapView"に地図を表示する　よくある範囲設定をしてみた・・・不要か？
           var region:MKCoordinateRegion = mapView.region
           region.span.latitudeDelta = 0.01
           region.span.longitudeDelta = 0.01
 
         // ここから線を引く部分。
-        // 現在地と検索地点の２点の座標を入れた配列
+        // 現在地と検索地点、２点の座標を入れた配列をつくる
         let arrayLine = [locNow,locTarget]
 
         // ２点を結ぶ線を引く。（緯度,経度）＝（０、０）　未設定の時は線を引かない
@@ -205,7 +191,6 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
                 let redLine = MKPolyline(coordinates: arrayLine, count: 2)
                 mapView.addOverlays([redLine])// 地図上に描く
             }
-        
     }
     
     //  位置情報の使用許可を確認して、取得する。
@@ -223,33 +208,6 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
         }
     }
     // -----------------------------------------------------------------------
-
-//    // ポリライン(オーバーレイ)
-//     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
-//         let renderer = MKPolylineRenderer(polyline: overlay as! MKPolyline)
-//         renderer.strokeColor = UIColor.red// 赤い線
-//         renderer.lineWidth = 2
-//
-////             switch overlay {
-////                 case is RedOverlay:
-////                     renderer.strokeColor = UIColor.red// 赤い線
-////                     renderer.lineWidth = 2
-////                 case is BlueOverlay:
-////                     renderer.strokeColor = UIColor.blue// 青い線
-////                     renderer.lineWidth = 2
-////                 case is PurpleOverlay:
-////                     renderer.strokeColor = UIColor.purple// 紫の線
-////                     renderer.lineWidth = 2
-////                 default:
-////                     break
-////             }
-//         return renderer
-//     }
-    
-    
-    
-    
-    
 } // end of class ViewController ・・・
 
 
