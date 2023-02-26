@@ -110,48 +110,14 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
         myAddress = UserDefaults.standard.string(forKey: "targetAddress")!
         myLatitude = UserDefaults.standard.double(forKey: "targetLatitude")
         myLongitude = UserDefaults.standard.double(forKey: "targetLongitude")
-        print("前回検索地取得") //OK
-        print(myPlace) //OK
-        print("緯度\(myLatitude)") //OK
-        print("経度\(myLongitude)") //OK
-        print("線を引くメソッドに入る") //メソッドを書いているだけで、入っていない。
+
+        print("前回検索地:\(myPlace)") //OK
+        print("緯度:\(myLatitude)") //OK
+        print("経度:\(myLongitude)") //OK
+        print("次に、線を引くメソッドに入る") //メソッドを書いているだけで、入っていない。
         // 更新ボタンがONのとき、「現在地」ボタンが押されたときに取得する。ピンは立てない。
         // 更新ボタンがONのときは、検索した地点の情報をどう扱うことにしているか？
     }
-    
-//        // CLLocationManagerのdelegate：現在位置取得
-//    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations:[CLLocation]) {
-//
-//            //現在地の緯度経度を取得する ido,keido
-//            let location:CLLocation = locations[0]//locations[0]の意味
-//            let ido = location.coordinate.latitude
-//            let keido = location.coordinate.longitude
-//            // 現在地の座標
-//            let locNow = CLLocationCoordinate2D(latitude: ido, longitude: keido)
-//            print("ido\(ido)")
-//            print("keido\(keido)")
-//            // 検索地点の座標
-//            let locTarget = CLLocationCoordinate2D(latitude: myLatitude, longitude: myLongitude)
-//            print("myLatitude\(myLatitude)")
-//            print("検索地点の座標")
-//            print("myLongitude\(myLongitude)")
-//            //"mapView"に地図を表示する　よくある範囲設定をしてみた・・・不要？
-//              var region:MKCoordinateRegion = mapView.region
-//              region.span.latitudeDelta = 0.01
-//              region.span.longitudeDelta = 0.01
-//
-//            // ここから線を引く部分。
-//            // 現在地と検索地点の２点の座標を入れた配列
-//            let arrayLine = [locNow,locTarget]
-//
-//            // ２点を結ぶ線を引く。（緯度,経度）＝（０、０）　未設定の時は線を引かない
-//                if (myLatitude != 0) && (myLongitude != 0) {
-//                    let redLine = MKPolyline(coordinates: arrayLine, count: 2)
-//                    mapView.addOverlays([redLine])// 地図上に描く
-//                }
-//
-//
-//    }
     
     
     //==============================================================================
@@ -204,33 +170,27 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
     // 現在位置取得関係 ----------------------------------------------------
     // CLLocationManagerのdelegate:現在位置取得
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations:[CLLocation]) {
-        //"mapView"に地図を表示する　よくある範囲設定をしてみた。この下３行は不要と思われる
-        //var region:MKCoordinateRegion = mapView.region
-        //region.span.latitudeDelta = 0.01
-        //region.span.longitudeDelta = 0.01
         
-        // 更新スイッチにより、実行可否を判断する
+        // 更新スイッチの状態により、実行可否を判断する
         if updateSwitch .isOn {
             mapView.userTrackingMode = .followWithHeading // 現在地を更新して、HeadingUp表示
         } else {
             mapView.userTrackingMode = .none // 現在地の更新をしない
             //mapView.userTrackingMode = .follow // 現在地の更新をする
         }
-
         
         //現在地の緯度経度を取得する ido,keido
         let location:CLLocation = locations[0]//locations[0]の意味
-        let ido = location.coordinate.latitude
-        let keido = location.coordinate.longitude
+        let ido = location.coordinate.latitude //現在地の緯度
+        let keido = location.coordinate.longitude //現在地の経度
         // 現在地の座標
         let locNow = CLLocationCoordinate2D(latitude: ido, longitude: keido)
-        print("ido\(ido)")
-        print("keido\(keido)")
+        print("現在地の緯度\(ido)")
+        print("現在地の経度\(keido)")
         // 検索地点の座標
         let locTarget = CLLocationCoordinate2D(latitude: myLatitude, longitude: myLongitude)
-        print("myLatitude\(myLatitude)")
-        print("検索地点の座標")
-        print("myLongitude\(myLongitude)")
+        print("検索地点の緯度\(myLatitude)")
+        print("検索地点の経度\(myLongitude)")
         //"mapView"に地図を表示する　よくある範囲設定をしてみた・・・不要？
           var region:MKCoordinateRegion = mapView.region
           region.span.latitudeDelta = 0.01
@@ -245,7 +205,6 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
                 let redLine = MKPolyline(coordinates: arrayLine, count: 2)
                 mapView.addOverlays([redLine])// 地図上に描く
             }
-    
         
     }
     
