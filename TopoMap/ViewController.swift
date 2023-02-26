@@ -148,15 +148,15 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
         mapView.addAnnotation(myPin)     // MapViewにピンを追加する
         
         // 地理院地図のオーバーレイ表示。下の２種類のタイルを同時にコントロールしている
-//        mapView.addOverlay(gsiTileOverlayStd, level: .aboveLabels) // Std:標準地図
-//            if let renderer = mapView.renderer(for: gsiTileOverlayStd) {
-//                renderer.alpha = 0.1 // 標準地図　透明度の初期値　　スライダーで可変
-//            }
-//
-//        mapView.addOverlay(gsiTileOverlayHil, level: .aboveLabels) // Hil陰影起伏図
-//            if let renderer = mapView.renderer(for: gsiTileOverlayHil) {
-//                renderer.alpha = 0.1 // 陰影起伏図　透明度の初期値　　スライダーで可変
-//            }
+        mapView.addOverlay(gsiTileOverlayStd, level: .aboveLabels) // Std:標準地図
+            if let renderer = mapView.renderer(for: gsiTileOverlayStd) {
+                renderer.alpha = 0.1 // 標準地図　透明度の初期値　　スライダーで可変
+            }
+
+        mapView.addOverlay(gsiTileOverlayHil, level: .aboveLabels) // Hil陰影起伏図
+            if let renderer = mapView.renderer(for: gsiTileOverlayHil) {
+                renderer.alpha = 0.1 // 陰影起伏図　透明度の初期値　　スライダーで可変
+            }
         // mapView.addOverlay(gsiTileOverlayRel, level: .aboveLabels) // Relレリーフ地図
         //     if let renderer = mapView.renderer(for: gsiTileOverlayRel) {
         //         renderer.alpha = 0.1 // レリーフ地図　透明度の初期値　　スライダーで可変
@@ -224,27 +224,27 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
     }
     // -----------------------------------------------------------------------
 
-    // ポリライン(オーバーレイ)
-     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
-         let renderer = MKPolylineRenderer(polyline: overlay as! MKPolyline)
-         renderer.strokeColor = UIColor.red// 赤い線
-         renderer.lineWidth = 2
-         
-//             switch overlay {
-//                 case is RedOverlay:
-//                     renderer.strokeColor = UIColor.red// 赤い線
-//                     renderer.lineWidth = 2
-//                 case is BlueOverlay:
-//                     renderer.strokeColor = UIColor.blue// 青い線
-//                     renderer.lineWidth = 2
-//                 case is PurpleOverlay:
-//                     renderer.strokeColor = UIColor.purple// 紫の線
-//                     renderer.lineWidth = 2
-//                 default:
-//                     break
-//             }
-         return renderer
-     }
+//    // ポリライン(オーバーレイ)
+//     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+//         let renderer = MKPolylineRenderer(polyline: overlay as! MKPolyline)
+//         renderer.strokeColor = UIColor.red// 赤い線
+//         renderer.lineWidth = 2
+//
+////             switch overlay {
+////                 case is RedOverlay:
+////                     renderer.strokeColor = UIColor.red// 赤い線
+////                     renderer.lineWidth = 2
+////                 case is BlueOverlay:
+////                     renderer.strokeColor = UIColor.blue// 青い線
+////                     renderer.lineWidth = 2
+////                 case is PurpleOverlay:
+////                     renderer.strokeColor = UIColor.purple// 紫の線
+////                     renderer.lineWidth = 2
+////                 default:
+////                     break
+////             }
+//         return renderer
+//     }
     
     
     
@@ -253,19 +253,19 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
 } // end of class ViewController ・・・
 
 
-// 地理院地図の表示と線の表示　オーバーレイとして表示する。
-// 拡張ということがよくわからないが、
-// MKPolylineRenderer(polyline:) と　MKTileOverlayRenderer(overlay:)の場合に分けて、処理をしている
+ //地理院地図の表示と線の表示　オーバーレイとして表示する。
+ //拡張ということがよくわからないが、
+ //MKPolylineRenderer(polyline:) と　MKTileOverlayRenderer(overlay:)の場合に分けて、処理をしている
 
-//extension ViewController {
-//    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
-//        if let arrowline = overlay as? MKPolyline { // 線のとき
-//            let renderer = MKPolylineRenderer(polyline: arrowline)
-//                    renderer.strokeColor = UIColor.red// 赤い線
-//                    renderer.lineWidth = 2.0
-//                    return renderer
-//                }
-//
-//        return MKTileOverlayRenderer(overlay: overlay) //Tile のとき
-//    }
-//}
+extension ViewController {
+    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+        if let arrowline = overlay as? MKPolyline { // 線のとき
+            let renderer = MKPolylineRenderer(polyline: arrowline)
+                    renderer.strokeColor = UIColor.red// 赤い線
+                    renderer.lineWidth = 2.0
+                    return renderer
+                }
+
+        return MKTileOverlayRenderer(overlay: overlay) //Tile のとき
+    }
+}
