@@ -13,6 +13,15 @@ import UIKit
 import MapKit
 import CoreLocation
 
+
+//----------------------------------------------------------------------------------------
+
+class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelegate {
+    
+    @IBOutlet weak var mapView: MKMapView!
+    @IBOutlet weak var mySlider: UISlider!
+    @IBOutlet weak var updateSwitch: UISwitch! //現在地表示更新の可否を決めるスイッチ
+    
     // 国土地理院が提供するタイルのURL。ここを変えると、様々な地図データを表示できる
     private let gsiTileOverlayStd = MKTileOverlay(urlTemplate:
     "https://cyberjapandata.gsi.go.jp/xyz/std/{z}/{x}/{y}.png")    // Std:標準地図
@@ -28,21 +37,15 @@ import CoreLocation
     let myPin: MKPointAnnotation = MKPointAnnotation()
     // ロケーションマネージャーのインスタンスを生成する
     var locManager: CLLocationManager!
-    // 検索地点の初期値を設定する・・・今のところは未使用
-    var myPlace:String = "木場公園"
-    var myAddress:String = "〒135-0042,東京都江東区,木場４丁目"
-    var myLatitude:Double = 35.6743169 // 木場公園の緯度
-    var myLongitude:Double = 139.8086198 // 木場公園の経度
-
-//----------------------------------------------------------------------------------------
-
-class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelegate {
     
-    @IBOutlet weak var mapView: MKMapView!
-    @IBOutlet weak var mySlider: UISlider!
-    @IBOutlet weak var updateSwitch: UISwitch! //現在地表示更新の可否を決めるスイッチ
+            // 検索地点の初期値を設定しておく。表示はされない。
+            var myPlace:String = "木場公園"
+            var myAddress:String = "〒135-0042,東京都江東区,木場４丁目"
+            var myLatitude:Double = 35.6743169 // 木場公園の緯度
+            var myLongitude:Double = 139.8086198 // 木場公園の経度
+
     
-    // 地理院地図　表示の濃淡を決めるスライダーの設定 標準地図と陰影起伏図の両方とも
+    // 地理院地図　表示の濃淡を決めるスライダーの設定 標準地図と陰影起伏図を同時に変更するスライダー
     @IBAction func sliderDidChange(_ slider: UISlider) {
         if let renderer = mapView.renderer(for: gsiTileOverlayStd) { // Std標準地図
             renderer.alpha = CGFloat(slider.value) // 濃淡のプロパティ値＝スライダ値
@@ -120,14 +123,15 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
         myLongitude = UserDefaults.standard.double(forKey: "targetLongitude")
 
         // 表示する地図の中心位置＝検索地点＝Pinを置く位置
-        // 線を引く場合は、現在地を中心位置にするので、このあたりを変更する必要がある
+
+        //線を引く場合は、現在地を中心位置にするので、このあたりを変更する必要がある
         let targetPlace = CLLocationCoordinate2D( latitude: myLatitude,longitude: myLongitude)
         let span = MKCoordinateSpan (latitudeDelta: 0.01,longitudeDelta: 0.01)
         let targetRegion = MKCoordinateRegion(center: targetPlace, span: span)
         // MapViewに中心点を設定する
         mapView.setCenter(targetPlace, animated: true)
         mapView.setRegion(targetRegion, animated:true)
-        
+
         // ピンの座標とタイトルを設定。ピンの位置が画面の中央になる
         myPin.coordinate = targetPlace   // 目的地の座標
         myPin.title = myPlace            // 選択した地名
