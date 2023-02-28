@@ -39,8 +39,8 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
     var locManager: CLLocationManager!
     
             // 検索地点の初期値を設定しておく。表示はされない。
-            var myPlace:String = "木場公園"
-            var myAddress:String = "〒135-0042,東京都江東区,木場４丁目"
+            var selectedPlace:String = "木場公園"
+            var selectedAddress:String = "〒135-0042,東京都江東区,木場４丁目"
             var targetLatitude:Double = 35.6743169 // 木場公園の緯度
             var targetLongitude:Double = 139.8086198 // 木場公園の経度
 
@@ -112,8 +112,8 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
         //mapView.delegate = self //Mapの描画
 
         // 目標地点として、前回の検索で保存しておいた値を読み込む
-        myPlace = UserDefaults.standard.string(forKey: "targetPlace")!
-        myAddress = UserDefaults.standard.string(forKey: "targetAddress")!
+        selectedPlace = UserDefaults.standard.string(forKey: "targetPlace")!
+        selectedAddress = UserDefaults.standard.string(forKey: "targetAddress")!
         targetLatitude = UserDefaults.standard.double(forKey: "targetLatitude")
         targetLongitude = UserDefaults.standard.double(forKey: "targetLongitude")
 
@@ -127,8 +127,8 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
 
         // ピンの座標とタイトルを設定。検索地点＝ピンの位置が画面の中央になる
         myPin.coordinate = targetPlace   // 選択した場所の座標
-        myPin.title = myPlace            // 選択した地名
-        myPin.subtitle = myAddress       // 選択した住所
+        myPin.title = selectedPlace            // 選択した地名
+        myPin.subtitle = selectedAddress       // 選択した住所
         mapView.addAnnotation(myPin)     // MapViewにピンを追加表示する
         
         // 地理院地図のオーバーレイ表示。下の２種類のタイルを同時に表示している
@@ -176,7 +176,7 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
         // ここから線を引く部分。
         // 検索地点の座標
         let locTarget = CLLocationCoordinate2D(latitude: targetLatitude, longitude: targetLongitude)
-        print("検索地点 myPlace:\(myPlace)")
+        print("検索地点 selectedPlace:\(selectedPlace)")
         print("検索地点の緯度\(targetLatitude)")
         print("検索地点の経度\(targetLongitude)")
 
