@@ -127,8 +127,8 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
 
         // ピンの座標とタイトルを設定。検索地点＝ピンの位置が画面の中央になる
         myPin.coordinate = targetPlace   // 選択した場所の座標
-        myPin.title = selectedPlace            // 選択した地名
-        myPin.subtitle = selectedAddress       // 選択した住所
+        myPin.title = selectedPlace      // 選択した地名
+        myPin.subtitle = selectedAddress // 選択した住所
         mapView.addAnnotation(myPin)     // MapViewにピンを追加表示する
         
         // 地理院地図のオーバーレイ表示。下の２種類のタイルを同時に表示している
@@ -153,14 +153,14 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
     // 現在位置取得関係 ----------------------------------------------------
     // CLLocationManagerのdelegate:現在位置取得
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations:[CLLocation]) {
-        print("これから、現在地の取得をやります")
+        print("現在地の取得に入りました")
         // 更新スイッチの状態により、実行可否を判断する・・とりあえず使わないで考える。
-//        if updateSwitch .isOn {
-//            mapView.userTrackingMode = .followWithHeading // 現在地を更新して、HeadingUp表示
-//        } else {
-//            mapView.userTrackingMode = .none // 現在地の更新をしない
-//            //mapView.userTrackingMode = .follow // 現在地の更新をする
-//        }
+        // if updateSwitch .isOn {
+        //     mapView.userTrackingMode = .followWithHeading // 現在地を更新して、HeadingUp表示
+        // } else {
+        //   　mapView.userTrackingMode = .none // 現在地の更新をしない
+        //   //mapView.userTrackingMode = .follow // 現在地の更新をする
+        // }
         
         //現在地の緯度経度を取得する myLatitude,myLongitude
         let location:CLLocation = locations[0]//locations[0]の意味
@@ -182,7 +182,8 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
 
         // 現在地と検索地点、２点の座標を入れた配列をつくる
         let lineArray = [locNow,locTarget]
-
+        
+        print("線を引きます")
         // ２点を結ぶ線を引く。（緯度,経度）＝（０、０）　未設定の時は線を引かない
             if (targetLatitude != 0) && (targetLongitude != 0) {
                 let redLine = MKPolyline(coordinates: lineArray, count: 2)
