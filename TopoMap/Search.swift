@@ -110,8 +110,8 @@ extension SearchController: UITableViewDelegate, UITableViewDataSource {
         self.present(nextView,animated: true, completion: { () in
            nextView.myPin.title = selectedPlace      // 地名　pinをnextViewの変数にした
            nextView.myPin.subtitle = selectedAddress // 住所　引き継ぎが可能
-           nextView.myLatitude = targetLatitude      // 緯度も同時に引き継ぐ?
-           nextView.myLongitude = targetLongitude    // 経度も同時に引き継ぐ?
+           nextView.targetLatitude = targetLatitude      // 緯度も同時に引き継ぐ?
+           nextView.targetLongitude = targetLongitude    // 経度も同時に引き継ぐ?
        })
                                 //self.dismiss(animated: true) //画面表示を消去
 

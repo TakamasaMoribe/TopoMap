@@ -4,10 +4,10 @@
 //
 //  Created by 森部高昌 on 2021/10/09.
 //  2022/07/18
-//  2023/02/22、2023/02/26
-//  初期値として、①前回の検索地点を表示する。 //②いつも同じ地点を表示する。
+//  2023/02/22、2023/02/26、02/27
+//  Map表示の初期値として、前回の検索地点を使用する。
 //　◯広い範囲を指定すれば、レリーフ地図も表示できる。レリーフ地図の縮尺の問題か？
-//　◯現在地から検索地点へ線を引く機能を追加する予定　ツールバーに実行アイコンを置く cursor arrow にしてみた
+//　◯現在地から検索地点へ線を引く。ツールバーに実行アイコンを置く cursor arrow にしてみた
 
 import UIKit
 import MapKit
@@ -19,7 +19,7 @@ import CoreLocation
 class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelegate {
     
     @IBOutlet weak var mapView: MKMapView!
-    @IBOutlet weak var mySlider: UISlider!
+    @IBOutlet weak var mySlider: UISlider! // 地理院地図の濃淡を決めるスライダー
     @IBOutlet weak var updateSwitch: UISwitch! //現在地表示更新の可否を決めるスイッチ
     
     // 国土地理院が提供するタイルのURL。ここを変えると、様々な地図データを表示できる
@@ -41,8 +41,8 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
             // 検索地点の初期値を設定しておく。表示はされない。
             var myPlace:String = "木場公園"
             var myAddress:String = "〒135-0042,東京都江東区,木場４丁目"
-            var myLatitude:Double = 35.6743169 // 木場公園の緯度
-            var myLongitude:Double = 139.8086198 // 木場公園の経度
+            var targetLatitude:Double = 35.6743169 // 木場公園の緯度
+            var targetLongitude:Double = 139.8086198 // 木場公園の経度
 
     
     // 地理院地図　表示の濃淡を決めるスライダーの設定 標準地図と陰影起伏図を同時に変更するスライダー
@@ -87,7 +87,7 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
     @IBAction func currentButtonClicked(_ sender: UIBarButtonItem) {
         // 現在地の取得 ロケーションマネージャーのインスタンスを作成する
         locManager = CLLocationManager()
-        locManager.delegate = self
+        locManager.delegate = self // 現在地を取得して表示する？
         //locManager.requestLocation()
         //locManager.desiredAccuracy = kCLLocationAccuracyHundredMeters//誤差100m程度の精度
         //                          kCLLocationAccuracyNearestTenMeters//誤差10m程度の精度
@@ -98,15 +98,10 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
     // ツールバー内の 矢印アイコン　をクリックした時　現在地から目的地へ線を引く
     @IBAction func drawButtonClicked(_ sender: UIBarButtonItem) {
         
-        locManager = CLLocationManager()
-        locManager.delegate = self
+        // ここに線を引くメソッドへのリンクを置く
+        //locManager = CLLocationManager()
+        //locManager.delegate = self // 現在地取得へ
         
-        // 目標地点として、前回の検索で保存しておいた値を読み込む
-        myPlace = UserDefaults.standard.string(forKey: "targetPlace")!
-        myAddress = UserDefaults.standard.string(forKey: "targetAddress")!
-        myLatitude = UserDefaults.standard.double(forKey: "targetLatitude")
-        myLongitude = UserDefaults.standard.double(forKey: "targetLongitude")
-
     }
     
     
@@ -114,31 +109,29 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        mapView.delegate = self
+        //mapView.delegate = self //Mapの描画
 
         // 目標地点として、前回の検索で保存しておいた値を読み込む
         myPlace = UserDefaults.standard.string(forKey: "targetPlace")!
         myAddress = UserDefaults.standard.string(forKey: "targetAddress")!
-        myLatitude = UserDefaults.standard.double(forKey: "targetLatitude")
-        myLongitude = UserDefaults.standard.double(forKey: "targetLongitude")
+        targetLatitude = UserDefaults.standard.double(forKey: "targetLatitude")
+        targetLongitude = UserDefaults.standard.double(forKey: "targetLongitude")
 
         // 表示する地図の中心位置＝検索地点＝Pinを置く位置
-
-        //線を引く場合は、現在地を中心位置にするので、このあたりを変更する必要がある
-        let targetPlace = CLLocationCoordinate2D( latitude: myLatitude,longitude: myLongitude)
+        let targetPlace = CLLocationCoordinate2D( latitude: targetLatitude,longitude: targetLongitude)
         let span = MKCoordinateSpan (latitudeDelta: 0.01,longitudeDelta: 0.01)
         let targetRegion = MKCoordinateRegion(center: targetPlace, span: span)
         // MapViewに中心点を設定する
         mapView.setCenter(targetPlace, animated: true)
         mapView.setRegion(targetRegion, animated:true)
 
-        // ピンの座標とタイトルを設定。ピンの位置が画面の中央になる
-        myPin.coordinate = targetPlace   // 目的地の座標
+        // ピンの座標とタイトルを設定。検索地点＝ピンの位置が画面の中央になる
+        myPin.coordinate = targetPlace   // 選択した場所の座標
         myPin.title = myPlace            // 選択した地名
         myPin.subtitle = myAddress       // 選択した住所
-        mapView.addAnnotation(myPin)     // MapViewにピンを追加する
+        mapView.addAnnotation(myPin)     // MapViewにピンを追加表示する
         
-        // 地理院地図のオーバーレイ表示。下の２種類のタイルを同時にコントロールしている
+        // 地理院地図のオーバーレイ表示。下の２種類のタイルを同時に表示している
         mapView.addOverlay(gsiTileOverlayStd, level: .aboveLabels) // Std:標準地図
             if let renderer = mapView.renderer(for: gsiTileOverlayStd) {
                 renderer.alpha = 0.1 // 標準地図　透明度の初期値　　スライダーで可変
@@ -160,39 +153,39 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
     // 現在位置取得関係 ----------------------------------------------------
     // CLLocationManagerのdelegate:現在位置取得
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations:[CLLocation]) {
+        print("これから、現在地の取得をやります")
+        // 更新スイッチの状態により、実行可否を判断する・・とりあえず使わないで考える。
+//        if updateSwitch .isOn {
+//            mapView.userTrackingMode = .followWithHeading // 現在地を更新して、HeadingUp表示
+//        } else {
+//            mapView.userTrackingMode = .none // 現在地の更新をしない
+//            //mapView.userTrackingMode = .follow // 現在地の更新をする
+//        }
         
-        // 更新スイッチの状態により、実行可否を判断する
-        if updateSwitch .isOn {
-            mapView.userTrackingMode = .followWithHeading // 現在地を更新して、HeadingUp表示
-        } else {
-            mapView.userTrackingMode = .none // 現在地の更新をしない
-            //mapView.userTrackingMode = .follow // 現在地の更新をする
-        }
-        
-        //現在地の緯度経度を取得する ido,keido
+        //現在地の緯度経度を取得する myLatitude,myLongitude
         let location:CLLocation = locations[0]//locations[0]の意味
-        let ido = location.coordinate.latitude //現在地の緯度
-        let keido = location.coordinate.longitude //現在地の経度
+        let myLatitude = location.coordinate.latitude //現在地の緯度
+        let myLongitude = location.coordinate.longitude //現在地の経度
         // 現在地の座標
-        let locNow = CLLocationCoordinate2D(latitude: ido, longitude: keido)
-        print("現在地の緯度\(ido)")
-        print("現在地の経度\(keido)")
-        // 検索地点の座標
-        let locTarget = CLLocationCoordinate2D(latitude: myLatitude, longitude: myLongitude)
-        print("検索地点の緯度\(myLatitude)")
-        print("検索地点の経度\(myLongitude)")
-        //"mapView"に地図を表示する　よくある範囲設定をしてみた・・・不要か？
-          var region:MKCoordinateRegion = mapView.region
-          region.span.latitudeDelta = 0.01
-          region.span.longitudeDelta = 0.01
-
+        let locNow = CLLocationCoordinate2D(latitude: myLatitude, longitude: myLongitude)
+        print("現在地の緯度\(myLatitude)")
+        print("現在地の経度\(myLongitude)")
+        
+        mapView.delegate = self //Mapの描画
+        print("このあと、線を引きます")
         // ここから線を引く部分。
+        // 検索地点の座標
+        let locTarget = CLLocationCoordinate2D(latitude: targetLatitude, longitude: targetLongitude)
+        print("検索地点 myPlace:\(myPlace)")
+        print("検索地点の緯度\(targetLatitude)")
+        print("検索地点の経度\(targetLongitude)")
+
         // 現在地と検索地点、２点の座標を入れた配列をつくる
-        let arrayLine = [locNow,locTarget]
+        let lineArray = [locNow,locTarget]
 
         // ２点を結ぶ線を引く。（緯度,経度）＝（０、０）　未設定の時は線を引かない
-            if (myLatitude != 0) && (myLongitude != 0) {
-                let redLine = MKPolyline(coordinates: arrayLine, count: 2)
+            if (targetLatitude != 0) && (targetLongitude != 0) {
+                let redLine = MKPolyline(coordinates: lineArray, count: 2)
                 mapView.addOverlays([redLine])// 地図上に描く
             }
     }
