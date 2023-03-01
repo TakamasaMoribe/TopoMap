@@ -171,9 +171,7 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
         print("現在地の緯度\(myLatitude)")
         print("現在地の経度\(myLongitude)")
         
-        mapView.delegate = self //Mapの描画
-        print("このあと、線を引きます")
-        // ここから線を引く部分。
+        // ここから線を引く準備。
         // 検索地点の座標
         let locTarget = CLLocationCoordinate2D(latitude: targetLatitude, longitude: targetLongitude)
         print("検索地点 selectedPlace:\(selectedPlace)")
@@ -185,11 +183,14 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
         
         print("線を引きます")
         // ２点を結ぶ線を引く。（緯度,経度）＝（０、０）　未設定の時は線を引かない
+        mapView.delegate = self //Mapの描画
             if (targetLatitude != 0) && (targetLongitude != 0) {
                 let redLine = MKPolyline(coordinates: lineArray, count: 2)
                 mapView.addOverlays([redLine])// 地図上に描く
             }
     }
+   
+    
     
     //  位置情報の使用許可を確認して、取得する。
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
