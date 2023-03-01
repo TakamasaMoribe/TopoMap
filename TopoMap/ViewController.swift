@@ -177,11 +177,27 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
         print("検索地点 selectedPlace:\(selectedPlace)")
         print("検索地点の緯度\(targetLatitude)")
         print("検索地点の経度\(targetLongitude)")
-
-        // 現在地と検索地点、２点の座標を入れた配列をつくる
-        let lineArray = [locNow,locTarget]
         
-        print("線を引きます")
+        // メソッドで線を引く
+        drawLine(current: locNow, destination: locTarget) // 
+
+//        // 現在地と検索地点、２点の座標を入れた配列をつくる
+//        let lineArray = [locNow,locTarget]
+//
+//        print("線を引きます")
+//        // ２点を結ぶ線を引く。（緯度,経度）＝（０、０）　未設定の時は線を引かない
+//        mapView.delegate = self //Mapの描画
+//            if (targetLatitude != 0) && (targetLongitude != 0) {
+//                let redLine = MKPolyline(coordinates: lineArray, count: 2)
+//                mapView.addOverlays([redLine])// 地図上に描く
+//            }
+    }
+    
+    // 線を引くメソッド
+    func drawLine(current:CLLocationCoordinate2D,destination:CLLocationCoordinate2D)  {
+        // 現在地と検索地点、２点の座標を入れた配列をつくる
+        let lineArray = [current,destination]
+        print("メソッドで線を引きます")
         // ２点を結ぶ線を引く。（緯度,経度）＝（０、０）　未設定の時は線を引かない
         mapView.delegate = self //Mapの描画
             if (targetLatitude != 0) && (targetLongitude != 0) {
