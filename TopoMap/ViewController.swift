@@ -4,7 +4,7 @@
 //
 //  Created by 森部高昌 on 2021/10/09.
 //  2022/07/18
-//  2023/02/22、2023/02/26、02/27
+//  2023/02/22、2023/02/26、02/27、03/01
 //  Map表示の初期値として、前回の検索地点を使用する。
 //　◯広い範囲を指定すれば、レリーフ地図も表示できる。レリーフ地図の縮尺の問題か？
 //　◯現在地から検索地点へ線を引く。ツールバーに実行アイコンを置く cursor arrow にしてみた
@@ -39,7 +39,7 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
     var locManager: CLLocationManager!
     
     // 現在地の初期値を設定しておく。表示はされない。
-            var myLatitude:Double = 35.67485 // 自宅の緯度35.67485 139.80615
+            var myLatitude:Double = 35.67485 // 自宅の緯度35.67485
             var myLongitude:Double = 139.80615 // 自宅の経度139.80615
     // 検索地点の初期値を設定しておく。表示はされない。
             var selectedPlace:String = "木場公園"
@@ -48,7 +48,8 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
             var targetLongitude:Double = 139.8086198 // 木場公園の経度
 
     
-    // 地理院地図　表示の濃淡を決めるスライダーの設定 標準地図と陰影起伏図を同時に変更するスライダー
+    // 地理院地図　表示の濃淡を決めるスライダーの設定
+    // 標準地図と陰影起伏図を同時に変更する
     @IBAction func sliderDidChange(_ slider: UISlider) {
         if let renderer = mapView.renderer(for: gsiTileOverlayStd) { // Std標準地図
             renderer.alpha = CGFloat(slider.value) // 濃淡のプロパティ値＝スライダ値
@@ -88,9 +89,10 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
 
     // ツールバー内の「現在地」ボタンをクリックした時、現在地の緯度経度を取得する
     @IBAction func currentButtonClicked(_ sender: UIBarButtonItem) {
+        print("現在地ボタンをクリックしました")
         // 現在地の取得 ロケーションマネージャーのインスタンスを作成する
         locManager = CLLocationManager()
-        locManager.delegate = self // 現在地を取得して表示する
+        locManager.delegate = self // 現在地を取得して表示する？
         //locManager.requestLocation()
         //locManager.desiredAccuracy = kCLLocationAccuracyHundredMeters//誤差100m程度の精度
         //                          kCLLocationAccuracyNearestTenMeters//誤差10m程度の精度
@@ -101,7 +103,7 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
     
     // ツールバー内の 矢印アイコン　をクリックした時　現在地を取得してから目的地へ線を引く
     @IBAction func drawButtonClicked(_ sender: UIBarButtonItem) {
-        
+        print("矢印アイコンをクリックしました")
         // 現在地の取得
         locManager = CLLocationManager()
         locManager.delegate = self // 現在地取得へ
@@ -148,19 +150,22 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
         myPin.subtitle = selectedAddress // 選択した住所
         mapView.addAnnotation(myPin)     // MapViewにピンを追加表示する
         
-        // 地理院地図のオーバーレイ表示。下の２種類のタイルを同時に表示している
-        mapView.addOverlay(gsiTileOverlayStd, level: .aboveLabels) // Std:標準地図
+        // 地理院地図のオーバーレイ表示。
+        // 下の２種類のタイルを同時に表示している
+        // Std:標準地図
+        mapView.addOverlay(gsiTileOverlayStd, level: .aboveLabels)
             if let renderer = mapView.renderer(for: gsiTileOverlayStd) {
-                renderer.alpha = 0.1 // 標準地図　透明度の初期値　　スライダーで可変
+                renderer.alpha = 0.1 // 透明度の初期値　　スライダーで可変
             }
-
-        mapView.addOverlay(gsiTileOverlayHil, level: .aboveLabels) // Hil陰影起伏図
+        // Hil陰影起伏図
+        mapView.addOverlay(gsiTileOverlayHil, level: .aboveLabels)
             if let renderer = mapView.renderer(for: gsiTileOverlayHil) {
-                renderer.alpha = 0.1 // 陰影起伏図　透明度の初期値　　スライダーで可変
+                renderer.alpha = 0.1 // 透明度の初期値　　スライダーで可変
             }
-        // mapView.addOverlay(gsiTileOverlayRel, level: .aboveLabels) // Relレリーフ地図
+        // Relレリーフ地図
+        // mapView.addOverlay(gsiTileOverlayRel, level: .aboveLabels)
         //     if let renderer = mapView.renderer(for: gsiTileOverlayRel) {
-        //         renderer.alpha = 0.1 // レリーフ地図　透明度の初期値　　スライダーで可変
+        //         renderer.alpha = 0.1 // 透明度の初期値　　スライダーで可変
         //     }
 
     } // end of override func viewDidLoad ・・・
@@ -170,7 +175,7 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
     // 現在位置取得関係 ----------------------------------------------------
     // CLLocationManagerのdelegate:現在位置取得
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations:[CLLocation]) {
-        print("現在地の取得に入りました")
+        print("現在地の取得に入りました") // 現在地の表示にもピンがほしい？
         // 更新スイッチの状態により、実行可否を判断する・・とりあえず使わないで考える。
         // if updateSwitch .isOn {
         //     mapView.userTrackingMode = .followWithHeading // 現在地を更新して、HeadingUp表示
@@ -239,8 +244,8 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
 
  //地理院地図の表示と線の表示　オーバーレイとして表示する。
  //拡張ということがよくわからないが、
- //MKPolylineRenderer(polyline:) と　MKTileOverlayRenderer(overlay:)の場合に分けて、処理をしている
-
+ //MKPolylineRenderer(polyline:) と
+ //MKTileOverlayRenderer(overlay:) の場合に分けて、処理をしている
 extension ViewController {
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
         if let arrowline = overlay as? MKPolyline { // 線のとき
