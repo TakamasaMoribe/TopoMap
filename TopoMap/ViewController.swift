@@ -39,8 +39,8 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
     var locManager: CLLocationManager!
     
     // 現在地の初期値を設定しておく。表示はされない。
-            var myLatitude:Double = 35.67485 // 自宅の緯度35.67485
-            var myLongitude:Double = 139.80615 // 自宅の経度139.80615
+            var myLatitude:Double = 35.67485 // 自宅の緯度35.67485 現在地の緯度35.67476581424778    
+            var myLongitude:Double = 139.80615 // 自宅の経度139.80615 現在地の経度139.80606060262522
     // 検索地点の初期値を設定しておく。表示はされない。
             var selectedPlace:String = "木場公園"
             var selectedAddress:String = "〒135-0042,東京都江東区,木場４丁目"
@@ -175,7 +175,7 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
     // 現在位置取得関係 ----------------------------------------------------
     // CLLocationManagerのdelegate:現在位置取得
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations:[CLLocation]) {
-        print("現在地の取得に入りました") // 現在地の表示にもピンがほしい？
+        print("現在地の取得に入りました。")
         // 更新スイッチの状態により、実行可否を判断する・・とりあえず使わないで考える。
         // if updateSwitch .isOn {
         //     mapView.userTrackingMode = .followWithHeading // 現在地を更新して、HeadingUp表示
@@ -185,28 +185,22 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
         // }
  
         // --------------------------------------------------------------
-        //現在地の緯度経度を取得する myLatitude,myLongitude
-        //let location:CLLocation = locations[0]//locations[0]の意味
-        //let myLatitude = location.coordinate.latitude //現在地の緯度
-        //let myLongitude = location.coordinate.longitude //現在地の経度
-        
-//    // --------------------------------------------------------------
-//        // 現在地の座標
-//        let locNow = CLLocationCoordinate2D(latitude: myLatitude, longitude: myLongitude)
-//        print("現在地の緯度\(myLatitude)")
-//        print("現在地の経度\(myLongitude)")
-//
-//        // ここから線を引く準備。
-//        // 検索地点の座標・・・これは、前回検索地点を読み込む
-//        let locTarget = CLLocationCoordinate2D(latitude: targetLatitude, longitude: targetLongitude)
-//        print("検索地点 selectedPlace:\(selectedPlace)")
-//        print("検索地点の緯度\(targetLatitude)")
-//        print("検索地点の経度\(targetLongitude)")
-//
-//        // 線を引くメソッドへ
-//        drawLine(current: locNow, destination: locTarget) //
-//    // --------------------------------------------------------------
-
+        // 現在地の緯度経度を取得する myLatitude,myLongitude
+        let location:CLLocation = locations[0]//locations[0]の意味
+        let myLatitude = location.coordinate.latitude //現在地の緯度
+        let myLongitude = location.coordinate.longitude //現在地の経度
+        // 現在地の座標
+        let locNow = CLLocationCoordinate2D(latitude: myLatitude, longitude: myLongitude)
+                print("現在地の緯度\(myLatitude)")
+                print("現在地の経度\(myLongitude)")
+        // ピンの座標とタイトルを設定する
+        myPin.coordinate = locNow   // 現在地の座標
+        myPin.title = "現在地" //
+        mapView.addAnnotation(myPin)  // MapViewにピンを追加表示する
+        // 現在地とピンの表示
+        mapView.setCenter(locNow, animated: true)
+        print("現在地の表示")
+        print("できたか")//できた
     }
     
     // 線を引くメソッド
@@ -214,15 +208,14 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
         // 現在地と目的地、２点の座標を入れた配列をつくる
         let lineArray = [current,destination]
         print("線を引くメソッドの中です")
-        // ２点を結ぶ線を引く。（緯度,経度）＝（０、０）　未設定の時は線を引かない
+        // ２点を結ぶ線を引く。(緯度,経度)=(0,0)　未設定の時は線を引かない
         mapView.delegate = self //Mapの描画
             if (targetLatitude != 0) && (targetLongitude != 0) {
                 let redLine = MKPolyline(coordinates: lineArray, count: 2)
                 mapView.addOverlays([redLine])// 地図上に描く
             }
     }
-   
-    
+       
     
     //  位置情報の使用許可を確認して、取得する。
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
