@@ -4,7 +4,7 @@
 //
 //  Created by 森部高昌 on 2021/10/09.
 //  2022/07/18
-//  2023/02/22、2023/02/26、02/27、03/01
+//  2023/02/22、2023/02/26、02/27、03/01、03/02
 //  Map表示の初期値として、前回の検索地点を使用する。
 //　◯広い範囲を指定すれば、レリーフ地図も表示できる。レリーフ地図の縮尺の問題か？
 //　◯現在地から検索地点へ線を引く。ツールバーに実行アイコンを置く cursor arrow にしてみた
@@ -111,8 +111,8 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
         // ここから線を引く準備
         // 現在地の座標・・・直前に CLLocationManager() を使って取得した
         let locNow = CLLocationCoordinate2D(latitude: myLatitude, longitude: myLongitude)
-        print("取得した現在地の緯度は、\(myLatitude)")
-        print("取得した現在地の経度は、\(myLongitude)")
+        //print("取得した現在地の緯度は、\(myLatitude)")
+        //print("取得した現在地の経度は、\(myLongitude)")
         
         // 検索地点の座標・・・これは、前回検索地点を読み込む
         let locTarget = CLLocationCoordinate2D(latitude: targetLatitude, longitude: targetLongitude)
@@ -176,13 +176,14 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
     // CLLocationManagerのdelegate:現在位置取得
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations:[CLLocation]) {
         print("現在地の取得に入りました。")
-        // 更新スイッチの状態により、実行可否を判断する・・とりあえず使わないで考える。
-        // if updateSwitch .isOn {
-        //     mapView.userTrackingMode = .followWithHeading // 現在地を更新して、HeadingUp表示
-        // } else {
-        //   　mapView.userTrackingMode = .none // 現在地の更新をしない
-        //   //mapView.userTrackingMode = .follow // 現在地の更新をする
-        // }
+         //更新スイッチの状態により、実行可否を判断する・・とりあえず使わないで考える。
+//         if updateSwitch .isOn {
+//             mapView.userTrackingMode = .followWithHeading // 現在地を更新して、HeadingUp表示
+//         } else {
+//           mapView.userTrackingMode = .none // 現在地の更新をしない
+//           //mapView.userTrackingMode = .follow // 現在地の更新をする
+//         }
+        mapView.userTrackingMode = .follow // 現在地の更新をする
  
         // --------------------------------------------------------------
         // 現在地の緯度経度を取得する myLatitude,myLongitude
@@ -191,16 +192,13 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
         let myLongitude = location.coordinate.longitude //現在地の経度
         // 現在地の座標
         let locNow = CLLocationCoordinate2D(latitude: myLatitude, longitude: myLongitude)
-                print("現在地の緯度\(myLatitude)")
-                print("現在地の経度\(myLongitude)")
-        // ピンの座標とタイトルを設定する
-        myPin.coordinate = locNow   // 現在地の座標
-        myPin.title = "現在地" //
-        mapView.addAnnotation(myPin)  // MapViewにピンを追加表示する
-        // 現在地とピンの表示
+//        // ピンの座標とタイトルを設定する
+//        myPin.coordinate = locNow   // 現在地の座標
+//        myPin.title = "現在地"
+//        mapView.addAnnotation(myPin)  // MapViewにピンを追加表示する
+        // 現在地とピンを、Map画面に表示する
         mapView.setCenter(locNow, animated: true)
-        print("現在地の表示")
-        print("できたか")//できた
+        print("現在地を表示しました")
     }
     
     // 線を引くメソッド
@@ -243,11 +241,10 @@ extension ViewController {
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
         if let arrowline = overlay as? MKPolyline { // 線のとき
             let renderer = MKPolylineRenderer(polyline: arrowline)
-                    renderer.strokeColor = UIColor.red// 赤い線
-                    renderer.lineWidth = 2.0
-                    return renderer
-                }
-
+            renderer.strokeColor = UIColor.red// 赤い線
+            renderer.lineWidth = 2.0
+            return renderer
+        }
         return MKTileOverlayRenderer(overlay: overlay) //Tile のとき
     }
 }
