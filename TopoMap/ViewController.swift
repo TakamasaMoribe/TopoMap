@@ -39,7 +39,7 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
     var locManager: CLLocationManager!
     
     // 現在地の初期値を設定しておく。表示はされない。
-            var myLatitude:Double = 35.67485 // 自宅の緯度35.67485 現在地の緯度35.67476581424778    
+            var myLatitude:Double = 35.67485 // 自宅の緯度35.67485 現在地の緯度35.67476581424778
             var myLongitude:Double = 139.80615 // 自宅の経度139.80615 現在地の経度139.80606060262522
     // 検索地点の初期値を設定しておく。表示はされない。
             var selectedPlace:String = "木場公園"
@@ -54,10 +54,10 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
         if let renderer = mapView.renderer(for: gsiTileOverlayStd) { // Std標準地図
             renderer.alpha = CGFloat(slider.value) // 濃淡のプロパティ値＝スライダ値
         }
-
         if let renderer = mapView.renderer(for: gsiTileOverlayHil) { // Hil陰影起伏図
             renderer.alpha = CGFloat(slider.value) * 0.5// スライダ値*0.5
         }
+
     //    if let renderer = mapView.renderer(for: gsiTileOverlayRel) { // Relレリーフ地図
     //        renderer.alpha = CGFloat(slider.value) * 0.3// スライダ値*0.3
     //    }
@@ -93,11 +93,11 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
         // 現在地の取得 ロケーションマネージャーのインスタンスを作成する
         locManager = CLLocationManager()
         locManager.delegate = self // 現在地を取得して表示する？
-        //locManager.requestLocation()
-        //locManager.desiredAccuracy = kCLLocationAccuracyHundredMeters//誤差100m程度の精度
-        //                          kCLLocationAccuracyNearestTenMeters//誤差10m程度の精度
-        //                          kCLLocationAccuracyBest//最高精度(デフォルト値)
-        //locManager.distanceFilter = 10//10ｍ移動したら、位置情報を更新する
+            //locManager.requestLocation()
+            //locManager.desiredAccuracy = kCLLocationAccuracyHundredMeters//誤差100m程度の精度
+            //                          kCLLocationAccuracyNearestTenMeters//誤差10m程度の精度
+            //                          kCLLocationAccuracyBest//最高精度(デフォルト値)
+            //locManager.distanceFilter = 10//10ｍ移動したら、位置情報を更新する
         
     }
     
@@ -111,8 +111,9 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
         // ここから線を引く準備
         // 現在地の座標・・・直前に CLLocationManager() を使って取得した
         let locNow = CLLocationCoordinate2D(latitude: myLatitude, longitude: myLongitude)
-        //print("取得した現在地の緯度は、\(myLatitude)")
-        //print("取得した現在地の経度は、\(myLongitude)")
+        //let locNow = CLLocationCoordinate2D(latitude: 36.0, longitude: 140.0)
+        print("取得した現在地の緯度は、\(myLatitude)")
+        print("取得した現在地の経度は、\(myLongitude)")
         
         // 検索地点の座標・・・これは、前回検索地点を読み込む
         let locTarget = CLLocationCoordinate2D(latitude: targetLatitude, longitude: targetLongitude)
@@ -143,7 +144,10 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
         // MapViewに中心点を設定する
         mapView.setCenter(targetPlace, animated: true)
         mapView.setRegion(targetRegion, animated:true)
-
+        
+        mapView.delegate = self //Mapの描画　ここに必要。
+        //でないと線を引いたあとに表示がおかしくなる。陰影起伏図が最上面になる。
+        
         // ピンの座標とタイトルを設定。検索地点＝ピンの位置が画面の中央になる
         myPin.coordinate = targetPlace   // 選択した場所の座標
         myPin.title = selectedPlace      // 選択した地名
@@ -162,6 +166,7 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
             if let renderer = mapView.renderer(for: gsiTileOverlayHil) {
                 renderer.alpha = 0.1 // 透明度の初期値　　スライダーで可変
             }
+ 
         // Relレリーフ地図
         // mapView.addOverlay(gsiTileOverlayRel, level: .aboveLabels)
         //     if let renderer = mapView.renderer(for: gsiTileOverlayRel) {
@@ -207,6 +212,7 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
         let lineArray = [current,destination]
         print("線を引くメソッドの中です")
         // ２点を結ぶ線を引く。(緯度,経度)=(0,0)　未設定の時は線を引かない
+        
         mapView.delegate = self //Mapの描画
             if (targetLatitude != 0) && (targetLongitude != 0) {
                 let redLine = MKPolyline(coordinates: lineArray, count: 2)
