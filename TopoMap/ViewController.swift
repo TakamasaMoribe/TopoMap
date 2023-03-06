@@ -4,7 +4,7 @@
 //
 //  Created by 森部高昌 on 2021/10/09.
 //  2022/07/18
-//  2023/02/22、2023/02/26、02/27、03/01、03/02
+//  2023/02/22〜　03/06
 //  Map表示の初期値として、前回の検索地点を使用する。
 //　◯広い範囲を指定すれば、レリーフ地図も表示できる。レリーフ地図の縮尺の問題か？
 //　◯現在地から検索地点へ線を引く。ツールバーに実行アイコンを置く cursor arrow にしてみた
@@ -38,10 +38,10 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
     // ロケーションマネージャーのインスタンスを生成する
     var locManager: CLLocationManager!
     
-    // 現在地の初期値を設定しておく。表示はされない。
-            var myLatitude:Double = 35.67485 // 自宅の緯度35.67485 現在地の緯度35.67476581424778
-            var myLongitude:Double = 139.80615 // 自宅の経度139.80615 現在地の経度139.80606060262522
-    // 検索地点の初期値を設定しておく。表示はされない。
+    // 現在地の初期値を設定しておく。
+            var myLatitude:Double = 35.67476581424778 // 自宅の緯度
+            var myLongitude:Double = 139.80606060262522 // 自宅の経度
+    // 検索地点の初期値を設定しておく。
             var selectedPlace:String = "木場公園"
             var selectedAddress:String = "〒135-0042,東京都江東区,木場４丁目"
             var targetLatitude:Double = 35.6743169 // 木場公園の緯度
