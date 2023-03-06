@@ -110,14 +110,16 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
         
         // ここから線を引く準備
         // 現在地の座標・・・直前に CLLocationManager() を使って取得した
+        // 現在地の緯度経度を読み込む myLatitude,myLongitude
+        let myLatitude = UserDefaults.standard.double(forKey:"myLatitude")
+        let myLongitude = UserDefaults.standard.double(forKey:"myLongitude")
         let locNow = CLLocationCoordinate2D(latitude: myLatitude, longitude: myLongitude)
-        //let locNow = CLLocationCoordinate2D(latitude: 36.0, longitude: 140.0)
         print("取得した現在地の緯度は、\(myLatitude)")
         print("取得した現在地の経度は、\(myLongitude)")
         
         // 検索地点の座標・・・これは、前回検索地点を読み込む
         let locTarget = CLLocationCoordinate2D(latitude: targetLatitude, longitude: targetLongitude)
-        print("検索地点 selectedPlace:\(selectedPlace)")
+        //print("検索地点 selectedPlace:\(selectedPlace)")
         print("検索地点の緯度\(targetLatitude)")
         print("検索地点の経度\(targetLongitude)")
         
@@ -181,6 +183,7 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
     // CLLocationManagerのdelegate:現在位置取得
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations:[CLLocation]) {
         print("現在地の取得に入りました。")
+        
          //更新スイッチの状態により、実行可否を判断する・・とりあえず使わないで考える。
 //         if updateSwitch .isOn {
 //             mapView.userTrackingMode = .followWithHeading // 現在地を更新して、HeadingUp表示
@@ -188,21 +191,23 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
 //           mapView.userTrackingMode = .none // 現在地の更新をしない
 //           //mapView.userTrackingMode = .follow // 現在地の更新をする
 //         }
-        mapView.userTrackingMode = .follow // 現在地の更新をする
+       mapView.userTrackingMode = .follow // 現在地の更新をする
  
         // --------------------------------------------------------------
         // 現在地の緯度経度を取得する myLatitude,myLongitude
         let location:CLLocation = locations[0]//locations[0]の意味
         let myLatitude = location.coordinate.latitude //現在地の緯度
         let myLongitude = location.coordinate.longitude //現在地の経度
-        // 現在地の座標
-        let locNow = CLLocationCoordinate2D(latitude: myLatitude, longitude: myLongitude)
-//        // ピンの座標とタイトルを設定する
-//        myPin.coordinate = locNow   // 現在地の座標
-//        myPin.title = "現在地"
-//        mapView.addAnnotation(myPin)  // MapViewにピンを追加表示する
+        print("現在地の緯度:\(myLatitude)")
+        print("現在地の経度:\(myLongitude)")
+        // 現在地の緯度経度を保存する myLatitude,myLongitude
+        UserDefaults.standard.set(myLatitude, forKey: "myLatitude")
+        UserDefaults.standard.set(myLongitude, forKey: "myLongitude")
+//        // 現在地の座標
+//        let locNow = CLLocationCoordinate2D(latitude: myLatitude, longitude: myLongitude)
+        
         // 現在地とピンを、Map画面に表示する
-        mapView.setCenter(locNow, animated: true)
+        //mapView.setCenter(locNow, animated: true)
         print("現在地を表示しました")
     }
     
@@ -215,7 +220,7 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
         
         mapView.delegate = self //Mapの描画
             if (targetLatitude != 0) && (targetLongitude != 0) {
-                let redLine = MKPolyline(coordinates: lineArray, count: 2)
+                let redLine = MKPolyline(coordinates: lineArray, count: 2)//lineArray配列の２点間
                 mapView.addOverlays([redLine])// 地図上に描く
             }
     }
