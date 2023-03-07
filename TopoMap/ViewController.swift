@@ -92,13 +92,14 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
         print("現在地ボタンをクリックしました")
         // 現在地の取得 ロケーションマネージャーのインスタンスを作成する
         locManager = CLLocationManager()
-        locManager.delegate = self // 現在地を取得して表示する？
+        locManager.delegate = self // 現在地を取得して表示する
+        
+
             //locManager.requestLocation()
             //locManager.desiredAccuracy = kCLLocationAccuracyHundredMeters//誤差100m程度の精度
             //                          kCLLocationAccuracyNearestTenMeters//誤差10m程度の精度
             //                          kCLLocationAccuracyBest//最高精度(デフォルト値)
             //locManager.distanceFilter = 10//10ｍ移動したら、位置情報を更新する
-        
     }
     
     // ツールバー内の 矢印アイコン　をクリックした時　現在地を取得してから目的地へ線を引く
@@ -132,6 +133,7 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
     //==============================================================================
     override func viewDidLoad() {
         super.viewDidLoad()
+        
 
         // 目標地点として、前回の検索で保存しておいた値を読み込む
         selectedPlace = UserDefaults.standard.string(forKey: "targetPlace")!
@@ -182,7 +184,7 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
     // 現在位置取得関係 ----------------------------------------------------
     // CLLocationManagerのdelegate:現在位置取得
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations:[CLLocation]) {
-        print("現在地の取得に入りました。")
+        print("delegate:現在位置取得 現在地の取得に入りました。")
         
          //更新スイッチの状態により、実行可否を判断する・・とりあえず使わないで考える。
 //         if updateSwitch .isOn {
@@ -205,17 +207,15 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
         UserDefaults.standard.set(myLongitude, forKey: "myLongitude")
 //        // 現在地の座標
 //        let locNow = CLLocationCoordinate2D(latitude: myLatitude, longitude: myLongitude)
-        
-        // 現在地とピンを、Map画面に表示する
-        //mapView.setCenter(locNow, animated: true)
-        print("現在地を表示しました")
+        print("delegate:現在位置取得 現在地の緯度経度を保存しました")
     }
     
     // 線を引くメソッド
     func drawLine(current:CLLocationCoordinate2D,destination:CLLocationCoordinate2D)  {
+        print("線を引くメソッドに入りました")
         // 現在地と目的地、２点の座標を入れた配列をつくる
         let lineArray = [current,destination]
-        print("線を引くメソッドの中です")
+
         // ２点を結ぶ線を引く。(緯度,経度)=(0,0)　未設定の時は線を引かない
         
         mapView.delegate = self //Mapの描画
@@ -223,6 +223,8 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
                 let redLine = MKPolyline(coordinates: lineArray, count: 2)//lineArray配列の２点間
                 mapView.addOverlays([redLine])// 地図上に描く
             }
+
+        print("線を引きました")
     }
        
     
