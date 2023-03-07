@@ -112,12 +112,31 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
         print("読み込んだ現在地の緯度は、\(myLatitude)")
         
         // 検索地点の座標・・・これは、前回検索地点を読み込む
-        let targetPlace = UserDefaults.standard.string(forKey:"targetPlace")! // 確認用
+        let selectedPlace = UserDefaults.standard.string(forKey:"targetPlace")! // 確認用
         let targetLatitude = UserDefaults.standard.double(forKey:"targetLatitude")
         let targetLongitude = UserDefaults.standard.double(forKey:"targetLongitude")
         let locTarget = CLLocationCoordinate2D(latitude: targetLatitude, longitude: targetLongitude)
-        print("検索地点 targetPlace:\(targetPlace)")
+        print("検索地点 selectedPlace:\(selectedPlace)")
         print("読み込んだ検索地点の緯度は、\(targetLatitude)")
+        
+        //検索地点を中心に地図の表示をこころみる
+                // 目標地点として、前回の検索で保存しておいた値を読み込む
+                selectedAddress = UserDefaults.standard.string(forKey: "targetAddress")!
+        
+                // 表示する地図の中心位置＝検索地点＝Pinを置く位置
+                let targetPlace = CLLocationCoordinate2D( latitude: targetLatitude,longitude: targetLongitude)
+                let span = MKCoordinateSpan (latitudeDelta: 0.01,longitudeDelta: 0.01)
+                let targetRegion = MKCoordinateRegion(center: targetPlace, span: span)
+                // MapViewに中心点を設定する
+                mapView.setCenter(targetPlace, animated: true)
+                mapView.setRegion(targetRegion, animated:true)
+        
+                // ピンの座標とタイトルを設定。検索地点＝ピンの位置が画面の中央になる
+                myPin.coordinate = targetPlace   // 選択した場所の座標
+                myPin.title = selectedPlace      // 選択した地名
+                myPin.subtitle = selectedAddress // 選択した住所
+                mapView.addAnnotation(myPin)     // MapViewにピンを追加表示する
+        
         
         // 線を引くメソッドへ　現在地と目的地、２点の座標が引数として必要
         drawLine(current: locNow, destination: locTarget) //
