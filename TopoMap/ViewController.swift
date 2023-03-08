@@ -4,7 +4,7 @@
 //
 //  Created by 森部高昌 on 2021/10/09.
 //  2022/07/18
-//  2023/02/22〜　03/06
+//  2023/02/22〜　03/08
 //  Map表示の初期値として、前回の検索地点を使用する。
 //　◯広い範囲を指定すれば、レリーフ地図も表示できる。レリーフ地図の縮尺の問題か？
 //　◯現在地から検索地点へ線を引く。ツールバーに実行アイコンを置く cursor arrow にしてみた
@@ -202,6 +202,11 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
     // CLLocationManagerのdelegate:現在位置取得
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations:[CLLocation]) {
         print("delegate:現在位置取得 現在地の取得に入りました。")
+        //locManager.requestLocation()
+        //locManager.desiredAccuracy = kCLLocationAccuracyHundredMeters//誤差100m程度の精度
+        //                          kCLLocationAccuracyNearestTenMeters//誤差10m程度の精度
+        locManager.desiredAccuracy = kCLLocationAccuracyBest//最高精度(デフォルト値)
+        //locManager.distanceFilter = 10//10ｍ移動したら、位置情報を更新する
         
          //更新スイッチの状態により、実行可否を判断する・・とりあえず使わないで考える。
 //         if updateSwitch .isOn {
