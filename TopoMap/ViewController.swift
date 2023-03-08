@@ -86,16 +86,19 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
         nextView.modalPresentationStyle = .fullScreen // 画面が下にずれることを解消できる？
         self.present(nextView, animated: true, completion: nil)
     }
-
-    // ツールバー内の「現在地」ボタンをクリックした時、現在地の緯度経度を取得する
+// -------------------------------------------------------------------------------
+    // ツールバー内の　＜現在地＞ボタン　をクリックした時、現在地の位置情報を、再度取得する
+    // アプリが起動した時点で、現在地の取得は行っている。（青い●が表示されている）
     @IBAction func currentButtonClicked(_ sender: UIBarButtonItem) {
         print("現在地ボタンをクリックしました")
         // 現在地の取得 ロケーションマネージャーのインスタンスを作成する
         locManager = CLLocationManager()
-        locManager.delegate = self // 現在地を取得して表示する
+        locManager.delegate = self // 現在地を取得して表示する？
+        print("現在地ボタン 出口です")
     }
-    
-    // ツールバー内の 矢印アイコン　をクリックした時　現在地を取得してから目的地へ線を引く
+// -------------------------------------------------------------------------------
+    // ツールバー内の　＜矢印＞アイコン　をクリックした時　現在地を取得してから目的地へ線を引く
+    // アプリを起動した時点で、現在地を取得しているので、ここで取得する必要はないか？？
     @IBAction func drawButtonClicked(_ sender: UIBarButtonItem) {
         print("矢印アイコンをクリックしました")
         
@@ -113,7 +116,8 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
         print("検索地点 selectedPlace:\(selectedPlace)")
         print("読み込んだ検索地点の緯度は、\(targetLatitude)")
         
-        //検索地点を中心に地図の表示をこころみる
+        //検索地点を中心に地図の表示をこころみる・・・現在地を中心にして線を引くようになればよい
+        // 検索地点にピンを立てて、画面中央にするのは、検索が終了して地図画面に戻った時になればよい
                 // 目標地点として、前回の検索で保存しておいた値を読み込む
                 selectedAddress = UserDefaults.standard.string(forKey: "targetAddress")!
         
@@ -136,6 +140,7 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
         drawLine(current: locNow, destination: locTarget) //
         
     }
+// -------------------------------------------------------------------------------
     
     
     //==============================================================================
@@ -143,31 +148,35 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
         super.viewDidLoad()
         print("起動しました")
         mapView.delegate = self //Mapの描画 これを置かないオーバーレイがおかしくなる。
-        
-        // 現在地の取得 ロケーションマネージャーのインスタンスを作成する
+        // 位置情報の取得 ロケーションマネージャーのインスタンスを作成する
+        // これがないと、現在地の取得ができない
         locManager = CLLocationManager()
-        locManager.delegate = self // 現在地を取得して表示する
-        print("起動後に現在地取得をしたか？　取得した")
-        
-        // 目標地点として、前回の検索で保存しておいた値を読み込む
-        selectedPlace = UserDefaults.standard.string(forKey: "targetPlace")!
-        selectedAddress = UserDefaults.standard.string(forKey: "targetAddress")!
-        targetLatitude = UserDefaults.standard.double(forKey: "targetLatitude")
-        targetLongitude = UserDefaults.standard.double(forKey: "targetLongitude")
-
-        // 表示する地図の中心位置＝検索地点＝Pinを置く位置
-        let targetPlace = CLLocationCoordinate2D( latitude: targetLatitude,longitude: targetLongitude)
-        let span = MKCoordinateSpan (latitudeDelta: 0.01,longitudeDelta: 0.01)
-        let targetRegion = MKCoordinateRegion(center: targetPlace, span: span)
-        // MapViewに中心点を設定する
-        mapView.setCenter(targetPlace, animated: true)
-        mapView.setRegion(targetRegion, animated:true)
-
-        // ピンの座標とタイトルを設定。検索地点＝ピンの位置が画面の中央になる
-        myPin.coordinate = targetPlace   // 選択した場所の座標
-        myPin.title = selectedPlace      // 選択した地名
-        myPin.subtitle = selectedAddress // 選択した住所
-        mapView.addAnnotation(myPin)     // MapViewにピンを追加表示する
+        locManager.delegate = self //
+        print("起動後に現在地の取得しました")
+        // 現在地が画面中央になる
+        // 何度も現在地の取得に入っている 0308
+// 検索地点情報がある時と、ない時とに分けて処理するか？？
+//この下を消すと、検索後すぐには検索地点が表示されない。線を引いたあとにピンが立ち、検索地点が画面中央になる
+//        // 目標地点として、前回の検索で保存しておいた値を読み込む
+//        selectedPlace = UserDefaults.standard.string(forKey: "targetPlace")!
+//        selectedAddress = UserDefaults.standard.string(forKey: "targetAddress")!
+//        targetLatitude = UserDefaults.standard.double(forKey: "targetLatitude")
+//        targetLongitude = UserDefaults.standard.double(forKey: "targetLongitude")
+//
+//        // 表示する地図の中心位置＝検索地点＝Pinを置く位置
+//        let targetPlace = CLLocationCoordinate2D( latitude: targetLatitude,longitude: targetLongitude)
+//        let span = MKCoordinateSpan (latitudeDelta: 0.01,longitudeDelta: 0.01)
+//        let targetRegion = MKCoordinateRegion(center: targetPlace, span: span)
+//        // MapViewに中心点を設定する
+//        mapView.setCenter(targetPlace, animated: true)
+//        mapView.setRegion(targetRegion, animated:true)
+//
+//        // ピンの座標とタイトルを設定。検索地点＝ピンの位置が画面の中央になる
+//        myPin.coordinate = targetPlace   // 選択した場所の座標
+//        myPin.title = selectedPlace      // 選択した地名
+//        myPin.subtitle = selectedAddress // 選択した住所
+//        mapView.addAnnotation(myPin)     // MapViewにピンを追加表示する
+//この上を消すと、検索後すぐには検索地点が表示されない。線を引いたあとにピンが立ち、検索地点が画面中央になる
         
         // 地理院地図のオーバーレイ表示。
         // 下の２種類のタイルを同時に表示している
@@ -195,12 +204,12 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
     // 現在位置取得関係 ----------------------------------------------------
     // CLLocationManagerのdelegate:現在位置取得
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations:[CLLocation]) {
-        print("delegate:現在位置取得 現在地の取得に入りました。")
+        print("delegate　code内:現在位置取得 現在地の取得に入りました。")
         //locManager.requestLocation()
         locManager.desiredAccuracy = kCLLocationAccuracyHundredMeters//誤差100m程度の精度
-        //                          kCLLocationAccuracyNearestTenMeters//誤差10m程度の精度
+        //                         kCLLocationAccuracyNearestTenMeters//誤差10m程度の精度
         //locManager.desiredAccuracy = kCLLocationAccuracyBest//最高精度(デフォルト値)
-        //locManager.distanceFilter = 10//10ｍ移動したら、位置情報を更新する
+        locManager.distanceFilter = 10//10ｍ移動したら、位置情報を更新する
         
          //更新スイッチの状態により、実行可否を判断する・・とりあえず使わないで考える。
 //         if updateSwitch .isOn {
@@ -223,23 +232,19 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
         UserDefaults.standard.set(myLongitude, forKey: "myLongitude")
 //        // 現在地の座標
 //        let locNow = CLLocationCoordinate2D(latitude: myLatitude, longitude: myLongitude)
-        print("delegate:現在位置取得 現在地の緯度経度を保存しました")
+        print("delegate　code内:現在位置取得 現在地の緯度経度を保存しました")
     }
     
-    // 線を引くメソッド
+    // ２点を結ぶ線を引くメソッド
     func drawLine(current:CLLocationCoordinate2D,destination:CLLocationCoordinate2D)  {
         print("線を引くメソッドに入りました")
         // 現在地と目的地、２点の座標を入れた配列をつくる
         let lineArray = [current,destination]
-
-        // ２点を結ぶ線を引く。(緯度,経度)=(0,0)　未設定の時は線を引かない
-        
-        mapView.delegate = self //Mapの描画
+            // (緯度,経度)=(0,0)　未設定の時は線を引かない
             if (targetLatitude != 0) && (targetLongitude != 0) {
                 let redLine = MKPolyline(coordinates: lineArray, count: 2)//lineArray配列の２点間
                 mapView.addOverlays([redLine])// 地図上に描く
             }
-
         print("線を引きました")
     }
        
