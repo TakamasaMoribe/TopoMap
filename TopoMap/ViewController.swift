@@ -93,12 +93,6 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
         // 現在地の取得 ロケーションマネージャーのインスタンスを作成する
         locManager = CLLocationManager()
         locManager.delegate = self // 現在地を取得して表示する
-        
-            //locManager.requestLocation()
-            //locManager.desiredAccuracy = kCLLocationAccuracyHundredMeters//誤差100m程度の精度
-            //                          kCLLocationAccuracyNearestTenMeters//誤差10m程度の精度
-            //                          kCLLocationAccuracyBest//最高精度(デフォルト値)
-            //locManager.distanceFilter = 10//10ｍ移動したら、位置情報を更新する
     }
     
     // ツールバー内の 矢印アイコン　をクリックした時　現在地を取得してから目的地へ線を引く
@@ -153,27 +147,27 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
         // 現在地の取得 ロケーションマネージャーのインスタンスを作成する
         locManager = CLLocationManager()
         locManager.delegate = self // 現在地を取得して表示する
-        print("起動後に現在地取得をしたか？")
+        print("起動後に現在地取得をしたか？　取得した")
         
-//        // 目標地点として、前回の検索で保存しておいた値を読み込む
-//        selectedPlace = UserDefaults.standard.string(forKey: "targetPlace")!
-//        selectedAddress = UserDefaults.standard.string(forKey: "targetAddress")!
-//        targetLatitude = UserDefaults.standard.double(forKey: "targetLatitude")
-//        targetLongitude = UserDefaults.standard.double(forKey: "targetLongitude")
-//
-//        // 表示する地図の中心位置＝検索地点＝Pinを置く位置
-//        let targetPlace = CLLocationCoordinate2D( latitude: targetLatitude,longitude: targetLongitude)
-//        let span = MKCoordinateSpan (latitudeDelta: 0.01,longitudeDelta: 0.01)
-//        let targetRegion = MKCoordinateRegion(center: targetPlace, span: span)
-//        // MapViewに中心点を設定する
-//        mapView.setCenter(targetPlace, animated: true)
-//        mapView.setRegion(targetRegion, animated:true)
-//
-//        // ピンの座標とタイトルを設定。検索地点＝ピンの位置が画面の中央になる
-//        myPin.coordinate = targetPlace   // 選択した場所の座標
-//        myPin.title = selectedPlace      // 選択した地名
-//        myPin.subtitle = selectedAddress // 選択した住所
-//        mapView.addAnnotation(myPin)     // MapViewにピンを追加表示する
+        // 目標地点として、前回の検索で保存しておいた値を読み込む
+        selectedPlace = UserDefaults.standard.string(forKey: "targetPlace")!
+        selectedAddress = UserDefaults.standard.string(forKey: "targetAddress")!
+        targetLatitude = UserDefaults.standard.double(forKey: "targetLatitude")
+        targetLongitude = UserDefaults.standard.double(forKey: "targetLongitude")
+
+        // 表示する地図の中心位置＝検索地点＝Pinを置く位置
+        let targetPlace = CLLocationCoordinate2D( latitude: targetLatitude,longitude: targetLongitude)
+        let span = MKCoordinateSpan (latitudeDelta: 0.01,longitudeDelta: 0.01)
+        let targetRegion = MKCoordinateRegion(center: targetPlace, span: span)
+        // MapViewに中心点を設定する
+        mapView.setCenter(targetPlace, animated: true)
+        mapView.setRegion(targetRegion, animated:true)
+
+        // ピンの座標とタイトルを設定。検索地点＝ピンの位置が画面の中央になる
+        myPin.coordinate = targetPlace   // 選択した場所の座標
+        myPin.title = selectedPlace      // 選択した地名
+        myPin.subtitle = selectedAddress // 選択した住所
+        mapView.addAnnotation(myPin)     // MapViewにピンを追加表示する
         
         // 地理院地図のオーバーレイ表示。
         // 下の２種類のタイルを同時に表示している
@@ -203,9 +197,9 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations:[CLLocation]) {
         print("delegate:現在位置取得 現在地の取得に入りました。")
         //locManager.requestLocation()
-        //locManager.desiredAccuracy = kCLLocationAccuracyHundredMeters//誤差100m程度の精度
+        locManager.desiredAccuracy = kCLLocationAccuracyHundredMeters//誤差100m程度の精度
         //                          kCLLocationAccuracyNearestTenMeters//誤差10m程度の精度
-        locManager.desiredAccuracy = kCLLocationAccuracyBest//最高精度(デフォルト値)
+        //locManager.desiredAccuracy = kCLLocationAccuracyBest//最高精度(デフォルト値)
         //locManager.distanceFilter = 10//10ｍ移動したら、位置情報を更新する
         
          //更新スイッチの状態により、実行可否を判断する・・とりあえず使わないで考える。
