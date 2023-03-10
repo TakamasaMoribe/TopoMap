@@ -93,7 +93,7 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
         print("現在地ボタンをクリックしました")
         // 現在地の取得 ロケーションマネージャーのインスタンスを作成する
         locManager = CLLocationManager()
-        locManager.delegate = self // 現在地を取得して表示する？
+        locManager.delegate = self // 現在地を取得して表示するために必要となる
         print("現在地ボタン 出口です")
     }
 // -------------------------------------------------------------------------------
@@ -115,14 +115,24 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
         let targetLongitude = UserDefaults.standard.double(forKey:"targetLongitude")
         let targetLocation = CLLocationCoordinate2D(latitude: targetLatitude, longitude: targetLongitude)
         print("検索地点 targetPlace:\(targetPlace)")
+        print("検索地点 targetAddress:\(targetAddress)")
         print("読み込んだ検索地点の緯度は、\(targetLatitude)")
         
-        // 現在地を画面の中央に表示してみる
-            let span = MKCoordinateSpan (latitudeDelta: 0.01,longitudeDelta: 0.01)
-            let myRegion = MKCoordinateRegion(center: myLocation, span: span)
-            // MapViewに中心点を設定する
-            mapView.setCenter(myLocation, animated: true)
-            mapView.setRegion(myRegion, animated:true)
+//        // 現在地を画面の中央に表示してみる
+//            let span = MKCoordinateSpan (latitudeDelta: 0.01,longitudeDelta: 0.01)
+//            let myRegion = MKCoordinateRegion(center: myLocation, span: span)//現在地
+//            // MapViewに中心点を設定する
+//            mapView.setCenter(myLocation, animated: true)
+//            mapView.setRegion(myRegion, animated:true)
+        
+        //mapView.delegate = self//検索地中心の地図を表示するか？線を引いたあとに中心となる
+        // 検索地を画面の中央に表示してみる
+        let span = MKCoordinateSpan (latitudeDelta: 0.01,longitudeDelta: 0.01)
+        let targetRegion = MKCoordinateRegion(center: targetLocation, span: span)//現在地
+        // MapViewに中心点を設定する
+
+        mapView.setCenter(targetLocation, animated: true)
+        mapView.setRegion(targetRegion, animated:true)
         
         // 線を引くメソッドへ　現在地と目的地、２点の座標が引数として必要
         drawLine(current: myLocation, destination: targetLocation) //
@@ -147,6 +157,13 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
 // 検索地点情報がある時と、ない時とに分けて処理するか？？
 //------------------------------------------------------------------
         // 検索した目標地点の座標などの情報は、Userdeaults.standard に保存してある
+//        // Userdeaults.standard に保存する
+//        UserDefaults.standard.set(selectedPlace, forKey:"targetPlace")
+//         UserDefaults.standard.set(selectedAddress, forKey:"targetAddress")
+//         UserDefaults.standard.set(targetLatitude, forKey:"targetLatitude")
+//         UserDefaults.standard.set(targetLongitude, forKey:"targetLongitude")
+//         UserDefaults.standard.synchronize()
+        
         let targetPlace = UserDefaults.standard.string(forKey:"targetPlace")! //場所
         let targetAddress = UserDefaults.standard.string(forKey:"targetAddress")! //住所
         let targetLatitude = UserDefaults.standard.double(forKey:"targetLatitude")
@@ -160,14 +177,24 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
                 let targetRegion = MKCoordinateRegion(center: targetLocation, span: span)
                 // MapViewに中心点を設定する
                 mapView.setCenter(targetLocation, animated: true)
-                mapView.setRegion(targetRegion, animated:true)
+                //mapView.setRegion(targetRegion, animated:true)
         
                 // ピンの座標とタイトルを設定。検索地点＝ピンの位置が画面の中央になる
                 myPin.coordinate = targetLocation // 選択した場所の座標
                 myPin.title = targetPlace         // 選択した地名
                 myPin.subtitle = targetAddress    // 選択した住所
                 mapView.addAnnotation(myPin)      // MapViewにピンを追加表示する
-                
+
+//        self.present(nextView,animated: true, completion: { () in
+//           nextView.myPin.title = selectedPlace      // 地名　pinをnextViewの変数にした
+//           nextView.myPin.subtitle = selectedAddress // 住所　引き継ぎが可能
+//           nextView.targetLatitude = targetLatitude      // 緯度も同時に引き継ぐ?
+//           nextView.targetLongitude = targetLongitude    // 経度も同時に引き継ぐ?
+//       })
+        
+        
+        
+        
 //------------------------------------------------------------------
 
         // 地理院地図のオーバーレイ表示。
@@ -198,16 +225,16 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations:[CLLocation]) {
         print("delegate　code内:現在位置取得 現在地の取得に入りました。")
         //locManager.requestLocation()
-        locManager.desiredAccuracy = kCLLocationAccuracyHundredMeters//誤差100m程度の精度
+        //locManager.desiredAccuracy = kCLLocationAccuracyHundredMeters//誤差100m程度の精度
         //                         kCLLocationAccuracyNearestTenMeters//誤差10m程度の精度
         //locManager.desiredAccuracy = kCLLocationAccuracyBest//最高精度(デフォルト値)
-        locManager.distanceFilter = 10//10ｍ移動したら、位置情報を更新する
+        //locManager.distanceFilter = 10//10ｍ移動したら、位置情報を更新する
         
          //更新スイッチの状態により、実行可否を判断する・・とりあえず使わないで考える。
 //         if updateSwitch .isOn {
 //             mapView.userTrackingMode = .followWithHeading // 現在地を更新して、HeadingUp表示
 //         } else {
-//           mapView.userTrackingMode = .none // 現在地の更新をしない
+           //mapView.userTrackingMode = .none // 現在地の更新をしない
 //           //mapView.userTrackingMode = .follow // 現在地の更新をする
 //         }
        mapView.userTrackingMode = .follow // 現在地の更新をする
