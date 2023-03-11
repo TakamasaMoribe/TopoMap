@@ -147,7 +147,6 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
     override func viewDidLoad() {
         super.viewDidLoad()
         print("起動しました")
-        
 //        // CLLocationManagerがCLLocationManagerDelegateプロトコルの抽象メソッドを実行するときは、
 //        // CLLocationManagerDelegateプロトコルの実装クラスであるViewControllerに実行してもらう
 //        locationManager = CLLocationManager()
@@ -158,7 +157,7 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
         // これがないと、現在地の取得ができない
         locManager = CLLocationManager()
         locManager!.delegate = self //
-        // 何度も現在地の取得に入っている 0308
+        
 // 前回の検索地点にピンがたっている。画面の外になる場所ならば、表示されていないだけ
 // 検索地点情報がある時と、ない時とに分けて処理するか？？
 //------------------------------------------------------------------
@@ -212,7 +211,7 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
         //         renderer.alpha = 0.1 // 透明度の初期値　　スライダーで可変
         //     }
         print("end of override func viewDidLoad ・・")
-        print("このあとで、位置情報の取得に行く")
+        print("このあとで、位置情報の取得に行くようだ")
     } // end of override func viewDidLoad ・・・
     
     //==============================================================================
