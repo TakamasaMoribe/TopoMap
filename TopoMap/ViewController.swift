@@ -43,8 +43,8 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
             var myLatitude:Double = 35.67476581424778 // 自宅の緯度
             var myLongitude:Double = 139.80606060262522 // 自宅の経度
     // 検索地点の初期値を設定しておく。
-            var selectedPlace:String = "初期位置"//targetPlace にすべきか？
-            var selectedAddress:String = "初期住所"//targetAddress にすべきか
+            var selectedPlace:String = ""//初期値はなしにしておく
+            var selectedAddress:String = ""//
             var targetLatitude:Double = 35.6743169 // 木場公園の緯度
             var targetLongitude:Double = 139.8086198 // 木場公園の経度
     var selectedLatitude:Double = 35.6743169 // 木場公園の緯度
@@ -122,19 +122,11 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
         print("検索地点 targetAddress:\(targetAddress)")
         print("読み込んだ検索地点の緯度は、\(targetLatitude)")
         
-//        // 現在地を画面の中央に表示してみる
-//            let span = MKCoordinateSpan (latitudeDelta: 0.01,longitudeDelta: 0.01)
-//            let myRegion = MKCoordinateRegion(center: myLocation, span: span)//現在地
-//            // MapViewに中心点を設定する
-//            mapView.setCenter(myLocation, animated: true)
-//            mapView.setRegion(myRegion, animated:true)
-        
         //mapView.delegate = self//検索地中心の地図を表示するか？線を引いたあとに中心となる
         // 検索地を画面の中央に表示してみる
         let span = MKCoordinateSpan (latitudeDelta: 0.01,longitudeDelta: 0.01)
         let targetRegion = MKCoordinateRegion(center: targetLocation, span: span)//現在地
         // MapViewに中心点を設定する
-
         mapView.setCenter(targetLocation, animated: true)
         mapView.setRegion(targetRegion, animated:true)
         
@@ -174,11 +166,26 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
         mapView.setCenter(targetLocation, animated: true)
         mapView.setRegion(targetRegion, animated:true)
         
-        // ピンの座標とタイトルを設定。ピンの位置が画面の中央になる。
-        myPin.coordinate = targetLocation    // 選択した場所の座標
-        self.myPin.title = targetPlace       //targetPlace      // 選択した場所
-        self.myPin.subtitle = targetAddress  //targetAddress    // 選択した住所
-        mapView.addAnnotation(myPin)         // MapViewにピンを追加表示する
+//        // ピンの座標とタイトルを設定。ピンの位置が画面の中央になる。
+//        myPin.coordinate = targetLocation    // 選択した場所の座標
+//        self.myPin.title = targetPlace       //targetPlace      // 選択した場所
+//        self.myPin.subtitle = targetAddress  //targetAddress    // 選択した住所
+//        mapView.addAnnotation(myPin)         // MapViewにピンを追加表示する
+        
+// 検索地点があれば、.none にする　mapView.userTrackingMode のコントロールがポイントのもよう
+        
+        if (targetPlace == "") {
+            mapView.userTrackingMode = .follow // 検索地点がなければ、現在地の更新をする
+            print("検索地点がありません。現在地を表示します。")
+        } else {
+            mapView.userTrackingMode = .none // 現在地の更新をしない
+            print("検索地点がありますので、表示します。")
+            //ピンの座標とタイトルを設定。ピンの位置が画面の中央になる。
+            myPin.coordinate = targetLocation    // 選択した場所の座標
+            self.myPin.title = targetPlace       //targetPlace      // 選択した場所
+            self.myPin.subtitle = targetAddress  //targetAddress    // 選択した住所
+            mapView.addAnnotation(myPin)         // MapViewにピンを追加表示する
+        }
         
         print("検索地点をピンで表示しました。")
         print("検索地点は、\(targetPlace)")
@@ -205,7 +212,7 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
         //         renderer.alpha = 0.1 // 透明度の初期値　　スライダーで可変
         //     }
         print("end of override func viewDidLoad ・・")
-        print("このあとで、現在位置情報の取得に行くようだ")
+        print("このあとで、現在位置情報の取得をおこなう")
         
     } // end of override func viewDidLoad ・・・
     
@@ -231,7 +238,7 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
 //               //mapView.userTrackingMode = .follow // 現在地の更新をする
 //             }
         
-       //mapView.userTrackingMode = .follow // 現在地の更新をする・・これのコントロールがポイントのよう
+       //mapView.userTrackingMode = .follow // 現在地の更新をする・・これのコントロールがポイントのもよう
         print("delegate　code内　末尾")
     }
     
