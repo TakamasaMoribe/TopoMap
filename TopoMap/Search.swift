@@ -96,11 +96,11 @@ extension SearchController: UITableViewDelegate, UITableViewDataSource {
                                 //let subLocality = firstPlacemark.subLocality// 地名
                                 //print("地名:\(subLocality)")
                            // Userdeaults.standard に保存する
-//                           UserDefaults.standard.set(selectedPlace, forKey:"targetPlace")
-//                            UserDefaults.standard.set(selectedAddress, forKey:"targetAddress")
-//                            UserDefaults.standard.set(targetLatitude, forKey:"targetLatitude")
-//                            UserDefaults.standard.set(targetLongitude, forKey:"targetLongitude")
-//                            UserDefaults.standard.synchronize()
+                            UserDefaults.standard.set(selectedPlace, forKey:"targetPlace")
+                            UserDefaults.standard.set(selectedAddress, forKey:"targetAddress")
+                            UserDefaults.standard.set(targetLatitude, forKey:"targetLatitude")
+                            UserDefaults.standard.set(targetLongitude, forKey:"targetLongitude")
+                            UserDefaults.standard.synchronize()
  
     // 地図画面へ戻る
         let storyboard: UIStoryboard = self.storyboard!

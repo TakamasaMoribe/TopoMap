@@ -108,9 +108,9 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
         // MapViewに中心点を設定する
         mapView.setCenter(myLocation, animated: true)
         mapView.setRegion(myRegion, animated:true)
-        
-        mapView.userTrackingMode = .follow // 現在地の更新をする
-        print("現在地ボタン 出口です")
+        // 現在地の更新をする
+        mapView.userTrackingMode = .follow // 現在地の更新をする（青い●が表示されている）
+        print("現在地ボタン 処理の出口です")
     }
 // -------------------------------------------------------------------------------
     // ツールバー内の　＜矢印＞アイコン　をクリックした時　保存してある現在地を読み込んで目的地へ線を引く
