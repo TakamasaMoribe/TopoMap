@@ -101,7 +101,6 @@ extension SearchController: UITableViewDelegate, UITableViewDataSource {
 //                            UserDefaults.standard.set(targetLatitude, forKey:"targetLatitude")
 //                            UserDefaults.standard.set(targetLongitude, forKey:"targetLongitude")
 //                            UserDefaults.standard.synchronize()
-    print("検索画面で、検索した場所は、\(selectedPlace)")
  
     // 地図画面へ戻る
         let storyboard: UIStoryboard = self.storyboard!
@@ -114,6 +113,9 @@ extension SearchController: UITableViewDelegate, UITableViewDataSource {
             nextView.selectedAddress = selectedAddress    // 住所
             nextView.selectedLatitude = targetLatitude    // 緯度
             nextView.selectedLongitude = targetLongitude  // 経度
+    print("検索画面で、検索した場所は、\(selectedPlace)")
+    print("住所は、\(selectedAddress)")
+                                
         self.present(nextView,animated: true, completion: nil)
                                 
 

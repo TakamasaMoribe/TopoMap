@@ -68,8 +68,6 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
     // ツールバー内の検索ボタンをクリックしたとき、検索画面に遷移する
     @IBAction func seachButtonClicked(_ sender: UIBarButtonItem) {
         print("検索ボタンが押されて、検索画面に遷移します。")
-        locManager.stopUpdatingLocation()// 一時的に位置情報取得を停止する
-        print("一時的に位置情報取得を停止してみるが、どうか")
         
         let storyboard: UIStoryboard = self.storyboard!        
         let nextView = storyboard.instantiateViewController(withIdentifier: "Search") as! SearchController
@@ -159,34 +157,32 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
         locManager!.delegate = self //
         mapView.delegate = self //Mapの描画 これを置かないオーバーレイがおかしくなる。
         
-        setupLocationManager(flag:false)//位置情報の取得を不可能とする(false)
-        
-// 起動すると、前回の検索地点にピンがたっている。画面の外になる場所ならば、表示されていないだけ
+// 起動すると、前回の検索地点にピンが立つ。画面の外になる場所ならば、表示されていないだけ
 // 検索地点情報がある時と、ない時とに分けて処理するか？？
 //-----------------------------------------------------------------
-// 画面遷移で位置情報の受け渡しをしてみる。変数の引き継ぎができているようだ
+// 画面遷移で位置情報の受け渡しをしている。変数の引き継ぎができている。
         let targetPlace = selectedPlace         // 選択した場所
-        let targetLatitude = selectedLatitude   // 選択した場所の緯度
-        let targetLongitude = selectedLongitude // 選択した場所の経度
+        let targetAddress = selectedAddress     // 住所
+        let targetLatitude = selectedLatitude   // 緯度
+        let targetLongitude = selectedLongitude // 経度
         let targetLocation = CLLocationCoordinate2D(latitude: targetLatitude, longitude: targetLongitude)
-        // ピンの座標とタイトルを設定。検索地点＝ピンの位置が画面の中央になっていない。
-        // mapView.center mapView.range の設定がない？
-        
-        // 検索地を画面の中央に表示してみる
+
+        // 検索地を画面の中央に表示する
         let span = MKCoordinateSpan (latitudeDelta: 0.01,longitudeDelta: 0.01)
         let targetRegion = MKCoordinateRegion(center: targetLocation, span: span)//現在地
         // MapViewに中心点を設定する
         mapView.setCenter(targetLocation, animated: true)
         mapView.setRegion(targetRegion, animated:true)
         
-        
+        // ピンの座標とタイトルを設定。ピンの位置が画面の中央になる。
         myPin.coordinate = targetLocation    // 選択した場所の座標
-        self.myPin.title = myPin.title       //targetPlace      // 選択した場所
-        self.myPin.subtitle = myPin.subtitle //targetAddress    // 選択した住所
+        self.myPin.title = targetPlace       //targetPlace      // 選択した場所
+        self.myPin.subtitle = targetAddress  //targetAddress    // 選択した住所
         mapView.addAnnotation(myPin)         // MapViewにピンを追加表示する
         
         print("検索地点をピンで表示しました。")
         print("検索地点は、\(targetPlace)")
+        print("住所は、\(targetAddress)")
         
         
 //------------------------------------------------------------------
@@ -210,8 +206,6 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
         //     }
         print("end of override func viewDidLoad ・・")
         print("このあとで、現在位置情報の取得に行くようだ")
-        //locManager.stopUpdatingLocation()
-        //print("位置情報の取得を一時停止してみるがどうか　効かない　stopUpdatingLocation()")
         
     } // end of override func viewDidLoad ・・・
     
@@ -237,7 +231,7 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
 //               //mapView.userTrackingMode = .follow // 現在地の更新をする
 //             }
         
-       //mapView.userTrackingMode = .follow // 現在地の更新をする・・・・ここがポイント
+       //mapView.userTrackingMode = .follow // 現在地の更新をする・・これのコントロールがポイントのよう
         print("delegate　code内　末尾")
     }
     
@@ -270,23 +264,6 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
         }
     }
     
-    
-    // ロケーションマネージャのセットアップ 位置情報取得の可否をコントロールしてみる　----------------------
-    func setupLocationManager(flag:Bool) {
-            let loc2Manager = CLLocationManager()
-            loc2Manager.delegate = self
-        loc2Manager.stopUpdatingLocation()//位置情報の取得を中止
-//            // ステータスごとの処理
-//            if flag == true {
-//                locManager.startUpdatingLocation()//位置情報の取得を開始
-//            } else {
-//                locManager.stopUpdatingLocation()//位置情報の取得を中止
-//            }
-        }
-    
-    
-    
-    // -----------------------------------------------------------------------
 } // end of class ViewController ・・・
 
 
