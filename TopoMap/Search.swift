@@ -96,24 +96,26 @@ extension SearchController: UITableViewDelegate, UITableViewDataSource {
                                 //let subLocality = firstPlacemark.subLocality// 地名
                                 //print("地名:\(subLocality)")
                            // Userdeaults.standard に保存する
-                           UserDefaults.standard.set(selectedPlace, forKey:"targetPlace")
-                            UserDefaults.standard.set(selectedAddress, forKey:"targetAddress")
-                            UserDefaults.standard.set(targetLatitude, forKey:"targetLatitude")
-                            UserDefaults.standard.set(targetLongitude, forKey:"targetLongitude")
-                            UserDefaults.standard.synchronize()
+//                           UserDefaults.standard.set(selectedPlace, forKey:"targetPlace")
+//                            UserDefaults.standard.set(selectedAddress, forKey:"targetAddress")
+//                            UserDefaults.standard.set(targetLatitude, forKey:"targetLatitude")
+//                            UserDefaults.standard.set(targetLongitude, forKey:"targetLongitude")
+//                            UserDefaults.standard.synchronize()
+    print("検索した場所は、\(selectedPlace)")
+                                
     // 地図画面へ遷移する
        let storyboard: UIStoryboard = self.storyboard!
        let nextView = storyboard.instantiateViewController(withIdentifier: "Map") as! ViewController
         // 検索している画面を消去する
         nextView.modalPresentationStyle = .fullScreen // 画面が下にずれることを解消できる？
         //self.dismiss(animated: true) //画面表示を消去
-        self.present(nextView,animated: true, completion: { () in
-           nextView.myPin.title = selectedPlace      // 地名　pinをnextViewの変数にした
-           nextView.myPin.subtitle = selectedAddress // 住所　引き継ぎが可能
-           nextView.targetLatitude = targetLatitude      // 緯度も同時に引き継ぐ?
-           nextView.targetLongitude = targetLongitude    // 経度も同時に引き継ぐ?
-       })
-                                //self.dismiss(animated: true) //画面表示を消去
+            nextView.myPin.title = selectedPlace          // 地名　nextViewの変数
+            nextView.myPin.subtitle = selectedAddress     // 住所
+            nextView.selectedPlace = selectedPlace        // 地名
+            nextView.selectedLatitude = targetLatitude    // 緯度
+            nextView.selectedLongitude = targetLongitude  // 経度
+        self.present(nextView,animated: true, completion: nil)
+                                
 
                        } // if let location =
                      } // if let firstPlacemark =
