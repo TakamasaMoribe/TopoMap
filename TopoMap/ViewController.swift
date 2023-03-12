@@ -35,21 +35,22 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
     
     // CLLocationManagerは非同期処理を行うため、強参照のプロパティとしてアプリ内で保管させる
     // ロケーションマネージャーのインスタンスを生成する
-    var locManager: CLLocationManager!
+        var locManager: CLLocationManager!
     // 地図上に立てるピンを生成する
-    let myPin: MKPointAnnotation = MKPointAnnotation()
+        let myPin: MKPointAnnotation = MKPointAnnotation()
     
     // 現在地の初期値を設定しておく。
-            var myLatitude:Double = 35.67476581424778 // 自宅の緯度
-            var myLongitude:Double = 139.80606060262522 // 自宅の経度
+        var myLatitude:Double = 35.67476581424778 // 自宅の緯度
+        var myLongitude:Double = 139.80606060262522 // 自宅の経度
     // 検索地点の初期値を設定しておく。
-            var selectedPlace:String = ""//初期値はなしにしておく
-            var selectedAddress:String = ""//
-            var targetLatitude:Double = 35.6743169 // 木場公園の緯度
-            var targetLongitude:Double = 139.8086198 // 木場公園の経度
-    var selectedLatitude:Double = 35.6743169 // 木場公園の緯度
-    var selectedLongitude:Double = 139.8086198 // 木場公園の経度
-    
+        var selectedPlace:String = "" // 検索の結果を入れる。初期値はなしにしておく
+        var selectedAddress:String = ""
+        var selectedLatitude:Double = 0.00
+        var selectedLongitude:Double = 0.00
+        var targetLatitude:Double = 35.6743169   // 木場公園の緯度
+        var targetLongitude:Double = 139.8086198 // 木場公園の経度
+
+//----------------------------------------------------------------------------------------
     // 地理院地図　表示の濃淡を決めるスライダーの設定
     // 標準地図と陰影起伏図を同時に変更する
     @IBAction func sliderDidChange(_ slider: UISlider) {
@@ -122,7 +123,7 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
         let myLongitude = locManager.location?.coordinate.longitude //経度
         let myLocation = CLLocationCoordinate2D(latitude: myLatitude!, longitude: myLongitude!) //座標
      
-        // 検索した目標地点の座標などの情報は、Userdeaults.standard に保存してある
+        // 検索した目標地点の座標などの情報は、Userdeaults.standard に保存してあるので読み込む
         let targetPlace = UserDefaults.standard.string(forKey:"targetPlace")! //場所
         let targetAddress = UserDefaults.standard.string(forKey:"targetAddress")! //住所
         let targetLatitude = UserDefaults.standard.double(forKey:"targetLatitude")
@@ -131,8 +132,7 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
         print("検索地点 targetPlace:\(targetPlace)")
         print("検索地点 targetAddress:\(targetAddress)")
         
-        //mapView.delegate = self//検索地中心の地図を表示するか？線を引いたあとに中心となる
-        // 検索地を画面の中央に表示してみる
+        // 検索地を画面の中央に表示する
         let span = MKCoordinateSpan (latitudeDelta: 0.01,longitudeDelta: 0.01)
         let targetRegion = MKCoordinateRegion(center: targetLocation, span: span)//現在地
         // MapViewに中心点を設定する
@@ -140,8 +140,7 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
         mapView.setRegion(targetRegion, animated:true)
         
         // 線を引くメソッドへ　現在地と目的地、２点の座標が引数として必要
-        drawLine(current: myLocation, destination: targetLocation) //
-        
+        drawLine(current: myLocation, destination: targetLocation) // 線を引くメソッド
     }
 // -------------------------------------------------------------------------------
     
@@ -149,7 +148,6 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
     //==============================================================================
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("起動しました")
         // CLLocationManagerがCLLocationManagerDelegateプロトコルの抽象メソッドを実行するときは、
         // CLLocationManagerDelegateプロトコルの実装クラスであるViewControllerに実行してもらう
         // 位置情報の取得 ロケーションマネージャーのインスタンスを作成する
@@ -158,8 +156,6 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
         locManager!.delegate = self //
         mapView.delegate = self //Mapの描画 これを置かないオーバーレイがおかしくなる。
         
-// 起動すると、前回の検索地点にピンが立つ。画面の外になる場所ならば、表示されていないだけ
-// 検索地点情報がある時と、ない時とに分けて処理するか？？
 //-----------------------------------------------------------------
 // 画面遷移で位置情報の受け渡しをしている。変数の引き継ぎができている。
         let targetPlace = selectedPlace         // 選択した場所
@@ -175,32 +171,22 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
         mapView.setCenter(targetLocation, animated: true)
         mapView.setRegion(targetRegion, animated:true)
         
-//        // ピンの座標とタイトルを設定。ピンの位置が画面の中央になる。
-//        myPin.coordinate = targetLocation    // 選択した場所の座標
-//        self.myPin.title = targetPlace       //targetPlace      // 選択した場所
-//        self.myPin.subtitle = targetAddress  //targetAddress    // 選択した住所
-//        mapView.addAnnotation(myPin)         // MapViewにピンを追加表示する
-        
-// 検索地点があれば、.none にする　mapView.userTrackingMode のコントロールがポイントのもよう
-        
+        // 検索地点があれば、.none にする　mapView.userTrackingMode のコントロールがポイントのもよう
         if (targetPlace == "") {
             mapView.userTrackingMode = .follow // 検索地点がなければ、現在地の更新をする
             print("検索地点がありません。現在地を表示します。")
         } else {
-            mapView.userTrackingMode = .none // 現在地の更新をしない
-            print("検索地点がありますので、表示します。")
+            mapView.userTrackingMode = .none // 検索地点があるので、現在地の更新をしない
+            print("検索地点がありましたので、表示します。")
             //ピンの座標とタイトルを設定。ピンの位置が画面の中央になる。
             myPin.coordinate = targetLocation    // 選択した場所の座標
             self.myPin.title = targetPlace       //targetPlace      // 選択した場所
             self.myPin.subtitle = targetAddress  //targetAddress    // 選択した住所
             mapView.addAnnotation(myPin)         // MapViewにピンを追加表示する
         }
-        
-        print("検索地点をピンで表示しました。")
         print("検索地点は、\(targetPlace)")
         print("住所は、\(targetAddress)")
-        
-        
+                
 //------------------------------------------------------------------
         // 地理院地図のオーバーレイ表示。
         // 下の２種類のタイルを同時に表示している
@@ -221,7 +207,6 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
         //         renderer.alpha = 0.1 // 透明度の初期値　　スライダーで可変
         //     }
         print("end of override func viewDidLoad ・・")
-        print("このあとで、現在位置情報の取得をおこなう")
         
     } // end of override func viewDidLoad ・・・
     

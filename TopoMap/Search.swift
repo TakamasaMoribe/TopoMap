@@ -95,7 +95,7 @@ extension SearchController: UITableViewDelegate, UITableViewDataSource {
                                 let targetLongitude = location.coordinate.longitude
                                 //let subLocality = firstPlacemark.subLocality// 地名
                                 //print("地名:\(subLocality)")
-                           // Userdeaults.standard に保存する
+                           // Userdeaults.standard に保存する。線引に使用する
                             UserDefaults.standard.set(selectedPlace, forKey:"targetPlace")
                             UserDefaults.standard.set(selectedAddress, forKey:"targetAddress")
                             UserDefaults.standard.set(targetLatitude, forKey:"targetLatitude")
@@ -115,10 +115,9 @@ extension SearchController: UITableViewDelegate, UITableViewDataSource {
             nextView.selectedLongitude = targetLongitude  // 経度
     print("検索画面で、検索した場所は、\(selectedPlace)")
     print("住所は、\(selectedAddress)")
-                                
+    print("検索画面から出ます")
         self.present(nextView,animated: true, completion: nil)
                                 
-
                        } // if let location =
                      } // if let firstPlacemark =
                     } // if let unwrapPlacemark =
