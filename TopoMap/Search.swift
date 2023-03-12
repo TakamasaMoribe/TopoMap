@@ -101,17 +101,17 @@ extension SearchController: UITableViewDelegate, UITableViewDataSource {
 //                            UserDefaults.standard.set(targetLatitude, forKey:"targetLatitude")
 //                            UserDefaults.standard.set(targetLongitude, forKey:"targetLongitude")
 //                            UserDefaults.standard.synchronize()
-    print("検索した場所は、\(selectedPlace)")
-                                
-    // 地図画面へ遷移する
-       let storyboard: UIStoryboard = self.storyboard!
-       let nextView = storyboard.instantiateViewController(withIdentifier: "Map") as! ViewController
-        // 検索している画面を消去する
+    print("検索画面で、検索した場所は、\(selectedPlace)")
+ 
+    // 地図画面へ戻る
+        let storyboard: UIStoryboard = self.storyboard!
+        let nextView = storyboard.instantiateViewController(withIdentifier: "Map") as! ViewController
         nextView.modalPresentationStyle = .fullScreen // 画面が下にずれることを解消できる？
         //self.dismiss(animated: true) //画面表示を消去
             nextView.myPin.title = selectedPlace          // 地名　nextViewの変数
             nextView.myPin.subtitle = selectedAddress     // 住所
             nextView.selectedPlace = selectedPlace        // 地名
+            nextView.selectedAddress = selectedAddress    // 住所
             nextView.selectedLatitude = targetLatitude    // 緯度
             nextView.selectedLongitude = targetLongitude  // 経度
         self.present(nextView,animated: true, completion: nil)

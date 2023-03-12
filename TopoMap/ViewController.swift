@@ -33,12 +33,11 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
     //    "https://cyberjapandata.gsi.go.jp/xyz/relief/{z}/{x}/{y}.png") // Rel:レリーフ地図
     //                            //色別標高図  relief ズームレベル 5～15
     
-    // 地図上に立てるピンを生成する
-    let myPin: MKPointAnnotation = MKPointAnnotation()
+    // CLLocationManagerは非同期処理を行うため、強参照のプロパティとしてアプリ内で保管させる
     // ロケーションマネージャーのインスタンスを生成する
     var locManager: CLLocationManager!
-    // CLLocationManagerは非同期処理を行うため、強参照のプロパティとしてアプリ内で保管させる
-    // var locationManager: CLLocationManager?
+    // 地図上に立てるピンを生成する
+    let myPin: MKPointAnnotation = MKPointAnnotation()
     
     // 現在地の初期値を設定しておく。
             var myLatitude:Double = 35.67476581424778 // 自宅の緯度
@@ -69,6 +68,9 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
     // ツールバー内の検索ボタンをクリックしたとき、検索画面に遷移する
     @IBAction func seachButtonClicked(_ sender: UIBarButtonItem) {
         print("検索ボタンが押されて、検索画面に遷移します。")
+        locManager.stopUpdatingLocation()// 一時的に位置情報取得を停止する
+        print("一時的に位置情報取得を停止してみるが、どうか")
+        
         let storyboard: UIStoryboard = self.storyboard!        
         let nextView = storyboard.instantiateViewController(withIdentifier: "Search") as! SearchController
         nextView.modalPresentationStyle = .fullScreen // 画面が下にずれることを解消できる？
@@ -157,6 +159,8 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
         locManager!.delegate = self //
         mapView.delegate = self //Mapの描画 これを置かないオーバーレイがおかしくなる。
         
+        setupLocationManager(flag:false)//位置情報の取得を不可能とする(false)
+        
 // 起動すると、前回の検索地点にピンがたっている。画面の外になる場所ならば、表示されていないだけ
 // 検索地点情報がある時と、ない時とに分けて処理するか？？
 //-----------------------------------------------------------------
@@ -183,10 +187,7 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
         
         print("検索地点をピンで表示しました。")
         print("検索地点は、\(targetPlace)")
-        print("位置情報の取得を一時停止してみるが、可能か？")
         
-        locManager.stopUpdatingLocation()
-        print("位置情報の取得を一時停止 stopUpdatingLocation()")
         
 //------------------------------------------------------------------
         // 地理院地図のオーバーレイ表示。
@@ -208,7 +209,10 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
         //         renderer.alpha = 0.1 // 透明度の初期値　　スライダーで可変
         //     }
         print("end of override func viewDidLoad ・・")
-        print("このあとで、位置情報の取得に行くようだ")
+        print("このあとで、現在位置情報の取得に行くようだ")
+        //locManager.stopUpdatingLocation()
+        //print("位置情報の取得を一時停止してみるがどうか　効かない　stopUpdatingLocation()")
+        
     } // end of override func viewDidLoad ・・・
     
     //==============================================================================
@@ -216,36 +220,25 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
     // 現在位置取得関係 ----------------------------------------------------
     // CLLocationManagerのdelegate:現在位置取得
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations:[CLLocation]) {
-        print("delegate　code内:現在位置取得 現在地の取得に入りました。")
+        print("delegate　code内　先頭")
+        //locManager.stopUpdatingLocation()// 効かない
         
         //locManager.requestLocation()
         //locManager.desiredAccuracy = kCLLocationAccuracyHundredMeters//誤差100m程度の精度
         //                         kCLLocationAccuracyNearestTenMeters//誤差10m程度の精度
         //locManager.desiredAccuracy = kCLLocationAccuracyBest//最高精度(デフォルト値)
-        //locManager.distanceFilter = 10//10ｍ移動したら、位置情報を更新する
+    //locManager.distanceFilter = 10//10ｍ移動したら、位置情報を更新する
         
-         //更新スイッチの状態により、実行可否を判断する・・とりあえず使わないで考える。
-//         if updateSwitch .isOn {
-//             mapView.userTrackingMode = .followWithHeading // 現在地を更新して、HeadingUp表示
-//         } else {
-           //mapView.userTrackingMode = .none // 現在地の更新をしない
-//           //mapView.userTrackingMode = .follow // 現在地の更新をする
-//         }
-       mapView.userTrackingMode = .follow // 現在地の更新をする これを使わないと日本全図になる
- 
-//        // --------------------------------------------------------------
-//        // 現在地の緯度経度を取得する myLatitude,myLongitude
-//        let location:CLLocation = locations[0]//locations[0]の意味
-//        let myLatitude = location.coordinate.latitude //現在地の緯度
-//        let myLongitude = location.coordinate.longitude //現在地の経度
-//        print("現在地の緯度:\(myLatitude)")
-//        print("現在地の経度:\(myLongitude)")
-//        // 現在地の緯度経度を保存する myLatitude,myLongitude
-//        UserDefaults.standard.set(myLatitude, forKey: "myLatitude")
-//        UserDefaults.standard.set(myLongitude, forKey: "myLongitude")
-////        // 現在地の座標
-////        let myLocation = CLLocationCoordinate2D(latitude: myLatitude, longitude: myLongitude)
-        print("delegate　code内:現在位置を取得しました")
+//更新スイッチの状態により、実行可否を判断する・・とりあえず使わないで考える。
+//             if updateSwitch .isOn {
+//                 mapView.userTrackingMode = .followWithHeading // 現在地を更新して、HeadingUp表示
+//             } else {
+//               mapView.userTrackingMode = .none // 現在地の更新をしない
+//               //mapView.userTrackingMode = .follow // 現在地の更新をする
+//             }
+        
+       //mapView.userTrackingMode = .follow // 現在地の更新をする・・・・ここがポイント
+        print("delegate　code内　末尾")
     }
     
     // ２点を結ぶ線を引くメソッド
@@ -276,6 +269,23 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
             break
         }
     }
+    
+    
+    // ロケーションマネージャのセットアップ 位置情報取得の可否をコントロールしてみる　----------------------
+    func setupLocationManager(flag:Bool) {
+            let loc2Manager = CLLocationManager()
+            loc2Manager.delegate = self
+        loc2Manager.stopUpdatingLocation()//位置情報の取得を中止
+//            // ステータスごとの処理
+//            if flag == true {
+//                locManager.startUpdatingLocation()//位置情報の取得を開始
+//            } else {
+//                locManager.stopUpdatingLocation()//位置情報の取得を中止
+//            }
+        }
+    
+    
+    
     // -----------------------------------------------------------------------
 } // end of class ViewController ・・・
 
