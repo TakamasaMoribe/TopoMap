@@ -98,6 +98,18 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
         // 現在地の取得 ロケーションマネージャーのインスタンスを作成する
         locManager = CLLocationManager()
         locManager.delegate = self // 現在地を取得して表示するために必要となる
+        // 現在地の座標を取得する
+        let myLatitude = locManager.location?.coordinate.latitude //緯度
+        let myLongitude = locManager.location?.coordinate.longitude //経度
+        let myLocation = CLLocationCoordinate2D(latitude: myLatitude!, longitude: myLongitude!) //座標
+        // 現在地を画面の中央に表示してみる
+        let span = MKCoordinateSpan (latitudeDelta: 0.01,longitudeDelta: 0.01)
+        let myRegion = MKCoordinateRegion(center: myLocation, span: span)//現在地
+        // MapViewに中心点を設定する
+        mapView.setCenter(myLocation, animated: true)
+        mapView.setRegion(myRegion, animated:true)
+        
+        mapView.userTrackingMode = .follow // 現在地の更新をする
         print("現在地ボタン 出口です")
     }
 // -------------------------------------------------------------------------------
@@ -105,13 +117,11 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
     // アプリを起動した時点で、現在地を取得しているので、ここで取得する必要はない
     @IBAction func drawButtonClicked(_ sender: UIBarButtonItem) {
         print("矢印アイコンをクリックしました")
-        
-        // 現在地の座標を読み込む myLatitude,myLongitude
-        let myLatitude = UserDefaults.standard.double(forKey:"myLatitude")
-        let myLongitude = UserDefaults.standard.double(forKey:"myLongitude")
-        let myLocation = CLLocationCoordinate2D(latitude: myLatitude, longitude: myLongitude)
-        print("読み込んだ現在地の緯度は、\(myLatitude)")
-        
+        // 現在地の座標を取得する
+        let myLatitude = locManager.location?.coordinate.latitude //緯度
+        let myLongitude = locManager.location?.coordinate.longitude //経度
+        let myLocation = CLLocationCoordinate2D(latitude: myLatitude!, longitude: myLongitude!) //座標
+     
         // 検索した目標地点の座標などの情報は、Userdeaults.standard に保存してある
         let targetPlace = UserDefaults.standard.string(forKey:"targetPlace")! //場所
         let targetAddress = UserDefaults.standard.string(forKey:"targetAddress")! //住所
@@ -120,7 +130,6 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
         let targetLocation = CLLocationCoordinate2D(latitude: targetLatitude, longitude: targetLongitude)
         print("検索地点 targetPlace:\(targetPlace)")
         print("検索地点 targetAddress:\(targetAddress)")
-        print("読み込んだ検索地点の緯度は、\(targetLatitude)")
         
         //mapView.delegate = self//検索地中心の地図を表示するか？線を引いたあとに中心となる
         // 検索地を画面の中央に表示してみる
