@@ -4,7 +4,7 @@
 //
 //  Created by 森部高昌 on 2021/10/09.
 //  2022/07/18
-//  2023/02/22〜　03/09  検索地点の表示が画面の中央にならない
+//  2023/02/22〜　03/14　線を引いたときに、検索地が中央になったままである
 //  Map表示の初期値として、前回の検索地点を使用する。
 //　◯広い範囲を指定すれば、レリーフ地図も表示できる。レリーフ地図の縮尺の問題か？
 //　◯現在地から検索地点へ線を引く。ツールバーに実行アイコンを置く cursor arrow にしてみた
@@ -65,7 +65,8 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
     //        renderer.alpha = CGFloat(slider.value) * 0.3// スライダ値*0.3
     //    }
     }
-        
+    
+//----------------------------------------------------------------------------------------
     // ツールバー内の検索ボタンをクリックしたとき、検索画面に遷移する
     @IBAction func seachButtonClicked(_ sender: UIBarButtonItem) {
         print("検索ボタンが押されて、検索画面に遷移します。")
@@ -133,18 +134,25 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
         print("検索地点 targetAddress:\(targetAddress)")
         
         // 検索地を画面の中央に表示する
-        let span = MKCoordinateSpan (latitudeDelta: 0.01,longitudeDelta: 0.01)
-        let targetRegion = MKCoordinateRegion(center: targetLocation, span: span)//現在地
+        var span = MKCoordinateSpan (latitudeDelta: 0.01,longitudeDelta: 0.01)
+        var targetRegion = MKCoordinateRegion(center: targetLocation, span: span)//現在地
         // MapViewに中心点を設定する
         mapView.setCenter(targetLocation, animated: true)
         mapView.setRegion(targetRegion, animated:true)
         
         // 線を引くメソッドへ　現在地と目的地、２点の座標が引数として必要
         drawLine(current: myLocation, destination: targetLocation) // 線を引くメソッド
+        
+        // 現在地を画面の中央に表示する
+        span = MKCoordinateSpan (latitudeDelta: 0.01,longitudeDelta: 0.01)
+        targetRegion = MKCoordinateRegion(center: targetLocation, span: span)//現在地
+        // MapViewに中心点を設定する
+        mapView.setCenter(targetLocation, animated: true)
+        mapView.setRegion(targetRegion, animated:true)
+        
     }
 // -------------------------------------------------------------------------------
-    
-    
+        
     //==============================================================================
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -174,22 +182,17 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
         // 検索地点があれば、.none にする　mapView.userTrackingMode のコントロールがポイントのもよう
         if (targetPlace == "") {
             mapView.userTrackingMode = .follow // 検索地点がなければ、現在地の更新をする
-            print("検索地点がありません。現在地を表示します。")
         } else {
             mapView.userTrackingMode = .none // 検索地点があるので、現在地の更新をしない
-            print("検索地点がありましたので、表示します。")
             //ピンの座標とタイトルを設定。ピンの位置が画面の中央になる。
             myPin.coordinate = targetLocation    // 選択した場所の座標
             self.myPin.title = targetPlace       //targetPlace      // 選択した場所
             self.myPin.subtitle = targetAddress  //targetAddress    // 選択した住所
             mapView.addAnnotation(myPin)         // MapViewにピンを追加表示する
         }
-        print("検索地点は、\(targetPlace)")
-        print("住所は、\(targetAddress)")
                 
-//------------------------------------------------------------------
-        // 地理院地図のオーバーレイ表示。
-        // 下の２種類のタイルを同時に表示している
+        //------------------------------------------------------------------
+        // 地理院地図のオーバーレイ表示。下の２種類のタイルを同時に表示している
         // Std:標準地図
         mapView.addOverlay(gsiTileOverlayStd, level: .aboveLabels)
             if let renderer = mapView.renderer(for: gsiTileOverlayStd) {
@@ -200,13 +203,11 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
             if let renderer = mapView.renderer(for: gsiTileOverlayHil) {
                 renderer.alpha = 0.1 // 透明度の初期値　　スライダーで可変
             }
- 
         // Relレリーフ地図
         // mapView.addOverlay(gsiTileOverlayRel, level: .aboveLabels)
         //     if let renderer = mapView.renderer(for: gsiTileOverlayRel) {
         //         renderer.alpha = 0.1 // 透明度の初期値　　スライダーで可変
         //     }
-        print("end of override func viewDidLoad ・・")
         
     } // end of override func viewDidLoad ・・・
     
@@ -215,38 +216,29 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
     // 現在位置取得関係 ----------------------------------------------------
     // CLLocationManagerのdelegate:現在位置取得
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations:[CLLocation]) {
-        print("delegate　code内　先頭")
-        //locManager.stopUpdatingLocation()// 効かない
-        
         //locManager.requestLocation()
         //locManager.desiredAccuracy = kCLLocationAccuracyHundredMeters//誤差100m程度の精度
         //                         kCLLocationAccuracyNearestTenMeters//誤差10m程度の精度
         //locManager.desiredAccuracy = kCLLocationAccuracyBest//最高精度(デフォルト値)
-    //locManager.distanceFilter = 10//10ｍ移動したら、位置情報を更新する
-        
-//更新スイッチの状態により、実行可否を判断する・・とりあえず使わないで考える。
-//             if updateSwitch .isOn {
-//                 mapView.userTrackingMode = .followWithHeading // 現在地を更新して、HeadingUp表示
-//             } else {
-//               mapView.userTrackingMode = .none // 現在地の更新をしない
-//               //mapView.userTrackingMode = .follow // 現在地の更新をする
-//             }
-        
-       //mapView.userTrackingMode = .follow // 現在地の更新をする・・これのコントロールがポイントのもよう
-        print("delegate　code内　末尾")
+        //locManager.distanceFilter = 10//10ｍ移動したら、位置情報を更新する
+    //更新スイッチの状態により、実行可否を判断する・・とりあえず使わないで考える。線を引いたときに有効化する？？
+    // if updateSwitch .isOn {
+    //    mapView.userTrackingMode = .followWithHeading // 現在地を更新して、HeadingUp表示
+    //  } else {
+    //    mapView.userTrackingMode = .none // 現在地の更新をしない
+    //    //mapView.userTrackingMode = .follow // 現在地の更新をする
+    //  }
     }
     
     // ２点を結ぶ線を引くメソッド
     func drawLine(current:CLLocationCoordinate2D,destination:CLLocationCoordinate2D)  {
-        print("線を引くメソッドに入りました")
         // 現在地と目的地、２点の座標を入れた配列をつくる
         let lineArray = [current,destination]
             // (緯度,経度)=(0,0)　未設定の時は線を引かない
             if (targetLatitude != 0) && (targetLongitude != 0) {
                 let redLine = MKPolyline(coordinates: lineArray, count: 2)//lineArray配列の２点間
-                mapView.addOverlays([redLine])// 地図上に描く
+                mapView.addOverlays([redLine])// 地図上に線を描く
             }
-        print("線を引きました")
     }
        
     
