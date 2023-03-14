@@ -145,9 +145,9 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
         
         // 現在地を画面の中央に表示する
         span = MKCoordinateSpan (latitudeDelta: 0.01,longitudeDelta: 0.01)
-        targetRegion = MKCoordinateRegion(center: targetLocation, span: span)//現在地
+        targetRegion = MKCoordinateRegion(center: myLocation, span: span)//現在地
         // MapViewに中心点を設定する
-        mapView.setCenter(targetLocation, animated: true)
+        mapView.setCenter(myLocation, animated: true)
         mapView.setRegion(targetRegion, animated:true)
         
     }
