@@ -4,8 +4,7 @@
 //
 //  Created by 森部高昌 on 2021/10/09.
 //  2022/07/18
-//  2023/02/22〜　03/14　線を引いたときに、検索地が中央になったままである
-//  Map表示の初期値として、前回の検索地点を使用する。
+//  2023/02/22〜　03/14　住所検索と山名検索のコードを一部手直し、位置情報の受け渡し
 //　◯広い範囲を指定すれば、レリーフ地図も表示できる。レリーフ地図の縮尺の問題か？
 //　◯現在地から検索地点へ線を引く。ツールバーに実行アイコンを置く cursor arrow にしてみた
 
@@ -47,12 +46,11 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
         var selectedAddress:String = ""
         var selectedLatitude:Double = 0.00
         var selectedLongitude:Double = 0.00
-        var targetLatitude:Double = 35.6743169   // 木場公園の緯度
-        var targetLongitude:Double = 139.8086198 // 木場公園の経度
+        var targetLatitude:Double = 35.6743169  // 木場公園の緯度　0.00にすると線が引けない
+        var targetLongitude:Double = 39.8086198 // 木場公園の経度
 
 //----------------------------------------------------------------------------------------
-    // 地理院地図　表示の濃淡を決めるスライダーの設定
-    // 標準地図と陰影起伏図を同時に変更する
+    // 地理院地図　表示の濃淡を決めるスライダーの設定　標準地図と陰影起伏図を同時に変更する
     @IBAction func sliderDidChange(_ slider: UISlider) {
         if let renderer = mapView.renderer(for: gsiTileOverlayStd) { // Std標準地図
             renderer.alpha = CGFloat(slider.value) // 濃淡のプロパティ値＝スライダ値
@@ -104,7 +102,7 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
         let myLatitude = locManager.location?.coordinate.latitude //緯度
         let myLongitude = locManager.location?.coordinate.longitude //経度
         let myLocation = CLLocationCoordinate2D(latitude: myLatitude!, longitude: myLongitude!) //座標
-        // 現在地を画面の中央に表示してみる
+        // 現在地を画面の中央に表示する
         let span = MKCoordinateSpan (latitudeDelta: 0.01,longitudeDelta: 0.01)
         let myRegion = MKCoordinateRegion(center: myLocation, span: span)//現在地
         // MapViewに中心点を設定する
@@ -115,7 +113,7 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
         print("現在地ボタン 処理の出口です")
     }
 // -------------------------------------------------------------------------------
-    // ツールバー内の　＜矢印＞アイコン　をクリックした時　保存してある現在地を読み込んで目的地へ線を引く
+    // ツールバー内の＜矢印＞アイコンをクリックした時、現在地を読み込んで目的地へ線を引く
     // アプリを起動した時点で、現在地を取得しているので、ここで取得する必要はない
     @IBAction func drawButtonClicked(_ sender: UIBarButtonItem) {
         print("矢印アイコンをクリックしました")
@@ -124,26 +122,24 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
         let myLongitude = locManager.location?.coordinate.longitude //経度
         let myLocation = CLLocationCoordinate2D(latitude: myLatitude!, longitude: myLongitude!) //座標
      
-        // 検索した目標地点の座標などの情報は、Userdeaults.standard に保存してあるので読み込む
+        // 検索した目標地点の位置情報等は、Userdeaults.standard に保存してあるので読み込む
         let targetPlace = UserDefaults.standard.string(forKey:"targetPlace")! //場所
         let targetAddress = UserDefaults.standard.string(forKey:"targetAddress")! //住所
         let targetLatitude = UserDefaults.standard.double(forKey:"targetLatitude")
         let targetLongitude = UserDefaults.standard.double(forKey:"targetLongitude")
-        let targetLocation = CLLocationCoordinate2D(latitude: targetLatitude, longitude: targetLongitude)
-        print("検索地点 targetPlace:\(targetPlace)")
-        print("検索地点 targetAddress:\(targetAddress)")
+        let targetLocation = CLLocationCoordinate2D(latitude: targetLatitude, longitude: targetLongitude)//座標
         
         // 検索地を画面の中央に表示する
         var span = MKCoordinateSpan (latitudeDelta: 0.01,longitudeDelta: 0.01)
-        var targetRegion = MKCoordinateRegion(center: targetLocation, span: span)//現在地
+        var targetRegion = MKCoordinateRegion(center: targetLocation, span: span)//検索地
         // MapViewに中心点を設定する
         mapView.setCenter(targetLocation, animated: true)
         mapView.setRegion(targetRegion, animated:true)
         
         // 線を引くメソッドへ　現在地と目的地、２点の座標が引数として必要
-        drawLine(current: myLocation, destination: targetLocation) // 線を引くメソッド
+        drawLine(current: myLocation, destination: targetLocation) // 線を引くメソッドへ
         
-        // 現在地を画面の中央に表示する
+        // 線を引いたあとに、現在地を画面の中央に表示する
         span = MKCoordinateSpan (latitudeDelta: 0.01,longitudeDelta: 0.01)
         targetRegion = MKCoordinateRegion(center: myLocation, span: span)//現在地
         // MapViewに中心点を設定する
@@ -156,34 +152,33 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
     //==============================================================================
     override func viewDidLoad() {
         super.viewDidLoad()
-        // CLLocationManagerがCLLocationManagerDelegateプロトコルの抽象メソッドを実行するときは、
-        // CLLocationManagerDelegateプロトコルの実装クラスであるViewControllerに実行してもらう
+        // CLLocationManagerがCLLocationManagerDelegateプロトコルの抽象メソッドの実行は、
+        // CLLocationManagerDelegateプロトコルの実装クラスであるViewControllerに実行させる
         // 位置情報の取得 ロケーションマネージャーのインスタンスを作成する
-        // これがないと、現在地の取得ができない
-        locManager = CLLocationManager()
+        locManager = CLLocationManager()// これがないと、現在地の位置情報取得ができない
         locManager!.delegate = self //
-        mapView.delegate = self //Mapの描画 これを置かないオーバーレイがおかしくなる。
+        mapView.delegate = self //Mapの描画 これがないとオーバーレイが正しく表示されない
         
 //-----------------------------------------------------------------
-// 画面遷移で位置情報の受け渡しをしている。変数の引き継ぎができている。
+// 画面遷移のタイミングで、位置情報の受け渡しをしている。変数の引き継ぎはできている。
         let targetPlace = selectedPlace         // 選択した場所
         let targetAddress = selectedAddress     // 住所
         let targetLatitude = selectedLatitude   // 緯度
         let targetLongitude = selectedLongitude // 経度
-        let targetLocation = CLLocationCoordinate2D(latitude: targetLatitude, longitude: targetLongitude)
+        let targetLocation = CLLocationCoordinate2D(latitude: targetLatitude, longitude: targetLongitude)//座標
 
         // 検索地を画面の中央に表示する
         let span = MKCoordinateSpan (latitudeDelta: 0.01,longitudeDelta: 0.01)
-        let targetRegion = MKCoordinateRegion(center: targetLocation, span: span)//現在地
+        let targetRegion = MKCoordinateRegion(center: targetLocation, span: span)//検索地
         // MapViewに中心点を設定する
         mapView.setCenter(targetLocation, animated: true)
         mapView.setRegion(targetRegion, animated:true)
         
-        // 検索地点があれば、.none にする　mapView.userTrackingMode のコントロールがポイントのもよう
+        // 検索地点があれば、.none にする　mapView.userTrackingMode が重要なポイント
         if (targetPlace == "") {
-            mapView.userTrackingMode = .follow // 検索地点がなければ、現在地の更新をする
+            mapView.userTrackingMode = .follow // 検索地点がなければ、現在地の更新をする。
         } else {
-            mapView.userTrackingMode = .none // 検索地点があるので、現在地の更新をしない
+            mapView.userTrackingMode = .none // 検索地点があるので、現在地の更新をしない。
             //ピンの座標とタイトルを設定。ピンの位置が画面の中央になる。
             myPin.coordinate = targetLocation    // 選択した場所の座標
             self.myPin.title = targetPlace       //targetPlace      // 選択した場所
@@ -192,7 +187,7 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
         }
                 
         //------------------------------------------------------------------
-        // 地理院地図のオーバーレイ表示。下の２種類のタイルを同時に表示している
+        // 地理院地図のオーバーレイ表示。２種類の地図タイルの透明度の初期値を設定する
         // Std:標準地図
         mapView.addOverlay(gsiTileOverlayStd, level: .aboveLabels)
             if let renderer = mapView.renderer(for: gsiTileOverlayStd) {
@@ -221,7 +216,7 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
         //                         kCLLocationAccuracyNearestTenMeters//誤差10m程度の精度
         //locManager.desiredAccuracy = kCLLocationAccuracyBest//最高精度(デフォルト値)
         //locManager.distanceFilter = 10//10ｍ移動したら、位置情報を更新する
-    //更新スイッチの状態により、実行可否を判断する・・とりあえず使わないで考える。線を引いたときに有効化する？？
+    //更新スイッチの状態により、実行可否を判断する。線を引いたときに有効化する？？？？？？？？？？？
     // if updateSwitch .isOn {
     //    mapView.userTrackingMode = .followWithHeading // 現在地を更新して、HeadingUp表示
     //  } else {
@@ -241,7 +236,6 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
             }
     }
        
-    
     //  位置情報の使用許可を確認して、取得する。
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
      let status = manager.authorizationStatus
