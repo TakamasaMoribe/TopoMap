@@ -9,7 +9,7 @@
 //  ④tableViewで選択したcellから、山名・緯度・経度を取得する
 
 //  2022/01/17から再編集開始 データをサーチしてテーブルに表示する
-//  2023/02/18
+//  2023/02/18,03/15
 
 import UIKit
 
@@ -118,18 +118,31 @@ class SearchMountController: UIViewController, UISearchBarDelegate,UITableViewDe
         userDefaults.set(selectedItem[1], forKey: "targetPlace") // 山名
         userDefaults.set(selectedItem[2], forKey: "targetLatitude") // 緯度
         userDefaults.set(selectedItem[3], forKey: "targetLongitude") // 経度
-                
-        // 最初のmap画面へ遷移する
-        // ①storyboardのインスタンス取得
+        
+        let selectedPlace = selectedItem[1]  //場所のデータはないので、山名と同じ
+        let selectedAddress = selectedItem[1]//選択した山名
+        let targetLatitude = Double(selectedItem[2])//緯度 文字列→数値　変換
+        let targetLongitude = Double(selectedItem[3])//経度 文字列→数値　変換
+        
+        // 画面遷移　最初の地図画面へ戻る
         let storyboard: UIStoryboard = self.storyboard!
-        // ②遷移先ViewControllerのインスタンス取得
         let nextView = storyboard.instantiateViewController(withIdentifier: "Map") as! ViewController
+        nextView.modalPresentationStyle = .fullScreen // 画面が下にずれることを解消できる？
         //self.dismiss(animated: true) //画面表示を消去
-        nextView.modalPresentationStyle = .fullScreen // 画面が下にずれを解消できる？
-        // ③画面遷移
-        self.present(nextView, animated: true, completion: nil)
+            nextView.myPin.title = selectedPlace        // 場所のデータはないので、山名が入る
+            nextView.myPin.subtitle = selectedAddress   // 山名
+            nextView.selectedPlace = selectedPlace      // 場所のデータはないので、山名が入る
+            nextView.selectedAddress = selectedAddress    // 山名
+            nextView.selectedLatitude = targetLatitude!    // 緯度
+            nextView.selectedLongitude = targetLongitude!  // 経度
+        
+        self.present(nextView,animated: true, completion: nil) 
                 
     }
     // 　＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
     
 } // end of class SearchMountController
+
+
+
+
