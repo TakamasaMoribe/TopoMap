@@ -49,6 +49,16 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
         var targetLongitude:Double = 39.8086198 // 木場公園の経度
 
 //----------------------------------------------------------------------------------------
+    // Mapの表示: headingUp 表示の可否を決める
+    @IBAction func headinUpSwitch(_ sender: UISwitch) {
+        //スイッチの状態により、ON/OFF を切り替える
+        if (headingUpSwitch.isOn) == false {
+            mapView.userTrackingMode = .follow// 現在地の更新のみ行う
+        } else {
+            mapView.userTrackingMode = .followWithHeading //HeadingUp表示をする
+        }
+    }
+    
     // 地理院地図　表示の濃淡を決めるスライダーの設定　標準地図と陰影起伏図を同時に変更する
     @IBAction func sliderDidChange(_ slider: UISlider) {
         if let renderer = mapView.renderer(for: gsiTileOverlayStd) { // Std標準地図
@@ -148,12 +158,12 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
         headingUpSwitch.isOn = true
         
         // ここは、IBAction で実行させる？？
-        // ③その後スイッチの状態により、ON/OFF を切り替える・・うまく行かない
-        if (headingUpSwitch.isOn) == false {
-            mapView.userTrackingMode = .follow// 現在地の更新のみ行う
-        } else {
-            mapView.userTrackingMode = .followWithHeading //HeadingUp表示をする
-        }
+//        // ③その後スイッチの状態により、ON/OFF を切り替える・・うまく行かない
+//        if (headingUpSwitch.isOn) == false {
+//            mapView.userTrackingMode = .follow// 現在地の更新のみ行う
+//        } else {
+//            mapView.userTrackingMode = .followWithHeading //HeadingUp表示をする
+//        }
         
     }
 // -------------------------------------------------------------------------------

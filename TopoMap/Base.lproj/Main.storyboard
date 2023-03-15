@@ -29,6 +29,9 @@
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="yBD-SP-5VJ">
                                 <rect key="frame" x="16" y="462" width="51" height="31"/>
                                 <color key="onTintColor" red="0.0" green="0.83114748579999997" blue="0.40409519700000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <connections>
+                                    <action selector="headinUpSwitch:" destination="BYZ-38-t0r" eventType="valueChanged" id="Yky-Zr-xQS"/>
+                                </connections>
                             </switch>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" verticalHuggingPriority="249" verticalCompressionResistancePriority="751" misplaced="YES" preservesSuperviewLayoutMargins="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SHF-Ky-pmY">
                                 <rect key="frame" x="0.0" y="519" width="320" height="44"/>
@@ -306,7 +309,7 @@
                                     <textInputTraits key="textInputTraits"/>
                                 </searchBar>
                                 <scrollView key="tableFooterView" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" id="a4t-bY-fBh">
-                                    <rect key="frame" x="0.0" y="473.83333206176758" width="288" height="44"/>
+                                    <rect key="frame" x="0.0" y="473.5" width="288" height="44"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <viewLayoutGuide key="contentLayoutGuide" id="kUa-MK-dcE"/>
                                     <viewLayoutGuide key="frameLayoutGuide" id="sXX-wb-Him"/>
