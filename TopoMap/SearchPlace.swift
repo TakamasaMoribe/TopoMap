@@ -9,7 +9,8 @@
 //  ④tableViewで選択したcellから、地名・緯度・経度を取得する
 
 //  2022/07/18
-//  2023/02/1９
+//  2023/02/19,03/15
+
 
     import UIKit
 
@@ -22,6 +23,7 @@
         // feedUrl：searchBarに入力した地名を問い合わせるのに使う
         // var feedUrl:URL = URL(string:"https://geocode.csis.u-tokyo.ac.jp/cgi-bin/simple_geocode.cgi")! //東大
         
+        // ボタンを押さなくても、セルをタップすれば戻るようにはなっている
         @IBAction func backButtonclicked(_ sender: Any) {
             // 画面遷移　最初の地図画面へ
             let storyboard: UIStoryboard = self.storyboard!
@@ -150,26 +152,38 @@
 
         // セルを選択したとき
         func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+            
             let feedItem = self.feedItems[indexPath.row]
-            print("選択した地点:\(feedItem.address!)") //確認用
-            print("選択した地点:\(feedItem.longitude!)") //確認用
-            print("選択した地点:\(feedItem.latitude!)") //確認用
             // 選択した地点のデータを保存する
             let userDefaults = UserDefaults.standard
-            userDefaults.set(feedItem.address!, forKey: "targetPlace")
-            userDefaults.set(feedItem.longitude!, forKey: "targetLongitude")
-            userDefaults.set(feedItem.latitude!, forKey: "targetLatitude")
+            userDefaults.set(feedItem.address!, forKey: "targetPlace")//住所
+            userDefaults.set(feedItem.latitude!, forKey: "targetLatitude")//緯度文字列
+            userDefaults.set(feedItem.longitude!, forKey: "targetLongitude")//経度文字列
             
-            // 画面遷移　最初の地図画面へ
+            let selectedPlace = feedItem.address!  //地名データは得られないので、住所と同じにして使う
+            let selectedAddress = feedItem.address!//選択した住所
+            let targetLatitude = Double(feedItem.latitude!)//文字列→数値　変換
+            let targetLongitude = Double(feedItem.longitude!)//文字列→数値　変換
+            
+            // 画面遷移　最初の地図画面へ戻る
             let storyboard: UIStoryboard = self.storyboard!
             let nextView = storyboard.instantiateViewController(withIdentifier: "Map") as! ViewController
             nextView.modalPresentationStyle = .fullScreen // 画面が下にずれることを解消できる？
             //self.dismiss(animated: true) //画面表示を消去
-            self.present(nextView, animated: true, completion: nil)
+                nextView.myPin.title = selectedPlace        // 地名データはないので、住所が入る
+                nextView.myPin.subtitle = selectedAddress   // 住所
+                nextView.selectedPlace = selectedPlace      // 地名データはないので、住所が入る
+                nextView.selectedAddress = selectedAddress    // 住所
+                nextView.selectedLatitude = targetLatitude!    // 緯度
+                nextView.selectedLongitude = targetLongitude!  // 経度
+            self.present(nextView,animated: true, completion: nil)
+
                         
         }
         
     }
+
+// 地図画面へ戻る
 
 
 // ============================================================//

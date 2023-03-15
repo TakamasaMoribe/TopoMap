@@ -113,9 +113,9 @@ extension SearchController: UITableViewDelegate, UITableViewDataSource {
             nextView.selectedAddress = selectedAddress    // 住所
             nextView.selectedLatitude = targetLatitude    // 緯度
             nextView.selectedLongitude = targetLongitude  // 経度
-    print("検索画面で、検索した場所は、\(selectedPlace)")
-    print("住所は、\(selectedAddress)")
-    print("検索画面から出ます")
+            //print("検索画面で、検索した場所は、\(selectedPlace)")
+            //print("住所は、\(selectedAddress)")
+            //print("検索画面から出ます")
         self.present(nextView,animated: true, completion: nil)
                                 
                        } // if let location =
