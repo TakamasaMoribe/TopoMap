@@ -86,9 +86,9 @@
                     </view>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="headingUpSwitch" destination="yBD-SP-5VJ" id="J10-Dn-9V0"/>
                         <outlet property="mapView" destination="2Jy-fX-Qrv" id="bRM-7d-3NE"/>
                         <outlet property="mySlider" destination="rgr-ci-ehc" id="KrQ-18-F4x"/>
-                        <outlet property="updateSwitch" destination="yBD-SP-5VJ" id="Tt0-Wo-UHq"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -306,7 +306,7 @@
                                     <textInputTraits key="textInputTraits"/>
                                 </searchBar>
                                 <scrollView key="tableFooterView" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" id="a4t-bY-fBh">
-                                    <rect key="frame" x="0.0" y="473.5" width="288" height="44"/>
+                                    <rect key="frame" x="0.0" y="473.83333206176758" width="288" height="44"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <viewLayoutGuide key="contentLayoutGuide" id="kUa-MK-dcE"/>
                                     <viewLayoutGuide key="frameLayoutGuide" id="sXX-wb-Him"/>

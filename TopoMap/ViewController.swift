@@ -18,7 +18,7 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
     
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var mySlider: UISlider! // 地理院地図の濃淡を決めるスライダー
-    @IBOutlet weak var updateSwitch: UISwitch! //現在地表示更新の可否を決めるスイッチ
+    @IBOutlet weak var headingUpSwitch: UISwitch!//headingUp表示の可否を決めるスイッチ
     
     // 国土地理院が提供するタイルのURL。ここを変えると、様々な地図データを表示できる
     private let gsiTileOverlayStd = MKTileOverlay(urlTemplate:
@@ -142,8 +142,18 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
         mapView.setCenter(myLocation, animated: true)
         mapView.setRegion(targetRegion, animated:true)
         
-        // headingUp にしてみる
+        // ①線を引いたあとは、自動的に headingUp にする
         mapView.userTrackingMode = .followWithHeading // 現在地を更新して、HeadingUp表示
+        // ②switch を ON にする
+        headingUpSwitch.isOn = true
+        
+        // ここは、IBAction で実行させる？？
+        // ③その後スイッチの状態により、ON/OFF を切り替える・・うまく行かない
+        if (headingUpSwitch.isOn) == false {
+            mapView.userTrackingMode = .follow// 現在地の更新のみ行う
+        } else {
+            mapView.userTrackingMode = .followWithHeading //HeadingUp表示をする
+        }
         
     }
 // -------------------------------------------------------------------------------
@@ -215,13 +225,6 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
         //                         kCLLocationAccuracyNearestTenMeters//誤差10m程度の精度
         //locManager.desiredAccuracy = kCLLocationAccuracyBest//最高精度(デフォルト値)
         //locManager.distanceFilter = 10//10ｍ移動したら、位置情報を更新する
-    //更新スイッチの状態により、実行可否を判断する。線を引いたときに有効化する？？？？？？？？？？？
-    // if updateSwitch .isOn {
-    //    mapView.userTrackingMode = .followWithHeading // 現在地を更新して、HeadingUp表示
-    //  } else {
-    //    mapView.userTrackingMode = .none // 現在地の更新をしない
-    //    //mapView.userTrackingMode = .follow // 現在地の更新をする
-    //  }
     }
     
     // ２点を結ぶ線を引くメソッド
