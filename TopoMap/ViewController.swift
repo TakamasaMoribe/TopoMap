@@ -93,7 +93,6 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
     // ツールバー内の　＜現在地＞ボタン　をクリックした時、現在地の位置情報を、再度取得する
     // アプリが起動した時点で、現在地の取得は行っている。（青い●が表示されている）
     @IBAction func currentButtonClicked(_ sender: UIBarButtonItem) {
-        print("現在地ボタンをクリックしました")
         // 現在地の取得 ロケーションマネージャーのインスタンスを作成する
         locManager = CLLocationManager()
         locManager.delegate = self // 現在地を取得して表示するために必要となる
@@ -109,13 +108,11 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
         mapView.setRegion(myRegion, animated:true)
         // 現在地の更新をする
         mapView.userTrackingMode = .follow // 現在地の更新をする（青い●が表示されている）
-        print("現在地ボタン 処理の出口です")
     }
 // -------------------------------------------------------------------------------
     // ツールバー内の＜矢印＞アイコンをクリックした時、現在地を読み込んで目的地へ線を引く
     // アプリを起動した時点で、現在地を取得しているので、ここで取得する必要はない
     @IBAction func drawButtonClicked(_ sender: UIBarButtonItem) {
-        print("矢印アイコンをクリックしました")
         // 現在地の座標を取得する
         let myLatitude = locManager.location?.coordinate.latitude //緯度
         let myLongitude = locManager.location?.coordinate.longitude //経度
@@ -144,6 +141,9 @@ class ViewController: UIViewController,CLLocationManagerDelegate,MKMapViewDelega
         // MapViewに中心点を設定する
         mapView.setCenter(myLocation, animated: true)
         mapView.setRegion(targetRegion, animated:true)
+        
+        // headingUp にしてみる
+        mapView.userTrackingMode = .followWithHeading // 現在地を更新して、HeadingUp表示
         
     }
 // -------------------------------------------------------------------------------
