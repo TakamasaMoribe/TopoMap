@@ -34,7 +34,8 @@ class SearchMountController: UIViewController, UISearchBarDelegate,UITableViewDe
     var findItems:[[String]] = [] // 検索結果を入れる配列
 
 
-    // -------------------------------------------------------------------------------
+
+// =============================================================================
     override func viewDidLoad() {
         super.viewDidLoad()
         originalMountDatas = dataLoad() //山の配列データをcsvファイルから読み込む。
@@ -47,7 +48,8 @@ class SearchMountController: UIViewController, UISearchBarDelegate,UITableViewDe
         super.didReceiveMemoryWarning()
     }
 
-    // -------------------------------------------------------------------------------
+// =============================================================================
+
     // csvファイルから、山のデータを読み込む　"MountData.csv"から読み込む
     func dataLoad() -> [[String]] {
         // データを格納するための配列を準備する
@@ -108,8 +110,8 @@ class SearchMountController: UIViewController, UISearchBarDelegate,UITableViewDe
         cell.detailTextLabel?.text = findItem[5] + "/" + findItem[6] // 検索結果　県名・山域名の表示
         return cell
     }
-
-    // セルを選択したときの動作：データ保存、map画面へ遷移
+    
+    // セルを選択したときの動作：位置情報取得・保存、地図画面へ遷移　＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let selectedItem = self.findItems[indexPath.row]
 
@@ -124,7 +126,7 @@ class SearchMountController: UIViewController, UISearchBarDelegate,UITableViewDe
         let targetLatitude = Double(selectedItem[2])//緯度 文字列→数値　変換
         let targetLongitude = Double(selectedItem[3])//経度 文字列→数値　変換
         
-        // 画面遷移　最初の地図画面へ戻る
+        // 画面遷移　最初の地図画面へ戻る --------------------------------------------
         let storyboard: UIStoryboard = self.storyboard!
         let nextView = storyboard.instantiateViewController(withIdentifier: "Map") as! ViewController
         nextView.modalPresentationStyle = .fullScreen // 画面が下にずれることを解消できる？
@@ -136,11 +138,10 @@ class SearchMountController: UIViewController, UISearchBarDelegate,UITableViewDe
             nextView.selectedLatitude = targetLatitude!    // 緯度
             nextView.selectedLongitude = targetLongitude!  // 経度
         
-        self.present(nextView,animated: true, completion: nil) 
-                
+        self.present(nextView,animated: true, completion: nil)
+        // -----------------------------------------------------------------------
     }
-    // 　＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
-    
+
 } // end of class SearchMountController
 
 

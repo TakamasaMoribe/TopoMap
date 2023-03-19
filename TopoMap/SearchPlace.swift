@@ -1,5 +1,4 @@
 //  SearchPlace.swift
-//  Where
 //
 //  Created by 森部高昌 on 2021/11/17.
 //
@@ -19,7 +18,7 @@
         @IBOutlet weak var searchText: UISearchBar!
         
         @IBOutlet weak var tableView: UITableView!
-        // tableViewは、datasouce、delegateをviewControllerとの接続も必要。右クリックして確認できる
+        // tableViewは、datasource、delegateをviewControllerとの接続も必要。右クリックして確認できる
         // feedUrl：searchBarに入力した地名を問い合わせるのに使う
         // var feedUrl:URL = URL(string:"https://geocode.csis.u-tokyo.ac.jp/cgi-bin/simple_geocode.cgi")! //東大
         
@@ -37,8 +36,9 @@
         var feedUrl:URL = URL(string:"Dummy")! //初期化 何か入れていないとエラーになるので、とりあえずDummyとした
         var feedItems = [FeedItem]() // FeedItem　別クラスの配列。返ってきた値をtableViewに表示するために使う
         var currentElementName:String! // 返ってきた値をパースしている最中に、読み出している項目名
+
         
-// -------------------------------------------------------------------------------
+// =============================================================================
         
         override func viewDidLoad() {
             super.viewDidLoad()
@@ -51,7 +51,7 @@
             // Dispose of any resources that can be recreated.
         }
         
-//-----------------------------------------------------------------------------
+// =============================================================================
         // searchBarへの入力に対する処理
         func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
             //キーボードを閉じる
@@ -84,7 +84,7 @@
             self.tableView.reloadData() //tableViewへ表示する
         }
         
-//-----------------------------------------------------------------------------
+// パース =============================================================================
         
         //タグの最初が見つかったとき呼ばれる
         func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String] = [:]) {
@@ -136,7 +136,7 @@
         }
 
         
-// tableView への表示・セルの選択----------------------------------------
+// tableView への表示・セルの選択・位置情報の取得 ==========================================================
         // 行数の取得
         func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
             return self.feedItems.count
@@ -165,7 +165,7 @@
             let targetLatitude = Double(feedItem.latitude!)//文字列→数値　変換
             let targetLongitude = Double(feedItem.longitude!)//文字列→数値　変換
             
-            // 画面遷移　最初の地図画面へ戻る
+            // 画面遷移　最初の地図画面へ戻る ---------------------------------------
             let storyboard: UIStoryboard = self.storyboard!
             let nextView = storyboard.instantiateViewController(withIdentifier: "Map") as! ViewController
             nextView.modalPresentationStyle = .fullScreen // 画面が下にずれることを解消できる？
@@ -177,13 +177,9 @@
                 nextView.selectedLatitude = targetLatitude!    // 緯度
                 nextView.selectedLongitude = targetLongitude!  // 経度
             self.present(nextView,animated: true, completion: nil)
-
-                        
+            // ------------------------------------------------------------------
         }
-        
     }
-
-// 地図画面へ戻る
 
 
 // ============================================================//
